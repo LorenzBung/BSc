@@ -1,4 +1,4 @@
-# Gruppe $N
+# Gruppe N
 
 Name | Github Benutzer
 --- | ---
