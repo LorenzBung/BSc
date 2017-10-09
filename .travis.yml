@@ -1,0 +1,8 @@
+language: rust
+rust: stable
+cache: cargo
+sudo: false
+git:
+  depth: 1
+script:
+  - ci/run-travis.sh
