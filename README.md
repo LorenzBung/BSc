@@ -12,7 +12,7 @@ Nach der Vorbereitung haben beide Gruppenmitglieder eine lokale Kopie des Git-Re
 > In den Beispielbefehlen wird hierfür 99 verwendet, diese ist aber bei jeder Gruppe unterschiedlich!
 >
 > UserA und UserB beziehen sich jeweils auf die Gruppenmitglieder.
-> Die Reihenfolge ist hier nicht wichtig, darf aber während des gesamten Ablaufs nicht verändert werden!
+> Wer UserA und UserB ist, ist nicht wichtig, darf aber während des gesamten Ablaufs nicht verändert werden!
 
 ### User A and User B @ Github:
 * Visit invitation link and join _grp$N_
