@@ -8,16 +8,23 @@ Eine Homework besteht aus einer oder mehreren Tasks. Sie finden somit die zu ein
 Die folgenden Befehle demonstrieren den prinzipiellen technischen Ablauf um die Aufgaben vorzubereiten.
 Nach der Vorbereitung haben beide Gruppenmitglieder eine lokale Kopie des Git-Repositories.
 
+> Die Variable `N` wird im Folgenden verwendet um die Gruppennummer anzugeben.
+> Diese ist bei jeder Gruppe unterschiedlich!
+>
+> UserA und UserB beziehen sich jeweils auf die Gruppenmitglieder.
+> Die Reihenfolge ist hier nicht wichtig, darf aber während des gesamten Ablaufs nicht verändert werden!
+
 ### User A and User B @ Github:
-* Visit invitation link and join grp$N
+* Visit invitation link and join _grp$N_
 
 ## Git and GitHub Preparations
 
-### User A @ Github
+### User A @ GitHub
 * *htwg-syslab-bsys-ws17/bsys-ws17-grp$N* -> fork -> *UserA/bsys-ws17-grp$N*
-* Add UserB as collaborator to *UserA/bsys-ws17-grp$N*
+* Add _UserB_ as collaborator to *UserA/bsys-ws17-grp$N*
 
 ### User A @ Container:
+
 ```bash
 N=99
 mkdir -p ~/src/htwg-syslab-bsys-ws17/
