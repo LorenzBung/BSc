@@ -25,18 +25,18 @@ Nach der Vorbereitung haben beide Gruppenmitglieder eine lokale Kopie des Git-Re
 
 ### User A @ Container:
 
-Zunächst muss ein Verzeichnis angelegt werden in das das git-repo geklont wird. Der Befehl `mkdir` erstellt ein neues, leeres Verzeichnis. Anschließend muss in das neu erstellte Verzeichnis gewechselt werden.
+Zunächst muss ein Verzeichnis angelegt werden in das das Git Repository geklont wird. Der Befehl `mkdir` erstellt ein neues, leeres Verzeichnis. Anschließend muss in das neu erstellte Verzeichnis gewechselt werden.
 ```bash
 mkdir -p ~/src/htwg-syslab-bsys-ws17/
 cd ~/src/htwg-syslab-bsys-ws17/
 ```
 
-Mit dem Befehl `git clone` kann ein repository auf den lokalen Rechner (bzw in den Container) heruntergeladen werden.
+Mit dem Befehl `git clone` kann ein Repository auf den lokalen Rechner (bzw in den Container) heruntergeladen werden.
 ```bash
 git clone git@github.com:UserA/bsys-ws17-grpN
 ```
 
-Zuletzt müssen die Repositories `upstream` und `template` noch als zusätzliches remote registriert werden. Ein remote ist ein Repository auf einem anderen Computer, von dem Commits heruntergeladen bzw. auf das Commits hochgeladen werden können. [Weitere Informationen zu remotes](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
+Zuletzt müssen die Repositories *upstream* und *template* noch als zusätzliches Remote registriert werden. Ein Remote ist ein Repository auf einem anderen Computer, von dem Commits heruntergeladen bzw. auf das Commits hochgeladen werden können. [Weitere Informationen zu remotes](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
 ```bash
 git remote add template git@github.com:htwg-syslab-bsys-ws17/bsys-ws17-template.git
 git remote add upstream git@github.com:htwg-syslab-bsys-ws17/bsys-ws17-grpN.git
