@@ -1,3 +1,11 @@
+# Laborzugang einrichten
+
+1. Beachten Sie die Ankündigungen im Moodle Forum. Dort werden die Termine zur Anmeldung als 2er Gruppe sowie die Freischaltung Ihrer Workstation bekannt gegeben. Beachten Sie bitte unbedingt die Deadlines dazu!
+1. Melden Sie sich beim Laborassistenten (Büro F029) zu den im Forum genannten Terminen zum Labor persönlich an. Sie bekommen für das Labor eine virtuelle 'Workstation' zugeteilt.
+1. Testen Sie Ihre Anmeldung im Laborraum. Melden Sie sich dazu mit Ihrer Kennung auf der zugeteilten Workstation an.
+1. Lesen Sie die HOWTOS unter [SYSLAB][]
+
+
 # Aufgaben zum BSYS Labor
 
 In diesem Ordner werden die Aufgaben (Homework,`hw`) veröffentlicht, die bearbeitet werden müssen, um den Schein in BSYS zu bekommen. In der Datei `OVERVIEW.md` in diesem Ordner sind weitere Informationen enthalten.
@@ -45,3 +53,6 @@ git remote add upstream git@github.com:htwg-syslab-bsys-ws17/bsys-ws17-grpN.git
 ### User B @ Container:
 
 Selbes Vorgehen wie User A im vorherigen Abschnitt
+
+
+[SYSLAB]: https://htwg-syslab.github.io
