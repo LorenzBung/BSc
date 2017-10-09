@@ -2,7 +2,9 @@
 
 In diesem Ordner werden die Aufgaben (Homework,`hw`) veröffentlicht, die bearbeitet werden müssen, um den Schein in BSYS zu bekommen. In der Datei `OVERVIEW.md` in diesem Ordner sind weitere Informationen enthalten.
 
-Eine Homework besteht aus einer oder mehreren Tasks. Sie finden somit die zu einer Homework gehörenden Aufgaben in den `README.md`, Dateien der zughörigen `hwN/taskN/` Ordner. `N` steht als Platzhalter für die entsprechende Homework bzw. Tasknummer.
+Eine Homework besteht aus einer oder mehreren Tasks. Sie finden somit die zu einer Homework gehörenden Aufgaben in den `README.md`, Dateien der zughörigen `hwN/taskN/` Ordner.
+
+> `N` steht als Platzhalter für die entsprechende Homework bzw. Tasknummer.
 
 ## Vorbereitung
 Die folgenden Befehle demonstrieren den prinzipiellen technischen Ablauf um die Aufgaben vorzubereiten.
@@ -15,13 +17,13 @@ Nach der Vorbereitung haben beide Gruppenmitglieder eine lokale Kopie des Git-Re
 > Wer UserA und UserB ist, ist nicht wichtig, darf aber während des gesamten Ablaufs nicht verändert werden!
 
 ### User A and User B @ Github:
-* Visit invitation link and join _grp$N_
+* Visit invitation link and join _grpN_
 
 ## Git and GitHub Preparations
 
 ### User A @ GitHub
-* *htwg-syslab-bsys-ws17/bsys-ws17-grp$N* -> fork -> *UserA/bsys-ws17-grp$N*
-* Add _UserB_ as collaborator to *UserA/bsys-ws17-grp$N*
+* *htwg-syslab-bsys-ws17/bsys-ws17-grpN* -> fork -> *UserA/bsys-ws17-grpN*
+* Add _UserB_ as collaborator to *UserA/bsys-ws17-grpN*
 
 ### User A @ Container:
 
