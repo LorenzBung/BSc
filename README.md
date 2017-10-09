@@ -9,7 +9,7 @@ Die folgenden Befehle demonstrieren den prinzipiellen technischen Ablauf um die 
 Nach der Vorbereitung haben beide Gruppenmitglieder eine lokale Kopie des Git-Repositories.
 
 > Die Variable `N` wird im Folgenden verwendet um die Gruppennummer anzugeben.
-> Diese ist bei jeder Gruppe unterschiedlich!
+> In den Beispielbefehlen wird hierfür 99 verwendet, diese ist aber bei jeder Gruppe unterschiedlich!
 >
 > UserA und UserB beziehen sich jeweils auf die Gruppenmitglieder.
 > Die Reihenfolge ist hier nicht wichtig, darf aber während des gesamten Ablaufs nicht verändert werden!
