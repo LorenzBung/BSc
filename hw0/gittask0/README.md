@@ -30,6 +30,8 @@ git push
 ### User A @ GitHub
 * Erstelle einen Pull-Request von _hw0-UserA_ auf _hw0_.
 
+    ![PR1](../.gfx/github-pr1.png)
+
 ### User B @ Container
 * Ersetze die beiden Fragezeichen in der Tabelle mit jeweils Namen und Github Benutzernamen.
 * Ersetze das N in der Überschrift durch die Gruppennummer
@@ -42,7 +44,9 @@ git push
 ### User B @ GitHub
 * Bestätige den Pull-Request von User A
 * Erstelle einen Pull-Request von _hw0-UserB_ auf _hw0_.
-  **Konflikt tritt auf!**
+
+    ![PR2](../.gfx/github-pr2.png)
+* **Konflikt tritt auf!**
 
 ## Konfliktbehandlung
 
