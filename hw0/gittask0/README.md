@@ -51,12 +51,12 @@ git push
 * Erstelle einen Pull-Request von _hw0-UserB_ auf _hw0_.
   **Konflikt tritt auf!**
 
-### User A @ Container
+### User B @ Container
 ```bash
 git checkout hw0
 git pull
 git checkout hw0-UserB
-git merge hw0-UserA
+git merge hw0
 # edit SOLUTIONS.md
 git commit -v SOLUTIONS.md
 git push
