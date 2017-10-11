@@ -2,4 +2,5 @@
 
 Name | Github Benutzer
 --- | ---
+Lorenz Bung | LorenzBung
 Joshua Rutschmann | themultiplexer
