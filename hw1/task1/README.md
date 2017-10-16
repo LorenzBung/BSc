@@ -2,7 +2,7 @@
 
 ## Vorbereitungen
 
-Rufen Sie im `task1/` Verzeichnis: `cargo init task1` auf. Dadurch wird ein Rust Library Projekt in `task1/` angelegt. Mit `cargo build` wird die Library erstellt, der Aufruf `cargo test` ruft die CI Tests im `tests/` Verzeichnis auf und testet Ihre Library.
+Rufen Sie im `task1/` Verzeichnis: `cargo init` auf. Dadurch wird ein Rust Library Projekt in `task1/` angelegt. Mit `cargo build` wird die Library erstellt, der Aufruf `cargo test` ruft die CI Tests im `tests/` Verzeichnis auf und testet Ihre Library.
 
 ## task
 
@@ -28,4 +28,4 @@ Verwenden Sie keine Funktionen aus Bibliotheken dafür, sondern implementieren S
 
 ## Test
 
-Testen können Sie Ihre Library durch den Aufruf von `cargo test`. Dann werden alle Tests aus der Datei `tests/task1.rs` ausgeführt. 
+Testen können Sie Ihre Library durch den Aufruf von `cargo test`. Dann werden alle Tests aus der Datei `tests/task1.rs` ausgeführt.
