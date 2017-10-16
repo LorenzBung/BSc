@@ -36,11 +36,11 @@ If you are ready with the homework, all tests run, please create a pull request 
 
 | Task | max. Credits | Comment |
 |---|---|---|
-| task1 | 1 | |
-| task2 | 0,5 | |
-| task3 | 1 | |
-| task4 | 0,5 | |
 | simu1 | 1 | |
+| task1 | 1 | |
+| task2 | 1 | |
+| task3 | 0,5 | |
+| task4 | 0,5 | |
 | simu2 | +0,5 | |
 | task5 | +0,5 | |
 | Deadline | +1 | |

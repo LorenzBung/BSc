@@ -2,7 +2,7 @@
 
 This program, `process-run.py`, allows you to see how process states change as programs run and either use the CPU (e.g., perform an add instruction) or do I/O (e.g., send a request to a disk and wait for it to complete). See the README for details.
 
-Please answer the questions, by giving the result and an explanation, why you got the result. Sometimes it could be helpful, if you compare your result with results of earlier questions. Write your answers in markdown syntax in the new file `ANSWERS.md.`
+Please answer the questions, by giving the result and an explanation, why you got the result. Sometimes it could be helpful, if you compare your result with results of earlier questions. Write your answers in [markdown syntax][]  in the new file `ANSWERS.md.`
 
 1. Run the program with the following flags:
 
@@ -31,3 +31,5 @@ Please answer the questions, by giving the result and an explanation, why you go
 4. We’ll now explore some of the other flags. One important flag is `-S`, which determines how the system reacts when a process issues an I/O. With the flag set to `SWITCH_ON_END`, the system will NOT switch to another process while one is doing I/O, instead waiting until the process is completely finished. What happens when you run the following two processes, one doing I/O and the other doing CPU work? (`-l 1:0,4:100 -c -S SWITCH_ON_END`)
 
 5. Now, run the same processes, but with the switching behavior set to switch to another process whenever one is WAITING for I/O (`-l 1:0,4:100 -c -S SWITCH ON IO`). What happens now? Use `-c` and `-p` to confirm that you are right.
+
+[markdown syntax]: https://guides.github.com/features/mastering-markdown/
