@@ -66,7 +66,7 @@ Selbes Vorgehen wie User A im vorherigen Abschnitt
 
 # Abgabe der Homeworks
 
-Sobald Sie alle Aufgaben eines Aufgabenblattes (homework) bearbeitet haben, erstellen Sie einen sogenannten  *Pull Request* (PR) von Ihrem Branch, den Sie zum Review abgeben wollen.
+Sobald Sie alle Tasks einer Homework bearbeitet haben, erstellen Sie einen sogenannten  *Pull Request* (PR) von Ihrem Branch, den Sie zum Review abgeben wollen. Der Ablauf wird hier erklärt, gleich zu Anfang in der hw0 geübt und sollte spätestens dabei klar werden.
 
 Die Lösungen müssen in einer bestimmten Ordnerstruktur liegen, die wie folgt
 aussieht:
@@ -99,7 +99,7 @@ liegen. in den `simuN`-Unterordnern liegen Ihre Antworten zu den Simulationsaufg
 ```
 
 1. Sobald Sie alle Aufgaben bearbeitet haben, und zur Bewertung die Aufgabe abgeben wollen, erstellen Sie einen Branch für den Pull-Request.
-1. Wählen Sie dann auf github diesen Branch aus und öffnen Sie einen Pull-Reqeust auf diesen Branch.
+1. Wählen Sie dann auf github diesen Branch aus und erstellen Sie einen Pull-Reqeust auf diesen Branch.
 1. Bei Ihrem Pull-Request laufen automatische Tests durch, die Ihr Programm testen. Dies sind nicht alle Tests von `ci/run-all.sh`, daher MÜSSEN Sie unbedingt selbst im lokalen Verzeichnis auf Ihrer Workstation den `ci/run-all.sh` Test ausführen!
 1. Falls Ihnen ein Fehler unterlaufen ist, so können Sie auch nach dem Pull-Request noch Änderungen am Code vornehmen. Das sollte jedoch der Ausnahmefall bleiben. Überprüfen Sie daher VOR Ihrem Pull-Request, ob die nötigen Aufgaben bearbeitet wurden und ob die Tests alle durchlaufen.
 
@@ -107,11 +107,11 @@ liegen. in den `simuN`-Unterordnern liegen Ihre Antworten zu den Simulationsaufg
 ## Travis-CI
 
 Um das Arbeiten zu erleichtern, ist für alle Lösungsrepositories ein Continuous
-Integration Service aufgesetzt worden. Jedes mal, wenn ein Pull Request (PR) geöffnet oder aktualisiert wird, laufen eine Reihe von Tests für Ihre Programmieraufgaben durch, die den Codestil prüfen, alle Rust Dateien kompilieren und alle Unit-Tests ausführen.
+Integration Service aufgesetzt worden. Jedes mal, wenn ein Pull Request (PR) erstellt oder aktualisiert wird, laufen eine Reihe von Tests für Ihre Programmieraufgaben durch, die den Codestil prüfen, alle Rust Dateien kompilieren und alle Unit-Tests ausführen.
 
 Jeder PR hat also einen Status: *passed*, *failed* oder *pending*. Ihre PR zum
 Einreichen (Deadline) der Aufgaben muss den Status *passed* erreicht
-haben, also planen Sie genug Zeit zum Verbessern von kleinen Fehlern ein und öffnen den PR nicht erst kurz vor der Deadline.
+haben, also planen Sie genug Zeit zum Verbessern von kleinen Fehlern ein und erstellen den PR nicht erst kurz vor der Deadline. Zur Verbesserung fügen Sie einfach weitere Commits zu der Branch hinzu von der aus der Pull-Request erstellt wurde. Dieser wird auf GitHub dann automatisch aktualisiert.
 
 >Achtung: Damit das Testen in github nicht zu lange dauert, sind einige sehr lang laufende CI Tests deaktiviert. Bitte aktivieren Sie diese Tests NICHT für travis sondern führen Sie die Tests nur lokal aus. Github Classroom erlaubt nur immer eine laufende Instanz der Travis Tests. Erstellen Sie somit Ihren Pull-Request rechtzeitig, da ansonsten die Deadline aufgrund anderer laufender CI Tests von Ihnen u.U. nicht eingehalten werden kann.
 
