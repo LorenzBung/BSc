@@ -27,3 +27,8 @@
 ./hw1/task4/src/lib.rs
 ./hw1/task4/tests/task4.rs
 
+./hw1/task5/Cargo.toml
+./hw1/task5/Cargo.lock
+./hw1/task5/src/main.rs
+./hw1/task5/tests/output.bats
+
