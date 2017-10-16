@@ -21,3 +21,9 @@
 ./hw1/task3/Cargo.toml
 ./hw1/task3/src/lib.rs
 ./hw1/task3/tests/task3.rs
+
+
+./hw1/task4/Cargo.toml
+./hw1/task4/src/lib.rs
+./hw1/task4/tests/task4.rs
+
