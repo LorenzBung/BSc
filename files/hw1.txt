@@ -1,0 +1,10 @@
+./hw1/README.md
+./hw1/simu1/README.md
+./hw1/simu1/ANSWERS.md
+
+./hw1/simu2/README.md
+?./hw1/simu2/ANSWERS.md
+
+./hw1/task1/Cargo.toml
+./hw1/task1/src/lib.rs
+./hw1/task1/tests/task1.rs
