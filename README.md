@@ -54,7 +54,13 @@ Mit dem Befehl `git clone` kann ein Repository auf den lokalen Rechner (bzw in d
 git clone git@github.com:UserA/bsys-ws17-grpN
 ```
 
-Zuletzt müssen die Repositories *upstream* und *template* noch als zusätzliches Remote registriert werden. Ein Remote ist ein Repository auf einem anderen Computer, von dem Commits heruntergeladen bzw. auf das Commits hochgeladen werden können. [Weitere Informationen zu remotes](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
+Zuletzt müssen im lokalen Klon noch zusätzliche Remotes hinzugefügt werden. Ein Remote ist ein Repository auf einem anderen Computer, von dem Commits heruntergeladen bzw. auf das Commits hochgeladen werden können. [Weitere Informationen zu remotes](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes).
+
+Bei den zusätzlichen Remotes handelt es sich um folgende:
+* Das *template* Remote zeigt auf das Basis Repository der Homeworks. Hier werden im weiteren Verlauf die neuen Homeworks eingepflegt und können von Ihnen abgeholt werden.
+* Das *upstream* Remote zeigt auf das Repository von dem Ihr Fork ausgeht. Die lokale Master-Branch wird nach jeder erfolgreichen Abgabe vom *upstream* Repository aktualisiert.
+
+Folgende Befehle fügen die Remotes hinzu:
 ```bash
 git remote add template git@github.com:htwg-syslab-bsys-ws17/bsys-ws17-template.git
 git remote add upstream git@github.com:htwg-syslab-bsys-ws17/bsys-ws17-grpN.git
