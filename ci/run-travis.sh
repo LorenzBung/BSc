@@ -13,7 +13,7 @@ MY_PATH="$(dirname "$0")"
 
 # file existence
 echo "=== Checking for Missing Files ======================================="
-"$MY_PATH/check-files.py"
+"$MY_PATH/check-files.py" || true
 
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo "+              Everything is fine!                 +"
