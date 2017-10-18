@@ -1,3 +1,9 @@
 pub fn count(line: &str, c: char) -> u64 {
-    unimplemented!();
+   let mut occurances = 0;
+   for char in line.chars(){
+      if char == c {
+        occurances += 1;
+      }
+   }
+   occurances
 }
