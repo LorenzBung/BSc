@@ -1,11 +1,22 @@
 //! hw01t5: Primzahltest
 fn is_prime(n: u64) -> bool {
-    unimplemented!();
+    for i in 2..n {
+        if n % i == 0 {
+            return false;
+        }
+    }
+    n > 1 && n % 1 == 0 && n % n == 0
 }
 
 
 fn main() {
-    unimplemented!();
+    for i in 1..31 {
+        if is_prime(i){
+            println!("{}*",i);
+        }else{
+            println!("{}",i);
+        }
+    }
 }
 
 #[test]
