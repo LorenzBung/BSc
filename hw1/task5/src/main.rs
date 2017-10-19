@@ -11,10 +11,10 @@ fn is_prime(n: u64) -> bool {
 
 fn main() {
     for i in 1..31 {
-        if is_prime(i){
-            println!("{}*",i);
-        }else{
-            println!("{}",i);
+        if is_prime(i) {
+            println!("{}*", i);
+        } else {
+            println!("{}", i);
         }
     }
 }
