@@ -6,10 +6,13 @@ Run the cargo command to prepare your task3/ directory as a library
 
 ## task
 
-Compute Pascal's triangle up to a given number of rows. Create the new type *PascalsTriangle* and implement the methods *new()* and *rows()*. See the `tests/task3.rs` for more informationen about parameters and returns of the methods.
+Compute Pascal's triangle up to a given number of rows. Create the new type
+*PascalsTriangle* and implement the methods *new()* and *rows()*. See the
+`tests/task3.rs` for more informationen about parameters and returns of the
+methods.
 
-In Pascal's Triangle each number is computed by adding the numbers to
-the right and left of the current position in the previous row.
+In Pascal's Triangle each number is computed by adding the numbers to the right
+and left of the current position in the previous row.
 
 ```plain
     1
@@ -19,7 +22,3 @@ the right and left of the current position in the previous row.
 1 4 6 4 1
 # ... etc
 ```
-
-
-
-
