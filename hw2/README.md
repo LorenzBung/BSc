@@ -30,8 +30,8 @@ Please merge any accepted reviews into your branch. If you are ready with the ho
 
 | Task     | max. Credits | Comment |
 | -------- | ------------ | ------- |
-| task1    | 2            |         |
-| task2    | 1            |         |
+| task1    | 1            |         |
+| task2    | 2            |         |
 | task3    | +1           |         |
 | simu1    | 1            |         |
 | Deadline | +1           |         |
