@@ -3,3 +3,8 @@
 ./hw2/simu1/QUESTIONS.md
 ./hw2/simu1/null.c
 
+./hw2/task1/README.md
+./hw2/task1/Cargo.toml
+./hw2/task1/tests/task1.rs
+./hw2/task1/src/lib.rs
+
