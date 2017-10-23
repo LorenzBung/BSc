@@ -1,21 +1,21 @@
 # Homework hw2 task2
 
-## Inhalt
-
 - [Überblick](#%C3%BCberblick)
+- [Vorbereitung](#vorbereitung)
 - [Struktur](#struktur)
 - [Funktionen](#funktionen)
-  - [*parse_arguments()*](#parsearguments)
-  - [Programmargumente in Rust](#programmargumente-in-rust)
-  - [Warmup Übung](#warmup-%C3%BCbung)
-  - [Argumente parsen](#argumente-parsen)
-  - [Parsen ohne Fehlerbehandlung](#parsen-ohne-fehlerbehandlung)
-  - [Parsen mit Fehlerbehandlung](#parsen-mit-fehlerbehandlung)
-  - [Ablauf des Programms](#ablauf-des-programms)
+    - [Programmargumente in Rust](#programmargumente-in-rust)
+        - [Warmup Übung](#warmup-%C3%BCbung)
+    - [Argumente parsen](#argumente-parsen)
+        - [Parsen ohne Fehlerbehandlung](#parsen-ohne-fehlerbehandlung)
+        - [Parsen mit Fehlerbehandlung](#parsen-mit-fehlerbehandlung)
+    - [Zeichen im String suchen](#zeichen-im-string-suchen)
+    - [Ablauf des Programms](#ablauf-des-programms)
+        - [Dead Code](#dead-code)
 - [Restructuring](#restructuring)
-  - [Parsen der Config als Methode](#parsen-der-config-als-methode)
-  - [Tests](#tests)
-  - [Dokumentation](#dokumentation)
+    - [Parsen der Config als Methode](#parsen-der-config-als-methode)
+    - [Tests](#tests)
+    - [Dokumentation](#dokumentation)
 
 ## Überblick
 
@@ -41,6 +41,10 @@ Ziele:
 - Parameter einlesen können
 - Weitere String-Funktionen kennen lernen
 - Fehlerbehandlung
+
+## Vorbereitung
+
+Erstellen Sie im `task2/` Ordner mittels cargo ein Binary Projekt.
 
 ## Struktur
 
