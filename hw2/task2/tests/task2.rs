@@ -4,7 +4,11 @@ use task2::Config;
 
 #[test]
 fn test_parse_config_1() {
-    let a = vec!["Not interested".to_string(), "e".to_string(), "Numero Due".to_string()];
+    let a = vec![
+        "Not interested".to_string(),
+        "e".to_string(),
+        "Numero Due".to_string(),
+    ];
     let c = Config {
         search: 'e',
         line: "Numero Due".to_string(),
@@ -15,7 +19,11 @@ fn test_parse_config_1() {
 #[test]
 #[should_panic]
 fn test_parse_config_2() {
-    let a = vec!["Not interested".to_string(), "x".to_string(), "Numero Due".to_string()];
+    let a = vec![
+        "Not interested".to_string(),
+        "x".to_string(),
+        "Numero Due".to_string(),
+    ];
     let c = Config {
         search: 'e',
         line: "Numero Due".to_string(),
@@ -25,7 +33,11 @@ fn test_parse_config_2() {
 
 #[test]
 fn test_parse_config_3() {
-    let a = vec!["Not interested".to_string(), "0".to_string(), "0".to_string()];
+    let a = vec![
+        "Not interested".to_string(),
+        "0".to_string(),
+        "0".to_string(),
+    ];
     let c = Config {
         search: '0',
         line: "0".to_string(),
