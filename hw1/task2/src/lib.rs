@@ -1,6 +1,6 @@
 //This function prints the n-th power of 2 and returns it.
 pub fn square(n: u32) -> u64 {
-    let sq: u64 = 2u64.pow(n-1); //(n-1) to solve the (in my opinion wrong) tests.
+    let sq: u64 = 2u64.pow(n - 1); //(n-1) to solve the (in my opinion wrong) tests.
     println!("{}", sq);
     sq
 }

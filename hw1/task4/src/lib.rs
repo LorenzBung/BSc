@@ -1,6 +1,6 @@
 pub fn square_of_sum(n: i32) -> i32 {
     let mut i: i32 = 0;
-    for x in 1..n+1 {
+    for x in 1..n + 1 {
         i += x;
     }
     i.pow(2)
