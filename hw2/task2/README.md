@@ -249,11 +249,18 @@ immer unübersichtlicher werden würde. Ziel ist es nun, das meiste aus der
 `main.rs` auszulagern, sodass nur noch die *main()* Funktion in `main.rs` steht.
 
 Ausgelagert wird der Code in eine Bibliothek, genauer gesagt in die Datei
-`src/lib.rs`.
+`src/lib.rs`. Um den Code aus `lib.rs` in `main.rs` verwenden zu können, müssen
+Sie ihre derzeitige 'Create' mit den entsprechenden 'extern' und 'use'
+Anweisungen in `main.rs`, erreichbar machen. Ergänzen Sie dazu in der
+`src/main.rs`:
 
->Um den Code aus `lib.rs` in `main.rs` verwenden zu können, müssen Sie ihre
->derzeitige 'Create' mit den entsprechenden 'extern' und 'use' Anweisungen in
->`main.rs`, erreichbar machen.
+```Rust
+extern crate task2;
+use task2::Config;
+```
+
+Alle *use* Anweisungen stehen in der `main.rs`. Es müssen keine weiteren *use*
+Anweisungen in der lib.rs stehen
 
 ### Parsen der Config als Methode
 
@@ -266,13 +273,18 @@ geeignet in Ihrer *main()* Funktion.
 
 ### Tests
 
-Die Test sind ausgelagert in die Datei `tests/task2.rs`
+Die Test sind ausgelagert in die Datei `tests/task2.rs`. Der Aufruf von cargo
+test sucht nach Unit Tests in der `src/main.rs` und im Verzeichnis `tests/`. Die
+Tests in `tests/task2.rs` funktionieren erst, wenn eine `src/lib.rs` existiert
+(siehe Aufgabenstellung [Restructuring](#restructuring) oben).
 
 ### Dokumentation
 
 Dokumentieren Sie die Funktionen in Ihrer `lib.rs`.
 
-Da Sie im `src/`Verzeichnis eine `main.rs` und eine `lib.rs` vorliegen haben, beschwert sich **cargo doc**, dass es nicht weiss wie es die Dokumentation erstellen soll:
+Da Sie im `src/`Verzeichnis eine `main.rs` und eine `lib.rs` vorliegen haben,
+beschwert sich **cargo doc**, dass es nicht weiss wie es die Dokumentation
+erstellen soll:
 
 ```text
 error: cannot document a package where a library and a binary have the same name. Consider renaming one or marking the target as `doc = false`
@@ -291,7 +303,7 @@ Damit weiß cargo, dass es die Dokumentation aus `lib.rs` erstellen soll und
 nicht aus `main.rs`.
 
 [args]: https://doc.rust-lang.org/std/env/fn.args.html
-[std::env]: https://doc.rust-lang.org/std/env/index.html
+[std::env]:https://doc.rust-lang.org/std/env/index.html
 [Arc]: https://doc.rust-lang.org/std/env/struct.Args.html
 [collect]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect
 [process::exit()]: https://doc.rust-lang.org/std/process/fn.exit.html
