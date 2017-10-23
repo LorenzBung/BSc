@@ -284,7 +284,8 @@ Tests in `tests/task2.rs` funktionieren erst, wenn eine `src/lib.rs` existiert
 
 ### Dokumentation
 
-Dokumentieren Sie die Funktionen in Ihrer `lib.rs`.
+Dokumentieren Sie die Funktionen in Ihrer `lib.rs`, sodass **cargo doc** eine
+aussagekräftige Dokumentation erstellt.
 
 Da Sie im `src/`Verzeichnis eine `main.rs` und eine `lib.rs` vorliegen haben,
 beschwert sich **cargo doc**, dass es nicht weiss wie es die Dokumentation
