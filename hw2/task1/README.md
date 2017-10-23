@@ -8,7 +8,7 @@ Run the cargo command to prepare your task1/ directory as a library
 
 Calculate the Hamming difference between two DNA strands by implementing the
 library function *hamming_distance(s1: &str, s2: &str) -> Result<usize,
-String>*.
+String>*. Do not use any crates.
 
 A mutation is simply a mistake that occurs during the creation or copying of a
 nucleic acid, in particular DNA. Because nucleic acids are vital to cellular
