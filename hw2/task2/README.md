@@ -34,7 +34,10 @@ Found 3 'e' in "♥ The quick brown fox jumps over the lazy dog. ♥"
 
 Neben einer klaren Struktur für das Programm soll eine kompetente
 Fehlerbehandlung implementiert werden, sodass das Programm robust gegenüber
-Eingebefehlern wird.
+Eingebefehlern wird. Benutzen Sie keine weiteren Module aus der Standardbibliothek, ausser:
+
+- std::env
+- std::process
 
 Ziele:
 
