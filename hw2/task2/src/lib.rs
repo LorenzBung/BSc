@@ -9,11 +9,11 @@ pub fn run(conf: &Config) -> i32 {
     let mut count = 0;
     for c in conf.line.chars() {
         if c == conf.search {
-        count = count + 1;
+            count = count + 1;
         }
-    }   
+    }
     count
-  }
+}
 
 
 impl Config {
