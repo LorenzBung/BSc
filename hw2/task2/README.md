@@ -204,7 +204,7 @@ fn parse_arguments(args: &Vec<String>) -> Result<Config, xx >
 Implementieren Sie die folgende Fehlerbehandlung:
 
 - Werden vom Benutzer zuwenig übergeben, so gibt die Funktion den Fehlerstring
-  "not enough parameters" zurück. Werden vom Benutzer zu viele Parameter
+  "not enough arguments" zurück. Werden vom Benutzer zu viele Parameter
   übergeben, so wertet die Funktion nur die ersten beiden aus. In der API der
   Funktion oben ist als Typ xx für den 'String' angedeutet und muss entsprechend
   von Ihnen mit dem richtigen Typen versehen werden.
