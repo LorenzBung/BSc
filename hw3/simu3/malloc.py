@@ -154,6 +154,21 @@ parser.add_option('-c', '--compute',     default=False,      help='compute answe
 m = malloc(int(options.heapSize), int(options.baseAddr), int(options.headerSize),
            options.policy, options.order, options.coalesce, options.alignment)
 
+print 'seed', options.seed
+print 'size', options.heapSize
+print 'baseAddr', options.baseAddr
+print 'headerSize', options.headerSize
+print 'alignment', options.alignment
+print 'policy', options.policy
+print 'listOrder', options.order
+print 'coalesce', options.coalesce
+print 'numOps', options.opsNum
+print 'range', options.opsRange
+print 'percentAlloc', options.opsPAlloc
+print 'allocList', options.opsList
+print 'compute', options.solve
+print ''
+
 percent = int(options.opsPAlloc) / 100.0
 
 random.seed(int(options.seed))
