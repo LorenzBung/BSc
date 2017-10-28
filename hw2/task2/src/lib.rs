@@ -5,10 +5,21 @@ pub struct Config {
     pub line: String,
 }
 
+pub fn run(conf: &Config) -> i32 {
+    let mut count = 0;
+    for c in conf.line.chars() {
+        if c == conf.search {
+        count = count + 1;
+        }
+    }   
+    count
+  }
+
+
 impl Config {
     pub fn new(args: &Vec<String>) -> Result<Config, &str> {
-        if args.len() < 2 {
-            return Err("not ennugh parameters");
+        if args.len() < 3 {
+            return Err("not enough arguments");
         }
 
         match args[1].chars().nth(0) {

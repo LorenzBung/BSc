@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = ["Joshua Rutschmann <joshua.rutschmann@gmx.de>"]
 
 [dependencies]
+
+[[bin]]
+doc = false
+name = "task2"

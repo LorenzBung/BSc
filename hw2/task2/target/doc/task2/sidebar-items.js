@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Config","a struct to hold all of our configuration"]]});

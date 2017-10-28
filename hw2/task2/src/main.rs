@@ -1,28 +1,37 @@
 use std::env;
 use std::process;
-
-/// a struct to hold all of our configuration
-#[derive(Debug,PartialEq)]
-struct Config{
-    search: char,
-    line: String,
-}
+use task2::Config;
+extern crate task2;
 
 fn main() {
     let args = env::args().collect();
     print_arguments(&args);
+
     //let conf = parse_arguments_simple(&args);
-    let res = parse_arguments(&args);
+    //let res = parse_arguments(&args);
+
+    let res = Config::new(&args);
     match res {
-        Ok(conf) => println!("{:?}", conf),
+        Ok(conf) => {
+            println!("{:?}", conf);
+            println!("{:?}", task2::run(&conf));
+        }
         Err(_) => process::exit(1),
     }
 
 }
 
-fn run() {
-
+/*
+pub fn run(conf: &Config) -> i32 {
+    let mut count = 0;
+    for c in conf.line.chars() {
+        if c == conf.search {
+            count = count + 1;
+        }
+    }
+    count
 }
+*/
 
 /// Parses relevant arguments, returning the filled Config in Result
 ///
@@ -30,18 +39,22 @@ fn run() {
 /// This function will parse the relevant arguments from the
 /// given <Strings>.
 /// Returns Config or Error Message in Result
+#[allow(dead_code)]
 fn parse_arguments(args: &Vec<String>) -> Result<Config, String> {
 
     if args.len() < 3 {
         return Err("not ennugh parameters".to_string());
     }
 
-    if args[1].chars().nth(0) == None {
-        return Err("char mismatch".to_string());    
+    match args[1].chars().nth(0) {
+        Some(value) => {
+            Ok(Config {
+                search: value,
+                line: args[2].clone(),
+            })
+        }
+        None => Err("char mismatch".to_string()),
     }
-
-    let config = Config{search: args[1].chars().nth(0).unwrap(), line: args[2].clone()};
-    Ok(config)
 }
 
 /// Parses relevant arguments, returning the filled Config
@@ -52,7 +65,10 @@ fn parse_arguments(args: &Vec<String>) -> Result<Config, String> {
 /// Returns Config
 #[allow(dead_code)]
 fn parse_arguments_simple(args: &Vec<String>) -> Config {
-    Config{search: args[1].chars().nth(0).unwrap(), line: args[2].clone()}
+    Config {
+        search: args[1].chars().nth(0).unwrap(),
+        line: args[2].clone(),
+    }
 }
 
 /// Prints elements of Vec
