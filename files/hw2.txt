@@ -15,7 +15,7 @@
 ./hw2/task2/src/lib.rs
 ./hw2/task2/src/main.rs
 
-./hw2/task3/README.md
-./hw2/task3/Cargo.toml
-./hw2/task3/tests/task3.rs
-./hw2/task3/src/lib.rs
+?./hw2/task3/README.md
+?./hw2/task3/Cargo.toml
+?./hw2/task3/tests/task3.rs
+?./hw2/task3/src/lib.rs
