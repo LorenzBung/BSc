@@ -15,7 +15,7 @@ export RUSTFLAGS="--deny warnings"
 # generell die CI-Zeiten zu verringern, wechseln wir nie das Verzeichnis und
 # kompilieren immer nur die Aufgaben des aktuellsten Aufgabenblatts.
 
-current_hw=$(find . -type d -name 'hw*' | sort | tail -n1)
+current_hw=$(find . -type f | grep "hw./task./Cargo\.toml" | sort | tail -n1 | cut -d / -f -2)
 
 if [ -z "$current_hw" ]; then
     echo ""
