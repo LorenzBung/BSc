@@ -14,6 +14,9 @@ MY_PATH="$(dirname "$0")"
 # check that everything compiles and all tests pass
 "$MY_PATH/test-rust.sh"
 
+# after compiles run bats tests
+"$MY_PATH/test-bats.sh"
+
 # file existence
 echo "=== Checking for Missing Files ======================================="
 "$MY_PATH/check-files.py" || true
