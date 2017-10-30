@@ -5,19 +5,29 @@ extern crate task2;
 
 fn main() {
     let args = env::args().collect();
-    print_arguments(&args);
 
+    //print_arguments(&args);
     //let conf = parse_arguments_simple(&args);
     //let res = parse_arguments(&args);
 
     let res = Config::new(&args);
     match res {
         Ok(conf) => {
-            println!("{:?}", conf);
-            println!("{:?}", task2::run(&conf));
+            println!(
+                "You asked me to count all '{}' in '{}'",
+                conf.search,
+                conf.line
+            );
+            let occ = task2::run(&conf);
+            println!("Found {} '{}' in '{}'", occ, conf.search, conf.line);
         }
-        Err(_) => process::exit(1),
+        Err(message) => {
+            println!("{}", message);
+            process::exit(1)
+        }
     }
+
+
 
 }
 
@@ -78,6 +88,7 @@ fn parse_arguments_simple(args: &Vec<String>) -> Config {
 /// each line
 ///
 /// Returns nothing
+#[allow(dead_code)]
 fn print_arguments(args: &Vec<String>) {
     for s in args {
         println!("args found: {}", s);
