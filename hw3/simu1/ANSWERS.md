@@ -6,7 +6,8 @@
 
 3. Bei einer Vergrößerung des **Adressraums** (z.B. `-a 2k`) nimmt die Zahl der Segmentation-Fehler zu, da das Programm die Adressen aus einer **größeren Spanne** auswählt, das **Limit** der validen Adressen sich jedoch nicht ändert. Vergrößern wir jedoch die Größe des **physikalischen Speichers**, ändert sich nichts am Ergebnis - die Größe des verfügbaren Speichers hat nämlich *keinen Einfluss* darauf, aus welcher **Reichweite** das Programm Adressen auswählt bzw. bis zu welchem Limit Adressen **valide** sind.
 
-4. VA | Seg. Vio.?
+4.
+VA | Seg. Vio.?
 ---|---
 0|no
 1|yes
