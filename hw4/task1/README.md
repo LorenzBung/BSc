@@ -191,26 +191,28 @@ erzwingen.
 1. Auf Basis des Crate *procinfo* sollen Sie bei Aufruf des Programms mit einer
    PID, ausgehend von dieser PID der Tree bis zum aktuellen Programm ausgegeben
    werden. Wird somit als Argument eine `1` angegeben, wird eine Funktionalität
-   des Kommandozeilen Programms **pstree** nachgebildet. Wenn Sie sich z.B. mit
+   des Kommandozeilen Programms **pstree / pstree.x11** nachgebildet. Wenn Sie sich z.B. mit
    dem Kommando **ps** die PID Ihrer aktuellen Shell anzeigen lassen, können Sie
-   sich durch Aufruf von **pstree -p -s PID** die Kette aller Elternprozesse
-   dieser PID anzeigen lassen.
+   sich durch Aufruf von **pstree.x11 -p -s <pid>** die Kette aller Prozesse
+   anzeigen lassen, in denen die <pid> enthalten ist.
 
    ```text
-   systemd(1)---sshd(1264)---sshd(7161)---sshd(7198)---zsh(7199)---pstree(47200)
+   systemd(1)---sshd(1264)---sshd(7161)---sshd(7198)---zsh(7199)---pstree.x11(47200)
    ```
 
-   Genau diese Ausgabe soll nun ihr Programm erzeugen bei der Option '1'. Geben
-   Sie im obigen Beispiel die PID 7161 als Parameter an, so wird nur der
-   Teil-Tree ausgegeben, startend vom Prozess mit PID 7161.
+   Genau diese Ausgabe soll nun Ihr Programm erzeugen bei der Option '1', wobei
+   natürlich das Ende der Kette nicht mehr `pstree.x11` ist sondern Ihr Programm.
+   
+   Geben Sie im obigen Beispiel die PID 7161 als Parameter an, so soll Ihr Programm
+   nur den Teil-Tree ausgegeben, startend vom Prozess mit PID 7161.
 
    ```text
-   sshd(7161)---sshd(7198)---zsh(7199)---pstree(47200)
+   sshd(7161)---sshd(7198)---zsh(7199)---task1(47200)
    ```
 
    Ausgehend von der eigenen pid sollen alle Elternpid bis zum übergebenen PID
    (z.B. 1 für init Prozess, hier `systemd`) angezeigt werden. Der Init Prozess
-   (hier systemd) hat immer die PID 1 in UNIX Systemen.
+   (hier systemd) hat immer die PID 1 in UNIX Systemen, aber unterschiedliche Namen.
 
 1. Nutzen Sie zum parsen der PID im Argument die `parse()` Funktion. Behandeln
    Sie folgende Fehler:
@@ -232,13 +234,13 @@ erzwingen.
 
 1. Erstellen Sie eine eigene Datenstruktur und Methoden um die Aufgabe zu lösen.
    Verwenden Sie nur die externe Crate *procinfo* dazu. Die Ausgabe beim Aufruf
-   Ihres Programms muss dieses Format haben: 
+   Ihres Programms muss folgender Beispielformatierung entsprechen:
 
     ```text
-    systemd(1)---sshd(1264)---sshd(7161)---sshd(7198)---zsh(7199)---cargo(47150)---task2(47151)
+    systemd(1)---sshd(1264)---sshd(7161)---sshd(7198)---zsh(7199)---task1(47151)
     ```
    > Je nachdem wie Sie Ihr Programm aufrufen wird es natürlich andere Ausgaben
-   > produzieren. Durch das Kommandozeilen-Tool **pstree** können Sie Ihre
+   > produzieren. Durch das Kommandozeilen-Tool **pstree.x11** können Sie Ihre
    > Ausgabe kontrollieren!
 
 1. Schreiben Sie eine eigene unit Test Datei `unit_test_pstree.rs`, die Ihre
