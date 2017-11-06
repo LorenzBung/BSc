@@ -253,7 +253,7 @@ erzwingen.
 ## Kontrolle Ihres Repositories
 
 Haben Sie die Aufgaben komplett bearbeitet, so sollten sich folgende Dateien in
-Ihrem HW (Homework) Verzeichnis befinden:
+Ihrem Projekt-Verzeichnis befinden:
 
 ```text
 .
