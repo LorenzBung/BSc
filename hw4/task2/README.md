@@ -16,9 +16,9 @@ Die folgenden Informationen sollen helfen, sich schneller in die Materie des
 
 ## Warmup für das Programm
 
-Es gibt mehrere Möglichkeiten, einem Programm eine höhere Priorität (?) vor anderen Programmen zu geben.
+Um mit hoher Wahrscheinlichkeit Instruktionen und Daten aus dem Cache zu beziehen, sollte Ihr Programm ein kleines 'Cache' Warmup durchlaufen.
 
-Eine Möglichkeit besteht darin, das Programm ein kleines Warmup durchlaufen zu lassen. Dies kann über ein simples Inkrementieren erreicht werden. Bei der Berechnung müssen Sie aber darauf achten, dass der Compiler das Ergebnis nicht vorausberechnen kann. Sonst würde bei der Optimierung der Compiler einfach das Ergebnis ausrechnen und das Ergebnis direkt in den Code schreiben. Damit wäre das Warmup (Durchlaufen des Codes) dahin.
+Dies kann über ein simples Inkrementieren erreicht werden. Bei der Berechnung müssen Sie aber darauf achten, dass der Compiler das Ergebnis nicht vorausberechnen kann. Sonst würde bei der Optimierung der Compiler einfach das Ergebnis ausrechnen und das Ergebnis direkt in den Code schreiben. Damit wäre das Warmup (Durchlaufen des Codes) dahin.
 
 Mit einer Parameterübergabe durch die Kommandozeile steht das Ergebnis zur Compile-Zeit nicht fest und somit kann der Code nicht einfach 'weg'-optimiert werden. Dazu ein Beispiel:
 
