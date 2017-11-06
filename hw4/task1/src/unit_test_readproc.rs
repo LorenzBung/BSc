@@ -18,8 +18,10 @@ mod tests {
 
     #[test]
     fn test1_command() {
-        assert_eq!(Err("PID not alive: no command name found"),
-                   get_pid_command(0));
+        assert_eq!(
+            Err("PID not alive: no command name found"),
+            get_pid_command(0)
+        );
     }
 
     #[test]
