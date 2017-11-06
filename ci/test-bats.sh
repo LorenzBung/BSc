@@ -5,7 +5,7 @@
 # Exit script on the first error
 set -o errexit -o nounset
 
-current_hw=$(find . -type d -name 'hw*' | sort | tail -n1)
+current_hw=$(find . -type f | grep "hw./task./Cargo\.toml" | sort | tail -n1 | cut -d / -f -2)
 
 while IFS= read -r -d '' taskdir; do
 
