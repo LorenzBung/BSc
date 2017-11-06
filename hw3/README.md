@@ -26,7 +26,7 @@ You find all Files for your simulation homework in the `simuN/` directory.
 
 **IMPORTANT**: This time, there is no possibility to give more
 explanations/comments  AFTER the Code Review. You have to give all the asked
-explanations and comments (in German or English) before the code review.
+explanations and comments before the code review.
 
 The code review starts after the deadline, so you have enough time to extend
 your answers, if your Pull-Request was quite early. After the deadline there
