@@ -14,17 +14,15 @@ Die folgenden Informationen sollen helfen, sich schneller in die Materie des
 [time]: https://docs.rs/time
 [std::mem]: https://doc.rust-lang.org/std/mem/
 
-- [Zeiten lesen in C](#zeiten-lesen-in-c)
-    - [Datenstrukturen](#datenstrukturen)
-        - [Zeit lesen](#zeit-lesen)
-        - [Zeitvergleich: Differenzzeitmessung](#zeitvergleich-differenzzeitmessung)
-          Differenzzeitmessung](#zeitvergleich-differenzzeitmessung)
-
 ## Zeiten lesen in C
 
 Das folgende Kapitel muss zur Lösung von task2 nicht komplett verstanden werden.
 Vielmehr soll es weitere Informationen liefern, wenn Ihnen gewisse
 Funktionalitäten der Thematik 'Timing' unklar sind.
+
+- [Datenstrukturen](#datenstrukturen)
+- [Zeit lesen](#zeit-lesen)
+- [Zeitvergleich: Differenzzeitmessung](#zeitvergleich-differenzzeitmessung)
 
 ### Datenstrukturen
 
@@ -132,7 +130,7 @@ Zeitgebers und die Bitbreite der Variablen:
 zeitbereich = auflösung * 2^bitbreite
 ```
 
-#### Zeit lesen
+### Zeit lesen
 
 Es gibt unterschiedliche Systemfunktionen, mit denen die aktuelle Zeit gelesen
 werden kann. Favorisiert ist die Funktion *int clock\_gettime(clockid\_t
@@ -255,7 +253,7 @@ sichergestellt sein, dass sich die Taktfrequenz zwischen zwei Messungen ändert.
 Alternativ kann man sich vom Betriebssystem über die Taktänderung informieren
 lassen.
 
-#### Zeitvergleich: Differenzzeitmessung
+### Zeitvergleich: Differenzzeitmessung
 
 Zwei Absolutzeiten (struct tm) werden am einfachsten über deren Repräsentation
 in Sekunden verglichen. Die Umwandlung erfolgt über die Funktion (time\_t
