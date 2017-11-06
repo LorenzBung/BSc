@@ -1,6 +1,4 @@
-# Antworten
-
-### Warmup
+## Warmup
 
 | VA Number | Virtual Adress     | Physical Adress     | Valid |
 | --------- | :----------------- | ------------------- | ----- |
@@ -27,7 +25,7 @@
 
 
 
-## Questions
+## Antworten
 
 1.  Die höchste erlaubte Adresse in Segment 0 ist 0x00000013. Die niedrigste valide Addresse des Segments 1 ist 0x000001ec. Die niedrigste illegale Adresse ist 0x0000014 und die höchste illegale Adresse ist 0x000001eb im gesamten Adressraum. Um zu testen ob das stimmt kann mann alle validen  virtuellen Adressen der Segmente UND jeweils (mindestens) eine über dem Limit mit `-A` angeben.
 
