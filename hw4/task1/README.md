@@ -202,7 +202,7 @@ erzwingen.
 
    Genau diese Ausgabe soll nun Ihr Programm erzeugen bei der Option '1', wobei
    natürlich das Ende der Kette nicht mehr `pstree.x11` ist sondern Ihr Programm.
-   
+
    Geben Sie im obigen Beispiel die PID 7161 als Parameter an, so soll Ihr Programm
    nur den Teil-Tree ausgegeben, startend vom Prozess mit PID 7161.
 
@@ -273,5 +273,5 @@ Ihrem HW (Homework) Verzeichnis befinden:
 ```
 
 [Referenz]: http://www.linux-praxis.de/lpic1/lpi101/proc.html
-[procinfo]: https://docs.rs/procinfo/0.3.1/procinfo/
+[procinfo]: https://docs.rs/procinfo/
 [io::Result]: https://doc.rust-lang.org/std/io/type.Result.html
