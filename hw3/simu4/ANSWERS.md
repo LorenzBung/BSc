@@ -11,4 +11,4 @@
 3. Der Parameter `-P 1m -a 256m -p 512m -v -s 3` ist unrealistisch, da eine Seitengröße von 1MB Größe viel zu groß ist, um praktikabel zu sein.
 
 4. Wenn der Adressraum größer als der physikalische Speicher ist, gibt das Programm eine Fehlermeldung aus.
-Weitere Fehler können manuell provoziert werden, wenn zum Beispiel eine negative Seitengröße (Domain Error) oder die Seitengröße mit 0 angegeben werden (Divide by 0). Auch beim angeben eines leeren Adressraums tritt ein Fehler auf (address space must be bigger than 0), genauso auch bei der physikalischen Speichergröße.
+Weitere Fehler können manuell provoziert werden, wenn zum Beispiel eine negative Seitengröße (`math domain error`) oder die Seitengröße mit 0 angegeben werden (`float division by 0`). Auch beim angeben eines leeren Adressraums tritt ein Fehler auf (`must specify a non-zero address-space size`), genauso auch bei der physikalischen Speichergröße. Außerdem bekommt man einen Index-Fehler (`array index out of bounds`), wenn man eine sehr große (z.B. `2^31`) Seitengröße verwendet.
