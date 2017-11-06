@@ -14,6 +14,24 @@ Die folgenden Informationen sollen helfen, sich schneller in die Materie des
 [time]: https://docs.rs/time
 [std::mem]: https://doc.rust-lang.org/std/mem/
 
+## Warmup für das Programm
+
+Es gibt mehrere Möglichkeiten, einem Programm eine höhere Priorität (?) vor anderen Programmen zu geben.
+
+Eine Möglichkeit besteht darin, das Programm ein kleines Warmup durchlaufen zu lassen. Dies kann über ein simples Inkrementieren erreicht werden. Bei der Berechnung müssen Sie aber darauf achten, dass der Compiler das Ergebnis nicht vorausberechnen kann. Sonst würde bei der Optimierung der Compiler einfach das Ergebnis ausrechnen und das Ergebnis direkt in den Code schreiben. Damit wäre das Warmup (Durchlaufen des Codes) dahin.
+
+Mit einer Parameterübergabe durch die Kommandozeile steht das Ergebnis zur Compile-Zeit nicht fest und somit kann der Code nicht einfach 'weg'-optimiert werden. Dazu ein Beispiel:
+
+```Rust
+//where page_count and jump are cmd arguments
+let mut a = vec![0i32; page_count * jump];
+
+    // warm up
+    for i in a.iter_mut() {
+        *i += 1;
+    }
+```
+
 ## Zeiten lesen in C
 
 Das folgende Kapitel muss zur Lösung von task2 nicht komplett verstanden werden.
