@@ -101,6 +101,11 @@ Wie man sieht hat die Fragmentierung des Speichers bzw. der Free-Liste zugenomme
 
 1. Wenn zwei mal ein gleich großes Speicherstück alloziiert wird, dann wird nicht das wieder freigewordene Fragment genutzt, sondern ein neues reserviert. Auch Alloziierungen von kleineren Stücken bekommen keine Teile von wieder freigegebenem Platz. Also ensteht im allgemeinen eine höhere Fragmentierung als mit **BEST**.
 2. Die Struktur der Free-Liste ändert sich nicht, aber es werden weniger Elemente (Speicherblöcke) gesucht, bevor die Adresse zurückgeliefert wird. Je größer die Free-Liste, desto länger dauert es, diese zu durchsuchen. Das Flag **FIRST** verkürzt also die Suchzeit und somit auch die insgesamte alloc-Zeit.
-3. - **ADDRSORT** sortiert die Liste mit dem freien Speicher nach der höhe der Adresse. Es verändert sich nichts zu vorher mit anderen Policies.
+3. Die verschiedenen Sortiermechanismen:
+   - **ADDRSORT** sortiert die Liste mit dem freien Speicher nach der höhe der Adresse. Es verändert sich nichts zu vorher mit anderen Policies.
    - Bei **SIZESORT+** sind die kleinsten *Stücke* vorne in der Liste. Bei **BEST** ist dann oft der Verschnitt, also 1-Byte-Blöcke am Anfang. 
    - Bei **SIZESORT-** wird die Speicherliste absteigend nach der Größe der Blöcke sortiert. Diese Sortierung ist vorteilhaft für die Policy **FIRST**, da große Blöcke direkt am Anfang gefunden werden die sehr häufig für den angeforderten Speicher ausreichen. 
+4. Bei größeren Speicheranforderungen schlägt malloc fehl mit dem Rückgabewert `-1` und die Free-Liste ist sehr groß. Wenn man nun die Verschmelzung von freiem Speicher mit `-C`  aktiviert, dann schlägt keine Allozierung mehr fehl und die Liste des freien Speichers ist kleiner.
+5. Wenn ein Load Factor von über 50% erlaubt wird, dann bleibt die Liste klein, da der Speicher nicht wieder freigegeben wird. Bei Werten bis zu 100% kommt es definitiv zu einem Fehler bei der Alloziierung, da nicht genug freier Speicher vorhanden ist. Bei Werten, die gegen 0 gehen
+6. ​
+
