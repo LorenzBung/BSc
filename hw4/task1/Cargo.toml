@@ -1,0 +1,7 @@
+[package]
+name = "task1"
+version = "0.1.0"
+authors = ["Joshua Rutschmann <joshua.rutschmann@gmx.de>"]
+
+[dependencies]
+procinfo = "^0.4.2"
