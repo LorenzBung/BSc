@@ -7,7 +7,7 @@ To fulfill **hw4** you have to solve:
 - simu2
 - simu3
 
-Optional are (bonus +1P):
+Optional are (bonus +2P):
 
 - task2 (Homework in OSTEP Chapter 19 in **Rust**)
 
