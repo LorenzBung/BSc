@@ -15,7 +15,7 @@ pub fn get_pid_command(pid: i32) -> Result<String, &'static str> {
     }
 }
 
-/*pub fn get_last_created_command() -> Result<String, &'static str> {
+pub fn get_last_created_command() -> Result<String, &'static str> {
     match loadavg() {
         Ok(stat) => {
             let last_pid = stat.last_created_pid;
@@ -24,9 +24,9 @@ pub fn get_pid_command(pid: i32) -> Result<String, &'static str> {
                 Err(_) => { Err("No last command via PID found") }
             }
         }
-        Err(_) => { Err("No last command via PID found") }
+        Err(_) => { Err("No last command found") }
     }
-}*/
+}
 
 pub fn get_thread_count(pid: i32) -> Result<u32, &'static str> {
     match pid::stat(pid) {
