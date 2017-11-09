@@ -34,6 +34,6 @@ Final Value is in page `0xb5` (53) with offset 28 => 0x08 (8).
 
 1. Für eine zweistufige Seitentabelle benötigt man ein Register, für eine dreistufige Seitentabelle bräuchte man ein zweites PDBR.
 
-2.
+2. Da es sich bei dieser Simulation um eine zweistufige Seitentabelle handelt, gibt es eine Referenz für den PDE, eine für den PTE und schlussendlich noch eine dritte Referenz, in der das Endergebnis steht.
 
 3.
