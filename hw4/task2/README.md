@@ -3,7 +3,7 @@
 Die folgenden Informationen sollen helfen, sich schneller in die Materie des
 'Timings' von Programmen einzuarbeiten:
 
-- Das externe Crate time][] bietet mehr und vor allem einfachere Funktionalität
+- Das externe Crate [time][] bietet mehr und vor allem einfachere Funktionalität
   als die Rust Standard-Bibliothek.
 - Alle Betriebssysteme stellen eine Time API zu Verfügung. Es kann hilfreich
   sein zu verstehen, wie diese funktioniert. Daher beschäftigt sich das nächste
