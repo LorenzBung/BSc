@@ -11,11 +11,28 @@
 |0      |11000|01000|11100   |
 | False | 24  | 8   | 28     |
 
-`page 108: 83 fe e0 da 7f d4 7f eb be 9e d5 ad e4 ac 90 d6 92 d8 c1 f8 9f e1 ed e9 **a1** e8 c7 c2 a9 d1 db ff`
+PDE at index 24:
+
+> page 108: 83 [...] e9 **a1** e8 [...] ff
+
+
+
+`0xa1` => `1010 0001` => `1 | 0100001` => Valid | 33
+
+PTE at index 8 in page 33 (found in PDE):
+
+> page 33: 7f [...] 7f **b5** 7f [...] 7f
+
+
+`0xb5` => `1011 0101` => `1 | 0110101` => Valid | 53
+
+Final Value is in page `0xb5` (53) with offset 28 => 0x08 (8).
+
+
 
 ### Aufgaben
 
-1. 
+1. Für eine zweistufige Seitentabelle benötigt man ein Register, für eine dreistufige Seitentabelle bräuchte man ein zweites PDBR.
 
 2.
 
