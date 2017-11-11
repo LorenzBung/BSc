@@ -6,7 +6,7 @@ int main(int argc, char* argv[]) {
   srand(time(NULL));
 
   if (argc != 3) {
-    printf("Usage: ./randomtrace <count> <size>\n");
+    fprintf(stderr, "Usage: ./randomtrace <count> <size>\n");
     return -1;
   }
 
