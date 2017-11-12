@@ -36,4 +36,4 @@ Final Value is in page `0xb5` (53) with offset 28 => 0x08 (8).
 
 2. Da es sich bei dieser Simulation um eine zweistufige Seitentabelle handelt, gibt es eine Referenz für den PDE, eine für den PTE und schlussendlich noch eine dritte Referenz, in der das Endergebnis steht.
 
-3.
+3. Da der Cache nicht im Voraus weiß, auf welche Adresse nach der Übersetzung des PDE bzw. PTE zugegriffen wird, müssen danach erst wieder Daten in den Cache geladen werden. Dies führt zu einer Reihe von Cache Misses.
