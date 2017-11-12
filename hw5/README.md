@@ -22,9 +22,9 @@ homework, all tests run, please create a pull request named **hw5**.
 
 | Task     | max. Credits | Comment |
 | -------- | ------------ | ------- |
-| task1    | 1.5          |         |
-| task2    | 0.5          |         |
+| task1    | 2            |         |
+| task2    | +1           |         |
 | simu1    | 1            |         |
 | simu2    | 1            |         |
 | Deadline | +1           |         |
-| =        | 5            |         |
+| =        | 6            |         |
