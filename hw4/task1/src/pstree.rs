@@ -21,7 +21,7 @@ impl Process {
         }
     }
 
-    fn me() -> Self {
+    pub fn me() -> Self {
         if let Ok(my_pid) = pid::stat_self() {
             Process::new(my_pid.pid)
         } else {
