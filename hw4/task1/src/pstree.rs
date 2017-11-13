@@ -21,6 +21,14 @@ impl Process {
         }
     }
 
+    fn me() -> Self {
+        if let Ok(my_pid) = pid::stat_self() {
+            Process::new(my_pid.pid)
+        } else {
+            panic!("Internal Error: I don't have a PID but I am running.")
+        }
+    }
+
     /// Prüft ob das Prozess-Struct ein Elternprozess besitzt.
     pub fn has_parent(&self) -> bool {
         self.ppid != 0
@@ -59,9 +67,9 @@ impl Process {
     }
 }
 
-/// Erstellt einen 'Process' aus der übergebenen PID und
-/// Gibt über Rekursion über die Eltern eine Prozesskette aus.
-/// Fängt mögliche Fehler ab und
+/// Erstellt einen 'Process' aus der übergebenen PID und gibt die Prozesskette
+/// und fängt mögliche Fehler ab.
+///
 pub fn print(pid:pid_t) -> bool {
 
     if let Err(_) = pid::stat(pid) {
@@ -69,18 +77,17 @@ pub fn print(pid:pid_t) -> bool {
         return false
     }
 
-    if let Ok(my_pid) = pid::stat_self() {
-        let my_proc = Process::new(my_pid.pid);
 
-        if !my_proc.has_parent_with_pid(pid) {
-            println!("This Process has no parent {}", pid);
-            return false
-        }
+    let my_proc = Process::me();
 
-        let mut output = String::new();
-        my_proc.print_recursive(pid, &mut output);
-        println!("{}", output);
+    if !my_proc.has_parent_with_pid(pid) {
+        println!("This Process has no parent {}", pid);
+        return false
     }
+
+    let mut output = String::new();
+    my_proc.print_recursive(pid, &mut output);
+    println!("{}", output);
 
     true
 }

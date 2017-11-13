@@ -3,7 +3,6 @@ mod tests {
     use procinfo::pid::{status, status_self};
     use readproc::{self_pids, get_pid_command, get_thread_count, get_ownprocess_mem, get_task_total};
 
-
     fn sol_self_pids() -> (i32, i32) {
         match status_self() {
             Ok(status) => (status.pid, status.ppid),
