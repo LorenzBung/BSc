@@ -1,5 +1,7 @@
+extern crate libc;
+
 use procinfo::pid;
-use std::libc::
+use self::libc::pid_t;
 
 struct Process {
     name : String,
@@ -13,7 +15,7 @@ impl Process {
         if let Ok(stat) = pid::stat(with_pid) {
             Process{name: stat.command, pid:stat.pid, ppid:stat.ppid}
         } else {
-            Process{name: "".to_string(), pid:0, ppid:0}
+            panic!("Internal Error: Process not found")
         }
     }
 
@@ -26,14 +28,12 @@ impl Process {
     }
 
     fn has_parent_with_pid(&self, pid: pid_t) -> bool {
-        let mut p = self;
-
-        if p.pid == pid {
+        if self.pid == pid {
             return true
         }
 
-        if p.has_parent() {
-            return p.parent().has_parent_with_pid(pid)
+        if self.has_parent() {
+            return self.parent().has_parent_with_pid(pid)
         }
 
         false

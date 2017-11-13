@@ -5,3 +5,4 @@ authors = ["Joshua Rutschmann <joshua.rutschmann@gmx.de>"]
 
 [dependencies]
 procinfo = "^0.4.2"
+libc = "0.2"
