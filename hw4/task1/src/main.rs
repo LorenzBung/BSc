@@ -6,6 +6,9 @@ use std::process;
 mod readproc;
 mod pstree;
 
+mod unit_test_pstree;
+mod unit_test_readproc;
+
 fn main() {
 
     let args:Vec<String> = env::args().collect();
