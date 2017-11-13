@@ -12,54 +12,45 @@ fn main() {
 
     match args.len() {
         1 => {
-            match readproc::self_pids() {
-                Ok(pid_tuple) => {
-                    let pid = pid_tuple.0;
-                    let ppid = pid_tuple.1;
+            if let Ok(pid_tuple) = readproc::self_pids() {
+                let pid = pid_tuple.0;
+                let ppid = pid_tuple.1;
 
-                    // Commands
-                    let pid_command = readproc::get_pid_command(pid).unwrap();
-                    let ppid_command = readproc::get_pid_command(ppid).unwrap();
-
-                    // Threads
-                    let pid_threads = readproc::get_thread_count(pid).unwrap();
-                    let ppid_threads = readproc::get_thread_count(ppid).unwrap();
-
-                    // Output for PID and PPID Information
-                    println!("My PID : {} - {} running {} threads", pid, pid_command, pid_threads);
-                    println!("My PPID: {} - {} running {} threads", ppid, ppid_command, ppid_threads);
+                // Commands & Threads for PID
+                if let Ok(pid_command) = readproc::get_pid_command(pid){
+                    if let Ok(pid_threads) = readproc::get_thread_count(pid){
+                        println!("My PID : {} - {} running {} threads", pid, pid_command, pid_threads);
+                    }
                 }
-                Err(_) => {}
+
+                // Commands & Threads for Parent-PID
+                if let Ok(ppid_command) = readproc::get_pid_command(ppid){
+                    if let Ok(ppid_threads) = readproc::get_thread_count(ppid){
+                        println!("My PPID: {} - {} running {} threads", ppid, ppid_command, ppid_threads);
+                    }
+                }
+
             }
 
 
-            match readproc::get_ownprocess_mem() {
-                Ok(size_tuple) => {
-                    // Memory
-                    let vspace = size_tuple.0;
-                    let code = size_tuple.1;
-                    let data = size_tuple.2;
+            if let Ok(size_tuple) = readproc::get_ownprocess_mem() {
+                // Memory
+                let vspace = size_tuple.0;
+                let code = size_tuple.1;
+                let data = size_tuple.2;
 
-                    println!("My mem : {} (vspace), {} (code), {} (data)", vspace, code, data);
-                }
-                Err(_) => {}
+                println!("My mem : {} (vspace), {} (code), {} (data)", vspace, code, data);
             }
 
-            match readproc::get_last_created_command() {
-                Ok(last_command) => {
-                    // Last Process
-                    println!("Last process created in system was: {}", last_command);
-                }
-                Err(_) => {}
+            if let Ok(last_command) = readproc::get_last_created_command() {
+                // Last Process
+                println!("Last process created in system was: {}", last_command);
             }
 
 
-            match readproc::get_task_total() {
-                Ok(task_total) => {
-                    // Number of tasks
-                    println!("Total number of tasks: {}", task_total);
-                }
-                Err(_) => {}
+            if let Ok(task_total) = readproc::get_task_total() {
+                // Number of tasks
+                println!("Total number of tasks: {}", task_total);
             }
         }
 
@@ -67,7 +58,6 @@ fn main() {
             match args[1].parse::<i32>() {
                 Ok(pid) => {
                    if !pstree::print(pid) {
-                       println!("Invalid PID");
                        process::exit(1);
                    }
                 }

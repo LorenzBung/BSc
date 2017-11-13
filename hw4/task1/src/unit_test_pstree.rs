@@ -1,6 +1,7 @@
 #[cfg(test)]
 mod tests {
     #[test]
-    fn it_works() {
+    fn invalid_pid() {
+        assert_eq!()
     }
 }
