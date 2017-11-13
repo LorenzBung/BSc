@@ -4,7 +4,7 @@ use procinfo::pid;
 use self::libc::pid_t;
 
 /// Datenstruktur für einen Prozess.
-struct Process {
+pub struct Process {
     name : String,
     pid : pid_t,
     ppid : pid_t,
@@ -13,7 +13,7 @@ struct Process {
 impl Process {
 
     /// Erstellt eine Prozess-Datenstruktur aus procinfo::Stat.
-    fn new(with_pid:pid_t) -> Self {
+    pub fn new(with_pid:pid_t) -> Self {
         if let Ok(stat) = pid::stat(with_pid) {
             Process{name: stat.command, pid:stat.pid, ppid:stat.ppid}
         } else {
@@ -22,17 +22,17 @@ impl Process {
     }
 
     /// Prüft ob das Prozess-Struct ein Elternprozess besitzt.
-    fn has_parent(&self) -> bool {
+    pub fn has_parent(&self) -> bool {
         self.ppid != 0
     }
 
     /// Gibt den Elternprozess zurück.
-    fn parent(&self) -> Self {
+    pub fn parent(&self) -> Self {
         Process::new(self.ppid)
     }
 
     /// Prüft ob das Prozess-Struct einen (entfernten) Elternprozess mit dem übergebenen pid hat.
-    fn has_parent_with_pid(&self, pid: pid_t) -> bool {
+    pub fn has_parent_with_pid(&self, pid: pid_t) -> bool {
         if self.pid == pid {
             return true
         }
@@ -45,7 +45,7 @@ impl Process {
     }
 
     /// Gibt über Rekursion über die Eltern eine Prozesskette aus.
-    fn print_recursive(&self, to_pid:pid_t, output: &mut String) {
+    pub fn print_recursive(&self, to_pid:pid_t, output: &mut String) {
 
         if output.len() == 0 {
             *output = format!("{}({}){}", self.name, self.pid, output);
