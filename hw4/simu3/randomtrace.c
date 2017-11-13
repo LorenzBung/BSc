@@ -14,8 +14,12 @@ int main(int argc, char* argv[]) {
   s = atoi(argv[1]);
   t = atoi(argv[2]);
   for (i = 0; i < s; i++) {
-    r = (int) ((rand() % t) + 1);
-    printf("%d ", r);
+    r = (int) ((rand() % t));
+    if (i != s - 1) {
+      printf("%d,", r);
+    } else {
+      printf("%d", r);
+    }
   }
   printf("\n");
 }
