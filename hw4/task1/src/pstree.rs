@@ -1,5 +1,5 @@
 use procinfo::pid;
-use std::os::unix::raw::pid_t;
+use std::libc::
 
 struct Process {
     name : String,
@@ -35,24 +35,26 @@ impl Process {
         if p.has_parent() {
             return p.parent().has_parent_with_pid(pid)
         }
+
         false
     }
 
-    fn print_recursive(d, to_pid:pid_t, output: &mut String) {
+    fn print_recursive(&self, to_pid:pid_t, output: &mut String) {
 
         if output.len() == 0 {
-            *output = format!("{}({}){}", from.name, from.pid, output);
+            *output = format!("{}({}){}", self.name, self.pid, output);
         } else {
-            *output = format!("{}({})---{}", from.name, from.pid, output);
+            *output = format!("{}({})---{}", self.name, self.pid, output);
         }
 
-        if from.has_parent() && from.pid != to_pid {
-            Process::print_recursive(&from.parent(), to_pid, output);
+        if self.has_parent() && self.pid != to_pid {
+            self.parent().print_recursive(to_pid, output);
         }
     }
 }
 
 pub fn print(pid:pid_t) -> bool {
+
     if let Err(_) = pid::stat(pid) {
         println!("Invalid PID");
         return false
@@ -67,7 +69,7 @@ pub fn print(pid:pid_t) -> bool {
             return false
         }
 
-        Process::print_recursive(&my_proc,pid, &mut output);
+        my_proc.print_recursive(pid, &mut output);
         println!("{}", output);
     }
 
