@@ -21,6 +21,7 @@ impl Process {
         }
     }
 
+    /// Erstellt eine Prozess-Datenstruktur aus procinfo::Stat.
     pub fn me() -> Self {
         if let Ok(my_pid) = pid::stat_self() {
             Process::new(my_pid.pid)
@@ -67,16 +68,14 @@ impl Process {
     }
 }
 
-/// Erstellt einen 'Process' aus der übergebenen PID und gibt die Prozesskette
+/// Geht von eigenem Prozess aus und gibt die Prozesskette bis zum übergebenem PID aus
 /// und fängt mögliche Fehler ab.
-///
 pub fn print(pid:pid_t) -> bool {
 
     if let Err(_) = pid::stat(pid) {
         println!("Invalid PID");
         return false
     }
-
 
     let my_proc = Process::me();
 
