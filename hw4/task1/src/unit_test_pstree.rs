@@ -54,12 +54,4 @@ mod tests {
     fn print_existing() {
         assert_eq!(true, print(1));
     }
-
-    #[test]
-    fn print_recursive_existing_pid() {
-        let prc = Process::new(1);
-        let mut str = String::new();
-        prc.print_recursive(1, &mut str);
-        assert_eq!("systemd(1)", str);
-    }
 }
