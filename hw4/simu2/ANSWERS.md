@@ -14,9 +14,9 @@ Diese Simulation wurde auf einem Laptop mit 8GB RAM, einer 8GB swapfile und 4 Pr
 
 3. Bei ./mem 4000 gab es auf dem Rechner (mit 8GB RAM) absolut kein swap-in / swap-out. Es sei denn, der freie Speicher von den gesamten 8GB war kleiner als die ~4GB. Unter normaler Last war erst bei ./mem 7000 ein deutlicher swap-in und -out sichtbar.
 
-   Bei jedem der Werte war jedoch der erste *loop* immer langsamer. Durschnittlich war er oft ~50% langsamer. Im ersten Loop werden 6x durchschnittlich 244.000 Byte in den Swap geschrieben (swap out). In den folgenden Loops fand kaum noch ein swap-in statt (durchschnittlich ~200 Byte).
-
-   Das ergibt die ~1.700.000 bei (swpd). Es werden bei ./mem 7000 ~5.400.000 Bytes in den physikalischen Speicher ausgelagert und insgesamt ~1.700.000 in den Swap. Das sind zusammen ungefähr die angeforderten 7 GB.
+   Bei jedem der Werte war jedoch der erste *loop* immer langsamer. Durschnittlich war er oft ~50% langsamer. Im ersten Loop werden 6x durchschnittlich 244.000 Byte in den Swap geschrieben (swap out). Das ergibt die ~1.700.000 bei (swpd). Es werden bei ./mem 7000 ~5.400.000 Bytes in den physikalischen Speicher ausgelagert und insgesamt ~1.700.000 in den Swap. Das sind zusammen ungefähr die angeforderten 7 GB.
+   
+   In den folgenden Loops fand kaum noch ein swap-in statt (durchschnittlich ~200 Byte).
 
 4. Die CPU Auslastung durch das mem-Programm ist immens. Wenn man es auf dem Laptop ausführt, drehen direkt die Lüfter hoch. Doch wie zu erwarten und im Quellcode zu sehen, ist das C-Programm nicht *multi-threaded*. In einem beliebigen System Monitor (z.B. htop) sieht man, dass nur ein Kern ausgelastet ist.
 
