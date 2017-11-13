@@ -9,4 +9,10 @@
 2. Für unser Programm, siehe `randomtrace.c`.
     1. Wir erwarten, dass sich die verschiedenen Policies entsprechend dem, wie wir es in der Vorlesung besprochen hatten, verhalten.
 
-3.
+3. *Traces* mit *locality*:
+
+    i. Um räumliche Lokalität (spatial locality) herzustellen darf man die TLB Abdeckung nicht überschreiten bzw. müssen Zahlen gewählt werden, die in der Nähe von einander liegen. Zusätzlich kann man zeitliche Lokalität erzeugen, in dem sich Zahlen wiederholen (temporal locality). Das bedeutet 1,2,2,3,2,3,2,3,2,3,2,2,2,2 ist von räumlicher und zeitlicher Lokalität.
+
+    ii. LRU hatte beim Auruf mit solchen traces eine Hitrate von ca. 80%
+
+    iii. Mit der Policy RAND gab es trotzdem immer die selbe Hitrate wie mit LRU...
