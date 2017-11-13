@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests {
     use procinfo::pid::{status, status_self};
-    use {get_ownprocess_mem, get_pid_command, get_task_total, get_thread_count, self_pids};
-
+    use readproc::{get_ownprocess_mem, get_pid_command, get_task_total, get_thread_count,
+                   self_pids};
 
     fn sol_self_pids() -> (i32, i32) {
         match status_self() {
