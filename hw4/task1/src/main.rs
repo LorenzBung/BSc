@@ -12,7 +12,7 @@ mod unit_test_readproc;
 /// Mainfunction
 fn main() {
 
-    let args:Vec<String> = env::args().collect();
+    let args: Vec<String> = env::args().collect();
 
     match args.len() {
         1 => {
@@ -21,16 +21,26 @@ fn main() {
                 let ppid = pid_tuple.1;
 
                 // Commands & Threads for PID
-                if let Ok(pid_command) = readproc::get_pid_command(pid){
-                    if let Ok(pid_threads) = readproc::get_thread_count(pid){
-                        println!("My PID : {} - {} running {} threads", pid, pid_command, pid_threads);
+                if let Ok(pid_command) = readproc::get_pid_command(pid) {
+                    if let Ok(pid_threads) = readproc::get_thread_count(pid) {
+                        println!(
+                            "My PID : {} - {} running {} threads",
+                            pid,
+                            pid_command,
+                            pid_threads
+                        );
                     }
                 }
 
                 // Commands & Threads for Parent-PID
-                if let Ok(ppid_command) = readproc::get_pid_command(ppid){
-                    if let Ok(ppid_threads) = readproc::get_thread_count(ppid){
-                        println!("My PPID: {} - {} running {} threads", ppid, ppid_command, ppid_threads);
+                if let Ok(ppid_command) = readproc::get_pid_command(ppid) {
+                    if let Ok(ppid_threads) = readproc::get_thread_count(ppid) {
+                        println!(
+                            "My PPID: {} - {} running {} threads",
+                            ppid,
+                            ppid_command,
+                            ppid_threads
+                        );
                     }
                 }
 
@@ -43,7 +53,12 @@ fn main() {
                 let code = size_tuple.1;
                 let data = size_tuple.2;
 
-                println!("My mem : {} (vspace), {} (code), {} (data)", vspace, code, data);
+                println!(
+                    "My mem : {} (vspace), {} (code), {} (data)",
+                    vspace,
+                    code,
+                    data
+                );
             }
 
             if let Ok(last_command) = readproc::get_last_created_command() {
@@ -61,9 +76,9 @@ fn main() {
         2 => {
             match args[1].parse::<i32>() {
                 Ok(pid) => {
-                   if !pstree::print(pid) {
-                       process::exit(1);
-                   }
+                    if !pstree::print(pid) {
+                        process::exit(1);
+                    }
                 }
                 Err(_) => {
                     println!("Error while parsing PID");

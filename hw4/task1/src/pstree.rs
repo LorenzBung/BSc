@@ -5,17 +5,20 @@ use self::libc::pid_t;
 
 /// Datenstruktur für einen Prozess.
 pub struct Process {
-    name : String,
-    pid : pid_t,
-    ppid : pid_t,
+    name: String,
+    pid: pid_t,
+    ppid: pid_t,
 }
 
 impl Process {
-
     /// Erstellt eine Prozess-Datenstruktur aus procinfo::Stat.
-    pub fn new(with_pid:pid_t) -> Self {
+    pub fn new(with_pid: pid_t) -> Self {
         if let Ok(stat) = pid::stat(with_pid) {
-            Process{name: stat.command, pid:stat.pid, ppid:stat.ppid}
+            Process {
+                name: stat.command,
+                pid: stat.pid,
+                ppid: stat.ppid,
+            }
         } else {
             panic!("Internal Error: Process not found")
         }
@@ -43,18 +46,18 @@ impl Process {
     /// Prüft ob das Prozess-Struct einen (entfernten) Elternprozess mit dem übergebenen pid hat.
     pub fn has_parent_with_pid(&self, pid: pid_t) -> bool {
         if self.pid == pid {
-            return true
+            return true;
         }
 
         if self.has_parent() {
-            return self.parent().has_parent_with_pid(pid)
+            return self.parent().has_parent_with_pid(pid);
         }
 
         false
     }
 
     /// Gibt über Rekursion über die Eltern eine Prozesskette aus.
-    pub fn print_recursive(&self, to_pid:pid_t, output: &mut String) {
+    pub fn print_recursive(&self, to_pid: pid_t, output: &mut String) {
 
         if output.len() == 0 {
             *output = format!("{}({}){}", self.name, self.pid, output);
@@ -70,18 +73,18 @@ impl Process {
 
 /// Geht von eigenem Prozess aus und gibt die Prozesskette bis zum übergebenem PID aus
 /// und fängt mögliche Fehler ab.
-pub fn print(pid:pid_t) -> bool {
+pub fn print(pid: pid_t) -> bool {
 
     if let Err(_) = pid::stat(pid) {
         println!("Invalid PID");
-        return false
+        return false;
     }
 
     let my_proc = Process::me();
 
     if !my_proc.has_parent_with_pid(pid) {
         println!("This Process has no parent {}", pid);
-        return false
+        return false;
     }
 
     let mut output = String::new();
