@@ -1,6 +1,8 @@
 use procinfo::pid;
 use procinfo::loadavg;
 
+/// Returns the PID and PPID of the current process.
+/// Throws an error if the current process doesn't exist (should never occur).
 pub fn self_pids() -> Result<(i32, i32), &'static str>{
     match pid::stat_self() {
         Ok(stat) => { Ok((stat.pid, stat.ppid)) }
@@ -8,6 +10,8 @@ pub fn self_pids() -> Result<(i32, i32), &'static str>{
     }
 }
 
+/// Returns the command (string) belonging to the given PID.
+/// Throws an error if the given PID doesn't exist.
 pub fn get_pid_command(pid: i32) -> Result<String, &'static str> {
     match pid::stat(pid) {
         Ok(stat) => { Ok(stat.command) }
@@ -15,6 +19,8 @@ pub fn get_pid_command(pid: i32) -> Result<String, &'static str> {
     }
 }
 
+/// Returns the last created command (string) of the system.
+/// Throws an error if there is no last Command.
 pub fn get_last_created_command() -> Result<String, &'static str> {
     match loadavg() {
         Ok(stat) => {
@@ -28,6 +34,8 @@ pub fn get_last_created_command() -> Result<String, &'static str> {
     }
 }
 
+/// Returns the number of threads belonging to the given PID.
+/// Throws an error if the given PID doesn't exist.
 pub fn get_thread_count(pid: i32) -> Result<u32, &'static str> {
     match pid::stat(pid) {
         Ok(stat) => { Ok(stat.num_threads as u32) }
@@ -35,6 +43,8 @@ pub fn get_thread_count(pid: i32) -> Result<u32, &'static str> {
     }
 }
 
+/// Returns the number of total tasks running in the system.
+/// Throws an error if the total number of tasks doesn't exist.
 pub fn get_task_total() -> Result<u32, &'static str> {
     match loadavg() {
         Ok(stat) => { Ok(stat.tasks_total) }
@@ -42,6 +52,8 @@ pub fn get_task_total() -> Result<u32, &'static str> {
     }
 }
 
+/// Returns the size of the virtual, code and data memory size of the current process.
+/// Throws an error if the current process doesn't exist (should never occur).
 pub fn get_ownprocess_mem() -> Result<(usize, usize, usize), &'static str> {
     match pid::stat_self() {
         Ok(stat) => {
