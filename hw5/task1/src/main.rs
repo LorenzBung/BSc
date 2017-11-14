@@ -15,7 +15,7 @@ fn main() {
 
         match procinfo::pid::stat_self(){
             Ok(stat) => {
-                let result = child::run_childs(stat.pid, &arguments[2]);
+                let result = child::run_childs(stat.pid, &arguments[1]);
                 match result {
                     Ok(_) => {},
                     Err(_) => {},
@@ -26,7 +26,7 @@ fn main() {
 
 
     } else {
-        zombie::run_zombie();
+        //zombie::run_zombie();
     }
 
 }
