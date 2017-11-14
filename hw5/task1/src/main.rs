@@ -1,4 +1,5 @@
 extern crate procinfo;
+extern crate nix;
 
 use std::env::args;
 
