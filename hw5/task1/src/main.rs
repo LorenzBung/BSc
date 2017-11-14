@@ -15,7 +15,11 @@ fn main() {
 
         match procinfo::pid::stat_self(){
             Ok(stat) => {
-                child::run_childs(stat.pid, &arguments[2]);
+                let result = child::run_childs(stat.pid, &arguments[2]);
+                match result {
+                    Ok(_) => {},
+                    Err(_) => {},
+                }
             },
             Err(_) => {},
         }

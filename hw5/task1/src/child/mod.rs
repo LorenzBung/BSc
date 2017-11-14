@@ -2,6 +2,7 @@ use nix::unistd::{fork, getpid};
 use nix::sys::wait::wait;
 use nix::unistd::ForkResult::{Child, Parent};
 
+mod pstree;
 
 pub fn run_childs(start_pid: i32, arg: &str) -> Result<(), String> {
     let count = arg.parse::<u8>();
@@ -25,6 +26,7 @@ pub fn run_childs(start_pid: i32, arg: &str) -> Result<(), String> {
                     Err(_) => panic!("fork failed"),
                 }
             }
+            pstree::print(start_pid);
             Ok(())
         },
         Err(_) => {

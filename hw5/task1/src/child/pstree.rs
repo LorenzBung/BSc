@@ -3,13 +3,13 @@ use procinfo::pid;
 /// Datenstruktur für einen Prozess.
 pub struct Process {
     name: String,
-    pid: u32,
-    ppid: u32,
+    pid: i32,
+    ppid: i32,
 }
 
 impl Process {
     /// Erstellt eine Prozess-Datenstruktur aus procinfo::Stat.
-    pub fn new(with_pid: u32) -> Self {
+    pub fn new(with_pid: i32) -> Self {
         if let Ok(stat) = pid::stat(with_pid) {
             Process {
                 name: stat.command,
@@ -41,7 +41,7 @@ impl Process {
     }
 
     /// Prüft ob das Prozess-Struct einen (entfernten) Elternprozess mit dem übergebenen pid hat.
-    pub fn has_parent_with_pid(&self, pid: u32) -> bool {
+    pub fn has_parent_with_pid(&self, pid: i32) -> bool {
         if self.pid == pid {
             return true;
         }
@@ -54,7 +54,7 @@ impl Process {
     }
 
     /// Gibt über Rekursion über die Eltern eine Prozesskette aus.
-    pub fn print_recursive(&self, to_pid: u32, output: &mut String) {
+    pub fn print_recursive(&self, to_pid: i32, output: &mut String) {
 
         if output.len() == 0 {
             *output = format!("{}({}){}", self.name, self.pid, output);
@@ -70,7 +70,7 @@ impl Process {
 
 /// Geht von eigenem Prozess aus und gibt die Prozesskette bis zum übergebenem PID aus
 /// und fängt mögliche Fehler ab.
-pub fn print(pid: u32) -> bool {
+pub fn print(pid: i32) -> bool {
 
     if let Err(_) = pid::stat(pid) {
         println!("Invalid PID");
