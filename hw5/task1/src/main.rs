@@ -1,4 +1,5 @@
 extern crate procinfo;
+extern crate nix;
 
 use std::env::args;
 
@@ -14,14 +15,18 @@ fn main() {
 
         match procinfo::pid::stat_self(){
             Ok(stat) => {
-                child::run_childs(stat.pid, &arguments[2]);
+                let result = child::run_childs(stat.pid, &arguments[1]);
+                match result {
+                    Ok(_) => {},
+                    Err(_) => {},
+                }
             },
             Err(_) => {},
         }
 
 
     } else {
-        zombie::run_zombie();
+        //zombie::run_zombie();
     }
 
 }
