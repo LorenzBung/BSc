@@ -10,8 +10,12 @@ pub fn run_childs(start_pid: i32, arg: &str) -> Result<(), String> {
     match count {
         Ok(value) => {
 
-            if value > 0 { }
-            fork_children(0, value - 1, start_pid);
+            if value > 0 {
+                fork_children(0, value - 1, start_pid);
+            } else {
+                return Err("Number of forks must not be zero.".to_string())
+            }
+
             Ok(())
         },
         Err(_) => {
