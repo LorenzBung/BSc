@@ -5,6 +5,9 @@ use nix::unistd::ForkResult::{Child, Parent};
 
 mod pstree;
 
+/// Required function.
+/// Accepts parameter *start_pid* which will be root-process in the printed pstree.
+/// Parses parameter *arg* as the number of forked processes.
 pub fn run_childs(start_pid: i32, arg: &str) -> Result<(), String> {
     let count = arg.parse::<u8>();
     match count {
@@ -19,12 +22,14 @@ pub fn run_childs(start_pid: i32, arg: &str) -> Result<(), String> {
             Ok(())
         },
         Err(_) => {
-            Err("Parse Failed".to_string())
+            Err("Failed to parse arguments. PIDs must be decimal.".to_string())
         },
     }
 }
 
-pub fn fork_children(count: u8, to:u8, start_pid: i32) {
+
+/// Private function, which forks specified amount of processes (*count*) through recursion
+fn fork_children(count: u8, to:u8, start_pid: i32) {
     let pid = fork();
     match pid {
         Ok(Child) => {
