@@ -11,17 +11,17 @@ mod child;
 
 
 fn main() {
-    let arguments:Vec<String> = args().collect();
+    let arguments: Vec<String> = args().collect();
 
     if arguments.len() == 2 {
 
-        let result = child::run_childs(getpid(), &arguments[1]);
+        let result = child::run_childs(i32::from(getpid()), &arguments[1]);
         match result {
-            Ok(_) => {},
+            Ok(_) => {}
             Err(e) => {
                 println!("{}", e);
                 process::exit(1)
-            },
+            }
         }
 
     } else {
