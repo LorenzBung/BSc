@@ -3,6 +3,7 @@ extern crate nix;
 
 use std::env::args;
 use std::process;
+use nix::unistd::getpid;
 
 mod unit_tests;
 mod zombie;
@@ -14,24 +15,14 @@ fn main() {
 
     if arguments.len() == 2 {
 
-
-        match procinfo::pid::stat_self(){
-            Ok(stat) => {
-                let result = child::run_childs(stat.pid, &arguments[1]);
-                match result {
-                    Ok(_) => {},
-                    Err(e) => {
-                        println!("{}", e);
-                        process::exit(1)
-                    },
-                }
-            },
-            Err(_) => {
-                println!("Couldn't retrieve my own PID.");
+        let result = child::run_childs(getpid(), &arguments[1]);
+        match result {
+            Ok(_) => {},
+            Err(e) => {
+                println!("{}", e);
                 process::exit(1)
             },
         }
-
 
     } else {
         zombie::run_zombie();
