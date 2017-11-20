@@ -23,7 +23,7 @@ fn main() {
                 process::exit(1)
             }
         }
-    } else if arguments.len) == 1 {
+    } else if arguments.len() == 1 {
         zombie::run_zombie();
     } else 
         println!("Bitte nur einen oder zwei Parameter angeben!");
