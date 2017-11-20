@@ -20,7 +20,7 @@
 
 2. Indem man den Scheduler mit `-m 1` auf nur eine Queue einstellt. Dann werden neue Jobs nicht in eine höhere Queue gestuft und die Priorität auch nicht erhöht.
 
-3. Mit dem Aufruf `./mlfq.py -S -l 0,200,0:0,800,99 -c -q 100 -i 1` wird der erste Job bei t=100 von dem 2.ten zu 99% unterbrochen, welcher Regel 4b ausnutzt und auf Priorität 2 bleibt. Man sieht dass **JOB 1** 99 Ticks abarbeitet, dann darf **JOB 0** ein Tick abarbeiten und der Kreislauf wiederholt sich:
+3. Mit dem Aufruf `./mlfq.py -S -l 0,200,0:0,800,99 -c -q 100 -i 1` wird der erste Job bei t=100 von dem 2.ten zu 99% unterbrochen, welcher Regel 4b ausnutzt und auf Priorität 2 bleibt. Man sieht dass **JOB 1** 99 Ticks läuft, dann darf **JOB 0** ein Tick arbeiten und der Kreislauf wiederholt sich:
 
 ```
 [ time 198 ] Run JOB 1 at PRIORITY 2 [ TICKSLEFT 1 RUNTIME 800 TIMELEFT 701 ]
