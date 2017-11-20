@@ -25,7 +25,7 @@ fn main() {
         }
     } else if arguments.len() == 1 {
         zombie::run_zombie();
-    } else 
+    } else {
         println!("Bitte nur einen oder zwei Parameter angeben!");
     }
 }
