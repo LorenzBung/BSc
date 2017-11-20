@@ -9,8 +9,8 @@ Bei unterschiedlicher Jobdauer ist die dadurch entstehende Verzögerung in der T
 
 4. SJF liefert dieselben Turnaroundtimes wie FIFO, sobald die Jobdauer der einzelnen Jobs **gleich lange** ist. Dann spielt es nämlich keine Rolle, welcher Job zuerst bearbeitet wird (da sowieso alle gleich lange brauchen).
 
-5.
+5. SJF liefert dieselbe Responsetime wie RR, wenn alle Jobs dieselbe Länge haben und die Quantumlänge bei RR gleich oder höher ist als die Länge der Jobs.
 
-6.
+6. Die Responsetime erhöht sich mit der Joblänge. Das liegt daran, dass sich die durchschnittliche Responsetime mit `R = (l_1 + l_2 + ... + l_n) / n` berechnen lässt (`l_i` die jeweiligen Joblängen, `n` die Zahl der Jobs). Die Responsetime ist damit abhängig von der Dauer jedes Jobs. Demonstrieren lässt sich dies mit `./scheduler.py -p SJF -s 1 -l 10,10,10` und z.B. `./scheduler.py -p SJF -s 1 -l 100,100,100`, oder auch `./scheduler.py -p SJF -s 1 -l 10,20,30`.
 
-7.
+7. Die Responsetime erhöht sich mit der Quantumlänge. Dies ist logisch, da ein Prozess mehr Rechenzeit hat und der zweite Prozess somit länger warten muss. Nimmt man eine sehr lange Quantumlänge, z.B. mit `-q 10000`, so laufen alle Jobs nacheinander ab (wie bei FIFO). Daraus folgt, dass die Responsetime bei RR durch die Quantumszeit und die Länge der Jobs nach oben limitiert ist. Deshalb gilt: `R = min((l_1 + l_2 + ... + l_n)/n, q)` (`l_i` die jeweiligen Joblängen, `n` die Zahl der Jobs, `q` die Quantumlänge).
