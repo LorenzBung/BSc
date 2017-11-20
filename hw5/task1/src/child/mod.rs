@@ -23,7 +23,7 @@ pub fn run_childs(start_pid: i32, arg: &str) -> Result<(), String> {
         }
         Err(_) => {
             Err(
-                "Failed to parse arguments. PIDs must be decimal.".to_string(),
+                "Failed to parse arguments. PIDs must be decimal.\n".to_string(),
             )
         }
     }

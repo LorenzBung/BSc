@@ -18,7 +18,7 @@ fn main() {
         match result {
             Ok(_) => {}
             Err(e) => {
-                println!("{}", e);
+                print!("{}", e);
                 process::exit(1)
             }
         }
