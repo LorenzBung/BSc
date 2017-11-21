@@ -6,10 +6,7 @@ mod tests {
 
     #[test]
     fn test_zero_forks() {
-        assert_eq!(
-            run_childs(123, "0"),
-            Err("Number of forks must not be zero.".to_string())
-        )
+        assert_eq!(run_childs(123, "0"), Ok(()))
     }
 
     #[test]
