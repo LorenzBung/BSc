@@ -21,14 +21,13 @@
    **Figure 8.5: Without Priority Boost**
    
    `./mlfq.py -S -l 0,100,0:100,50,5:100,50,5`
-    
-   **Figure 8.5: With Priority Boost**
    
-   `./mlfq.py -S -l 0,120,0:100,50,5:100,50,5 -B 50`
-    
+   **Figure 8.5: With Priority Boost**
+   
+   `./mlfq.py -S -l 0,120,0:100,50,5:100,50,5 -B 50`
+   
    **Figure 8.6: Without Gaming Tolerance**
    
-    
    **Figure 8.6: With Gaming Tolerance**
 
 
