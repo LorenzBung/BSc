@@ -20,16 +20,18 @@
    **Figure 8.4: A Mixed I/O-intensive and CPU-intensive Workload**
    
    **Figure 8.5: Without Priority Boost**
+   
     `./mlfq.py -S -l 0,100,0:100,50,5:100,50,5`
     
    **Figure 8.5: With Priority Boost**
-    `./mlfq.py -S -l 0,120,0:100,50,5:100,50,5 -B 50` 
+   
+    `./mlfq.py -S -l 0,120,0:100,50,5:100,50,5 -B 50`
     
     **Figure 8.6: Without Gaming Tolerance**
-    ` `
+   
     
     **Figure 8.6: With Gaming Tolerance**
-    ` `
+
 
 2. Indem man den Scheduler mit `-m 1` auf nur eine Queue einstellt. Dann werden neue Jobs nicht in eine höhere Queue gestuft und die Priorität auch nicht erhöht.
 
@@ -47,6 +49,5 @@ IO DONE
 ```
 
 
-4.  1wsw
->>YYA
+4.
 5. Bei Workloads bei denen mehr als ein Job auf einer Queue läuft hat diese Option ein Effekt.                
