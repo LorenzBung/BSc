@@ -1,0 +1,34 @@
+\lstdefinelanguage{javascript}{
+  keywords={abstract, public, break, case, catch, continue, debugger, default, delete, do, else, finally, for, function, if, in, instanceof, new, null, return, switch, throw, try, typeof, var, void, while, with},
+  keywords={[2]{class, export, boolean, String, Date, Infinity, Number, throw, implements, import, this, undefined, false, true, byte, int, document}},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstnewenvironment{code}[1][]{
+	\lstset{
+		#1,
+		captionpos=b,
+		backgroundcolor=\color{white},
+		commentstyle=\color{cyan},
+		keywordstyle=\color{red},
+		keywordstyle={[2]{\color{violet}}},
+		numberstyle=\color{black},
+		stringstyle=\color{gray},
+		basicstyle=\footnotesize\ttfamily,
+		breakatwhitespace=true,
+		breaklines=true,
+		keepspaces=true,
+		numbers=left,
+		numbersep=7pt,
+		showspaces=false,
+		showstringspaces=true,
+		showtabs=false,
+		tabsize=2,
+		frame=l
+	}
+}{}
