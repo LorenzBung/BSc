@@ -13,12 +13,15 @@
 %| Document style |
 %+----------------+
 
-% Set Default Font to Sans-serif
+% Set default font to sans-serif
 \renewcommand*{\familydefault}{\sfdefault}
 
-% No Paragraph Indentation
+% No horizontal paragraph indentation
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
+
+% Set chapter style
+\titleformat{\chapter}{\Huge\bfseries}{\thechapter. }{0pt}{\Huge\bfseries}
 
 % Set author and title
 \title{\huge\textbf{Praktikum bei isys vision GmbH \& Co. KG}}
@@ -58,10 +61,17 @@ habe. Weiterhin werde ich die firmeninternen Abläufe, Ziele und Methoden nennen
 \tableofcontents
 \pagebreak
 
-%+------------------+
-%| List of Listings |
-%+------------------+
+%+-------------------+
+%| List of Listings, |
+%| List of Figures,  |
+%| List of Tables    |
+%+-------------------+
+\begingroup
+\let\clearpage\relax
 \lstlistoflistings
+\listoffigures
+\listoftables
+\endgroup
 \pagebreak
 
 %+------------+
@@ -158,15 +168,15 @@ Dazu gehörten beispielsweise das Entfernen von Schatten (\texttt{box-shadow}), 
 Buttons und Menüs deutlich besser lesbar und sauberer macht, oder die Anpassung
 von Farben (hellgrau wird ersetzt durch weiß etc). Auch wurde ein Hintergrundbild
 von mir entfernt und durch eine durchgängige Farbe ersetzt, was zum gewünschten
-``cleanen'' Erscheinungsbild beiträgt.
+``cleanen'' Erscheinungsbild beitrug.
 
 Durch bereits wenige Änderungen im Stylesheet konnte ich hierbei recht große Erfolge
 erzielen, was die Modernität der Seite angeht. Mit diesen Grundlagen mussten nun
 Kleinigkeiten angepasst werden, wie beispielsweise zu große Listeneinträge in der
 Menüleiste, fehlender Umrandung von Buttons oder Ähnlichem. Diese Anpassungen waren
 minimal, jedoch war der Zeitaufwand dafür immens, da Regeln im CSS immer wieder
-unterdrückt oder überschrieben wurden und erst das richtige Vorgehen ermittelt werden
-musste.
+unterdrückt oder überschrieben wurden und erst das richtige Vorgehen bzw. die dafür
+verantwortliche Regel ermittelt werden musste.
 
 Schlussendlich waren die Anpassungen jedoch vorgenommen und ich konnte mich auf
 Basis eines sauberen, nutzbaren und leserlichen Designs dem Verständnis und der
@@ -430,6 +440,13 @@ beginnen.
 
 
 \section{Konfiguration und Anpassung}
+
+Nun, da die zugrundeliegende Datenbank eingerichtet und die Systemservices gestartet
+waren, konnte ich mich mit der Konfiguration von Jira und Confluence auseinandersetzen.
+
+Zunächst machte ich dabei Anpassungen im Design der Seiten, sodass die Oberfläche
+den Farben der Firma entsprach (\textcolor[HTML]{006833}{Grün [\texttt{\#006833}]}
+und \textcolor[HTML]{9B2536}{Rot [\texttt{\#9B2536}]}).
 
 
 
