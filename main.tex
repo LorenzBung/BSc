@@ -1,6 +1,6 @@
-%================
-% DOCUMENT SETUP
-%================
+%+================+
+%| DOCUMENT SETUP |
+%+================+
 
 % Set document class
 \documentclass[xcolor=dvipsnames,11pt,paper=a4paper]{report}
@@ -21,13 +21,13 @@
 \setlength{\parskip}{1em}
 
 % Set author and title
-\title{Praxissemesterbericht isys vision GmbH \& Co. KG}
+\title{\huge\textbf{Praktikum bei isys vision GmbH \& Co. KG}}
 \author{Lorenz Bung}
 \date{\today}
 
-%================
-% DOCUMENT START
-%================
+%+================+
+%| DOCUMENT START |
+%+================+
 \begin{document}
 \pagenumbering{gobble} % No page numbers for the introduction!
 
@@ -35,7 +35,8 @@
 %| Title page |
 %+------------+
 \begin{titlepage}
-\maketitle
+\raggedright\includegraphics[width=0.5\textwidth]{media/isys.png}
+{\let\newpage\relax\maketitle}
 \end{titlepage}
 
 %+----------+
@@ -433,7 +434,7 @@ beginnen.
 
 
 
-%==============
-% DOCUMENT END
-%==============
+%+==============+
+%| DOCUMENT END |
+%+==============+
 \end{document}
