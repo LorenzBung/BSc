@@ -185,6 +185,26 @@ Modifikation des Javascript-Frameworks widmen.
 
 \subsection{Javascript-Framework}
 
+In der bereits vorhandenen Version der Webseite wurde sämtliche Funktionalität durch
+ein Javascript-Framework geregelt, welches unabhängig von Inhalt und Design steht.
+Im Folgenden ging es nun darum, den hier geschriebenen Code durchzugehen, nachzuvollziehen,
+zu verinnerlichen und zu verstehen. In etwa 1500 Zeilen waren Initialisierungsfunktionen,
+Kommunikationsmodule und Eventhandler für Buttons etc. undokumentiert aufzufinden.
+
+Aufgrund der trotz weniger Codezeilen doch sehr hohen Komplexität und vor allem
+den fehlenden Kommentaren gestaltete es sich als sehr schwierig, sich einzuarbeiten.
+Ein weiterer Nachteil war meine mangelnde Erfahrung mit Javascript; durch viel Recherche
+und weiterführende Beispiele konnte ich mir jedoch einiges herleiten und somit verstehen.
+
+Meine erste Änderung war hierbei das Ersetzen von javascript-basierten Zoom-Buttons
+durch eine Leiste (in HTML ein \texttt{<input range>}-Element). Dies sah zum einen
+deutlich besser aus und war einfacher zu bedienen, außerdem war somit der Inhalt
+(in diesem Fall die Zoom-Leiste im HTML) besser von der Funktion getrennt.
+
+Weitere Modifikationen am Framework umfassten vor allem die Vereinfachung und Lesbarkeit
+des Codes. Die Hauptaufgabe in dieser Phase war das Verständnis, da dies die Grundlage
+für weitere Arbeit am Javascript ist.
+
 
 
 \section{Einschub: Filterfunktion für SVN-Repositories}
@@ -350,6 +370,10 @@ document.ready = function() {
 
 Beim Laden der Webseite wird nun also der Filter in der URL ausgelesen und ins Textfeld
 eingefügt.
+
+
+
+\section{Dokumentation des Frameworks}
 
 
 
