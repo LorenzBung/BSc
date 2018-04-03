@@ -1,0 +1,439 @@
+%================
+% DOCUMENT SETUP
+%================
+
+% Set document class
+\documentclass[xcolor=dvipsnames,11pt,paper=a4paper]{report}
+
+% Include packages
+\include{format/packages}
+\include{format/code} % Code Style Setup
+
+%+----------------+
+%| Document style |
+%+----------------+
+
+% Set Default Font to Sans-serif
+\renewcommand*{\familydefault}{\sfdefault}
+
+% No Paragraph Indentation
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+% Set author and title
+\title{Praxissemesterbericht isys vision GmbH \& Co. KG}
+\author{Lorenz Bung}
+\date{\today}
+
+%================
+% DOCUMENT START
+%================
+\begin{document}
+\pagenumbering{gobble} % No page numbers for the introduction!
+
+%+------------+
+%| Title page |
+%+------------+
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+
+%+----------+
+%| Abstract |
+%+----------+
+\begin{abstract}
+In diesem Bericht geht es um mein Praktikum bei isys vision GmbH \& Co. KG, welches
+ich im Rahmen meines Studiums im Fach Angewandte Informatik im 4. Studiensemester
+absolviert habe.
+
+Ich werde beschreiben und erklären, welche Aufgaben mir weshalb gegeben wurden,
+wie ich sie gelöst habe und welche Werkzeuge und Vorgehensweisen ich dabei verwendet
+habe. Weiterhin werde ich die firmeninternen Abläufe, Ziele und Methoden nennen.
+\end{abstract}
+
+%+-------------------+
+%| Table of contents |
+%+-------------------+
+\tableofcontents
+\pagebreak
+
+%+------------------+
+%| List of Listings |
+%+------------------+
+\lstlistoflistings
+\pagebreak
+
+%+------------+
+%| Einleitung |
+%+------------+
+\pagenumbering{arabic} % turn page numbering on now
+\setcounter{chapter}{-1}
+\chapter{Einleitung}
+
+Zu Beginn möchte ich kurz die Hintergründe meines Praktikums erläutern,
+z.B. den Bewerbungsprozess, die Wahl der Firma und einige Informationen zu isys
+vision.
+
+Isys vision ist ein Softwarehersteller, der sich mit grafischen Lösungen auseinandersetzt.
+Die Bildverarbeitung steht hierbei im Vordergrund und wird durch die von isys produzierte
+Software durchgeführt. Die im selben Gebäude gelegene Tochterfirma Ensenso stellt
+Hardwarekomponenten her, welche dann in Kombination mit der Software von isys vision
+als Gesamtpaket an Endkunden, aber auch Großabnehmer verkauft wird. Dies umfasst
+hauptsächlich Komponenten wie Kameras und Beleuchtungsbauteile sowie Verbindungskabel
+usw.
+
+Schon im Grundstudium war mir klar, dass ich für mein praktisches Studiensemester
+Firmen im Bereich der Bildverarbeitung, -generierung oder aber im Webumfeld suchen
+werde. Mit einem Praktikum in genannten Gebieten wollte ich einerseits meine Entscheidung
+für die Vertiefungsrichtung der Medieninformatik im Hauptstudium bekräftigen, andererseits
+war dies schon immer ein Bereich der Informatik, welcher mich besonders gereizt
+hat. Aus diesen Gründen habe ich mich unter Anderem bei isys vision beworben und
+schlussendlich ein halbes Jahr hier verbracht.
+
+
+
+
+%+-----------+
+%| Kapitel 1 |
+%+-----------+
+\chapter{Web-Oberfläche für das IVS}
+
+Das erste größere Projekt war die Entwicklung einer Web-Oberfläche für ein bereits
+bestehendes, jedoch noch nicht vollständiges Bildverarbeitungssystem. Sowohl Webinterface
+als auch Bildverarbeitung waren bereits vorhanden, jedoch nicht für den aktuellen
+Anwendungszweck geeignet und somit war eine Überarbeitung unabdingbar.
+
+Die Aufgabe des betreffenden Systems ist die Ausrichtung einzelner Keramikseiten,
+welche dann in weiteren Schritten verarbeitet werden. Dabei geht es um die Produktion
+von Lambdasonden, wie sie in der Abgasfilterung von Autos zum Einsatz kommen.
+
+Diese Keramik-``sheets'' werden dabei mit hochpräziser Genauigkeit ausgestanzt,
+weswegen sie vor dem Stanzen entsprechend ausgerichtet werden müssen. Eine physikalische
+Ausrichtung ist dabei so gut wie unmöglich, da die gewünschte Genauigkeit dabei
+nicht erreicht werden kann.
+
+Das von isys entwickelte System erkennt nun mithilfe
+zweier Kameras die Lage zweier Marken auf dem Sheet und somit die Lage auf dem verschieb-
+und rotierbaren Tisch. Mithilfe der Bildverarbeitungssoftware wird nun eine Motorbewegung
+errechnet, welche eine Ausrichtung des Werkstücks bewirkt. Anschließend kann das
+Teil durch weitere Maschinen in seiner nun festgelegten Position weiterverarbeitet
+werden.
+
+Die Software besteht dabei nun aus drei verschiedenen Komponenten:
+\begin{itemize}
+	\item Dem \textit{ScbDrv}, welcher für die Ansteuerung der Motoren und Hardware
+	verantwortlich ist.
+	\item Dem \textit{IVS} (Isys Vision Server), welcher für die Auswertung der Kameradaten
+	sowie die Bildverarbeitung und Errechnung der Endposition verantwortlich ist.
+	\item Dem \textit{Webinterface}, welches dem Endkunden eine Möglichkeit zur Einsicht
+	des aktuellen Status sowie zur Kontrolle über die Maschine gibt.
+\end{itemize}
+
+Während der ScbDrv nur geringfügig an die neue Maschinenkonfiguration angepasst
+werden musste, war mein Betreuer mit der Anpassung des IVS an die neuen Marken (in
+diesem Fall die Ecken der Keramiksheets) beschäftigt. Meine Aufgabe bestand aus
+dem visuellen Redesign der Weboberfläche, dem Anpassen des Inhaltes (Entfernen überflüssiger
+Elemente, Hinzufügen von neuen, wichtigen Dingen) sowie der Anpassung der Funktionalität
+mithilfe von HTML, CSS und JavaScript.
+
+
+
+\section{Einlesen in vorhandenen Code und Redesign}
+
+Da das Interface auf der alten, bereits vorhandenen Version aufbauen sollte, war
+das Einarbeiten in bereits vorhandenen Code notwendig. Um Änderungen vorzunehmen
+war dabei ein großes Verständnis für diesen Code nötig, da es sich um komplexe und
+vor allem abstrakte Abläufe handelte, die nicht leicht nachzuvollziehen waren.
+
+
+\subsection{Flat-Design mithilfe von CSS}
+
+Da meine bisherigen Erfahrungen mit Javascript und jQuery mittelmäßig bis wenig
+vorhanden waren, machte ich mir zunächst das grafische Redesign der Webseite zur
+Aufgabe. Mit CSS hatte ich bereits gearbeitet, sodass ich mich verhältnismäßig schnell
+in das vorhandene Stylesheet einarbeiten konnte und erste Änderungen vornahm.
+
+Dazu gehörten beispielsweise das Entfernen von Schatten (\texttt{box-shadow}), was
+Buttons und Menüs deutlich besser lesbar und sauberer macht, oder die Anpassung
+von Farben (hellgrau wird ersetzt durch weiß etc). Auch wurde ein Hintergrundbild
+von mir entfernt und durch eine durchgängige Farbe ersetzt, was zum gewünschten
+``cleanen'' Erscheinungsbild beiträgt.
+
+Durch bereits wenige Änderungen im Stylesheet konnte ich hierbei recht große Erfolge
+erzielen, was die Modernität der Seite angeht. Mit diesen Grundlagen mussten nun
+Kleinigkeiten angepasst werden, wie beispielsweise zu große Listeneinträge in der
+Menüleiste, fehlender Umrandung von Buttons oder Ähnlichem. Diese Anpassungen waren
+minimal, jedoch war der Zeitaufwand dafür immens, da Regeln im CSS immer wieder
+unterdrückt oder überschrieben wurden und erst das richtige Vorgehen ermittelt werden
+musste.
+
+Schlussendlich waren die Anpassungen jedoch vorgenommen und ich konnte mich auf
+Basis eines sauberen, nutzbaren und leserlichen Designs dem Verständnis und der
+Modifikation des Javascript-Frameworks widmen.
+
+
+\subsection{Javascript-Framework}
+
+
+
+\section{Einschub: Filterfunktion für SVN-Repositories}
+
+Da mein Betreuer, welcher mit mir gemeinsam für die Entwicklung des neuen IVS-Systems
+verantwortlich war, krankheitsbedingt eineinhalb Wochen fehlte, war die weitere
+Arbeit an der Weboberfläche für diese Zeit leider nicht möglich. In der Zwischenzeit
+wurde mir dafür die Verbesserung der Oberfläche des Intranets aufgetragen.
+
+Das Intranet enthält eine Liste von SVN-Repositories, die in Form eines Baumes dargestellt
+werden. Die einzelnen Einträge sind dabei in verschiedenen Ebenen enthalten.Im folgenden
+Codebeispiel (\texttt{HTML}) wird dies deutlich:
+
+\begin{code}[language=html, caption={Beispielcode zu den SVN-Repositories im Intranet}]
+<ul class="mktree" id="mktree1">
+	<li id="1">Firma 1</li>
+		<ul>
+			<li id="1-1">Repository 1-1</li>
+			<li id="1-2">Repository 1-2</li>
+		</ul>
+	</li>
+	<li id="2">Repository 2</li>
+	<li id="3">Firma 3
+		<ul>
+			<li id="3-1">Repository 3-1</li>
+			<li id="3-2">Projekt 3-2
+				<ul>
+					<li id="3-2-1">Repository 3-2-1</li>
+					<li id="3-2-2">Repository 3-2-2</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+\end{code}
+
+Zur Darstellung des Baumes in aus- und einklappbarer Form wurde das schon vorhandene
+Script \href{http://www.mattkruse.com/javascript/mktree}{\texttt{mktree}} von
+Matt Kruse verwendet.
+
+Meine Aufgabe bestand nun darin, eine Suchfunktion für Einträge in dieser Liste
+zu implementieren. Dazu habe ich mithilfe von \texttt{JavaScript} und \texttt{jQuery}
+gearbeitet und einige Funktionen geschrieben. Diese Funktionen basieren zudem auf
+dem oben genannten Script (\texttt{mktree}) und bauen auf dessen Funktionalität
+auf.
+
+\begin{code}[language=javascript, caption={Filterfunktion für das Intranet}]
+function filter() {
+	var input = document.getElementById('searchInput');
+	var filter = input.value.toLowerCase();
+	var url = window.location.href.split("?")[0];
+	document.getElementById("searchURL").href = url + "?filter=" + filter;
+	//Search through all list items
+	var li = $('li');
+	for (var i = 0; i < li.length; i++) {
+		//Get all parents of this node which have the filter.
+		var parents =	$(li[i])
+			.parents('li')
+			.filter(function() {
+			return this.textContent
+				.trim()
+				.split('    ')[0]
+				.toLowerCase()
+				.indexOf(filter) > -1;
+		});
+		//Select the correct String to search in.
+		var str = li[i]
+			.textContent
+			.split(' (')[0] //remove the ( browse / ...)
+			.toLowerCase()
+			.trim()
+			.split("    ")[0]; //split at "    "; bug fix
+		if (str.indexOf(filter) > -1 || parents.length) {
+			//Item or Parent contains filter
+			li[i].style.display = ""; //Display normally
+			$(li[i]).parents().each(function() {
+				this.style.display = "";
+			});
+			if (li[i].id != "") {
+				expandToItem('mktree1', li[i].id); //Expand tree
+			}
+			window.scrollTo(0, 0); //Fixes weird behaviour
+		} else {
+			li[i].style.display = "none"; //Hide item
+		}
+	}
+}
+\end{code}
+
+Die oben geschriebene Funktion wird aufgerufen, sobald sich der Eingabewert des
+\texttt{<input>}-Felds (siehe Zeile 8) ändert. Eine Änderung der Eingabe hat somit
+zur Folge, dass die darunter stehende Liste von Repositories neu gefiltert wird
+und nicht passende Einträge entsprechend versteckt werden.
+
+Weiterhin wird die Funktionalität von \texttt{mktree} genutzt, um den Baum zu den
+angezeigten Repositories automatisch aufzuklappen. Dies wird durch einen einfachen
+Aufruf der richtigen Funktion erreicht.
+
+Nach der Implementierung dieser Funktionalität habe ich noch eine weitere Verbesserung
+an der Seite durchgeführt, wodurch sich der Cursor nicht im Textfeld befinden muss,
+um zu suchen. Dies hat den Vorteil, dass direkt nach dem Laden der Webseite oder
+auch nach dem manuellen Ein- bzw. Ausklappen des Baumes ohne weitere Mausbetätigung
+gesucht werden kann.
+
+\begin{code}[language=javascript, caption={Funktion für Suche auf Tastendruck}]
+document.onkeypress = function(event) {
+	//Variables for search field and pressed key
+	var input = document.getElementById('searchInput');
+	var key = event.key;
+	if (document.activeElement !== input && key.length === 1) {
+		//Not focused => Put the pressed key in the search bar.
+		input.value += key;
+	}
+	//Jump to the search field.
+	input.focus();
+}
+\end{code}
+
+Um dies zu erreichen, habe ich eine Funktion geschrieben, welche beim Tastendruck
+aufgerufen wird. Die gedrückte Taste wird gespeichert und das Textfeld fokussiert.
+Handelt es sich bei der Taste um einen Buchstaben (nicht etwa \texttt{backspace},
+daher \texttt{key.length === 1}), so wird der Wert der Taste zusätzlich ins Textfeld
+geschrieben, um einen doppelten Tastendruck zu vermeiden.
+
+Eine letzte Optimierung der Seite erfolgte durch die Möglichkeit, eine Suchanfrage
+in Form der URL zu speichern (ein sogenannter Permalink) und somit weiterleitbar
+zu machen. Meine Vorgehensweise dafür war, den Filter mit dem entsprechenden Tag
+\texttt{?filter=} an die URL anzuhängen. Beim Laden der Seite wird die URL dann
+nach dem entsprechenden Tag durchsucht, und falls ein Tag gefunden wird, wird der
+Inhalt des Suchfeldes gesetzt und die Filterfunktion aufgerufen.
+
+Weiterhin wird auf der Webseite ein Hyperlink dargestellt, welcher immer zur aktuellen
+Suchanfrage verlinkt. Durch Kopieren dieses Links kann die entsprechende Suche also
+weitergeleitet werden. Erreicht wird dies durch das Aktualisieren der dabei hinterlegten
+URL nach dem Aufruf von \texttt{filter()}.
+
+\begin{code}[language=javascript, caption={Filterung beim Laden der Seite}]
+document.ready = function() {
+	//First, let's do some ugly bug fixing for mktree (-_-)
+	setDefault("treeClass","mktree");
+	setDefault("nodeClosedClass","liClosed");
+	setDefault("nodeOpenClass","liOpen");
+	setDefault("nodeBulletClass","liBullet");
+	setDefault("nodeLinkClass","bullet");
+	setDefault("preProcessTrees",true);
+
+	var href = window.location.href;
+	//Filter the URL to find the filter.
+	var filter = undefined;
+	try {
+		filter =	href.split('?')[1] //after first "?"
+							.split('filter=')[1] //after "filter="
+							.split('&')[0]; //stop at next "&"
+	} catch (e) {}
+	if (filter != undefined) {
+		//Filter found => search for it
+		document.getElementById('searchInput').value = filter;
+		document.getElementById('searchInput').onkeyup();
+	}
+	document.getElementById("searchURL").href = window.location.href;
+}
+\end{code}
+
+Beim Laden der Webseite wird nun also der Filter in der URL ausgelesen und ins Textfeld
+eingefügt.
+
+
+
+
+%+-----------+
+%| Kapitel 2 |
+%+-----------+
+\chapter{Integration von Jira und Confluence}
+
+Das nächste größere Projekt war die Integration der Atlassian-Produkte \textit{Jira}
+und \textit{Confluence} in den Firmenalltag. Diese beiden Programme sind für das
+Production Management gedacht und haben das Ziel, einen durchgängigen, geplanten
+und leicht nachvollziehbaren Arbeitsfluss zu erreichen.
+
+Confluence ist dabei ein einfaches System, dessen Ziel die einfache Weitergabe von
+Informationen ist. Es dient der Erstellung von Dokumenten, welche externe Daten
+wie beispielsweise Microsoft-Office-Dokumente oder YouTube-Videos sowie Bilder usw.
+enthalten können und vereinfacht die Zusammenarbeit mehrerer Personen an einem Dokument.
+
+Jira arbeitet im Zusammenspiel mit Confluence und ist ursprünglich für die Softwareentwicklung
+gedacht. Entwicklungsvorgehensweisen wie \textit{Scrum} o.Ä. können hier ohne Umwege
+umgesetzt werden und Jira bietet Funktionalitäten wie Sprints oder Burndown-Charts
+an, um den Arbeitsfluss zu sichern.
+
+Die Verwendung von Jira und Confluence sollte das davor eingesetzte (und veraltete)
+Tool \textit{easyPM} ersetzen, welches für die Planung von Aufgaben, Abläufen und
+Verwaltung von Zeitspalten eingesetzt wurde. Informationen wie E-Mails, Anrufprotokolle
+oder sonstige Daten waren hier jedoch dezentral, bzw. konnten nicht direkt in easyPM
+gespeichert werden. Durch das Zusammenspiel der beiden neuen Systeme sollte dieses
+Problem behoben und die Speicherung der Daten konsistent werden.
+
+
+
+\section{Einrichtung der Datenbank}
+
+Jira und Confluence sind beides Tools, die über einen Server laufen und dann über
+den Webbrowser der Endgeräte aufgerufen werden können. Dies sichert zum einen die
+Zentralität der Datenspeicherung und -verarbeitung und entlastet andererseits die
+Nutzergeräte stark. Weiterhin ist die Nutzung eines firmeninternen Servers (welcher
+außerdem für andere Zwecke wie das Intranet schon vorhanden war) sinnvoll, da somit
+die Sicherheit der gespeicherten Daten gewährleistet wird.
+
+Für den Aufbau des Webservers wird dabei sowohl von Jira als auch von Confluence
+eine Datenbank verwendet. Das kann sowohl eine \textit{MySQL}-, \textit{Oracle}-
+oder \textit{Microsoft-SQL}-Datenbank sein, oder aber auch die Open-Source-Alternative
+\textit{PostgreSQL}. Wegen der eher schlechten Unterstützung von MySQL habe ich
+schlussendlich eine PostgreSQL-Datenbank eingesetzt.
+
+PostgreSQL ist ein freies und quelloffenes Datenbankmanagementsystem. Es wird von
+Betriebssystemen wie Windows, Linux und anderen UNIX-ähnlichen Systemen unterstützt
+und wird bei den meisten Linux-Distributionen bereits mitgeliefert.
+
+Um den Linux-Server von isys zu simulieren und die Datenbank entsprechend einzurichten,
+habe ich eine virtuelle Maschine mit einer Ubuntu-Installation verwendet. Nach der
+Einrichtung des Systems konnte ich mit der Konfiguration des Datenbankservers beginnen.
+Nach einiger Verwirrung und etwas Recherche stellte sich heraus, dass für das Erstellen
+einer Tabelle in PostgreSQL ein Linux-Nutzername angegeben werden muss. Dies war
+praktisch, da die Jira- und Confluence-Systemdienste sowieso einen eigenen Account
+erstellten, den ich somit direkt mitverwenden konnte. Ich hatte nun also drei Zugänge:
+
+\begin{itemize}
+	\item \texttt{ubuntu}, Super-User-Account und Hauptaccount des Rechners,
+	\item \texttt{confluence}, für die Datenbank und den Systemdienst des Confluence-Servers,
+	\item \texttt{jira}, für die Datenbank und den Systemdienst des Jira-Servers.
+\end{itemize}
+
+Mit einigen einfachen SQL-Befehlen waren die notwendigen Datenbanken dann auch schnell
+erstellt:
+
+\begin{code}[language=SQL, caption={SQL-Befehle zur Erstellung der Datenbanken}]
+CREATE DATABASE confluencedb WITH ENCODING 'UNICODE';
+GRANT ALL PRIVILEGES ON DATABASE confluencedb TO confluence;
+
+CREATE DATABASE jiradb WITH ENCODING 'UNICODE';
+GRANT ALL PRIVILEGES ON DATABASE jiradb TO jira;
+\end{code}
+
+Zur Anbindung an Jira bzw. Confluence musste nun nur noch bei der Einrichtung jeweils
+die entsprechenden Datenbankdaten angegeben werden. Da hier der Jira- bzw. Confluence-Server
+und die Datenbank auf dem selben Rechner laufen, ist der Host beispielsweise \texttt{127.0.0.1}
+bzw. \texttt{localhost}.
+
+Die Installation von Jira und Confluence erfolgte dann einfach über die Ausführung
+eines Shell-Skriptes und die Eingabe einer Lizenz. Somit war die Einrichtung der
+Systeme vollständig und ich konnte mit der Konfiguration und Anpassung an die Firma
+beginnen.
+
+
+
+\section{Konfiguration und Anpassung}
+
+
+
+
+%==============
+% DOCUMENT END
+%==============
+\end{document}
