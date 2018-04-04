@@ -7,7 +7,7 @@
 
 % Include packages
 \include{format/packages}
-\include{format/code} % Code Style Setup
+\include{format/code}		% Code style setup
 
 %+----------------+
 %| Document style |
@@ -26,10 +26,21 @@
 
 % Set chapter style
 \titleformat{\chapter}{\Huge\bfseries}{\thechapter. }{0pt}{\Huge\bfseries}
+\titlespacing{\chapter}{0pt}{0pt}{20pt}
+\titlespacing{\section}{0pt}{12pt}{0pt}
+\titlespacing{\subsection}{0pt}{12pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{12pt}{0pt}
 
 % Set author and title
-\title{\huge\textbf{Praktikum bei isys vision GmbH \& Co. KG}}
-\author{Lorenz Bung}
+\title{
+	\Huge\textbf{Praxissemester bei isys vision GmbH \& Co. KG}\\\vspace{20pt}
+	\huge{Bericht und Erfahrungen}
+}
+\author{
+	Lorenz Bung \and
+	\href{mailto:lorenz.bung@htwg-konstanz.de}{\texttt{lorenz.bung@htwg-konstanz.de}}\\
+	Angewandte Informatik, 4. Semester
+}
 \date{\today}
 
 %+================+
