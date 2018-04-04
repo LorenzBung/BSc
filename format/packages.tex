@@ -3,12 +3,21 @@
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 
+% Font type
+\usepackage{DejaVuSansMono}	% Replaces original typewriter font
+
 % Drawings and color
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{xcolor}
+
+% Formatting packages
+\usepackage[top=3cm, right=3cm, bottom=3cm, left=3cm]{geometry}	% For page layout
+\usepackage{wrapfig}		% Text wrapped around images
+\usepackage{tocloft}		% Better Table of Contents etc.
 \usepackage{listings}	% For code listings
-\usepackage{fancyhdr}
+\usepackage{fancyhdr}	% For footer/header settings
 \usepackage[hidelinks=true]{hyperref}	% For links
 \usepackage{titlesec}	% For better chapter style
 \usepackage{enumitem}	% For better enumerate/itemize style
+\usepackage{float}			% For fixed image positioning

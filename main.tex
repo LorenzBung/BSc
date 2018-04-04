@@ -15,6 +15,9 @@
 
 % Set default font to sans-serif
 \renewcommand*{\familydefault}{\sfdefault}
+% Make monospaced font a little smaller to fit text size
+\let\tt\ttfamily
+\renewcommand*{\ttfamily}{\small\tt}
 
 % No horizontal paragraph indentation
 \setlength{\parindent}{0pt}
@@ -23,6 +26,14 @@
 % Space before itemize/enumerate
 \setlist[itemize]{topsep=-11pt}
 \setlist[enumerate]{topsep=-11pt}
+
+% Space after List of Figures etc.
+\setlength\cftaftertoctitleskip{12pt}
+\setlength\cftafterloftitleskip{12pt}
+\setlength\cftafterlottitleskip{12pt}
+\setlength{\cftbeforechapskip}{12pt}
+\setlength{\cftbeforesecskip}{6pt}
+\setlength{\cftbeforesubsecskip}{6pt}
 
 % Set chapter style
 \titleformat{\chapter}{\Huge\bfseries}{\thechapter. }{0pt}{\Huge\bfseries}
@@ -37,9 +48,12 @@
 	\huge{Bericht und Erfahrungen}
 }
 \author{
-	Lorenz Bung \and
+	\begin{tabular}{l l}
+	Lorenz Bung &
 	\href{mailto:lorenz.bung@htwg-konstanz.de}{\texttt{lorenz.bung@htwg-konstanz.de}}\\
-	Angewandte Informatik, 4. Semester
+	&HTWG Konstanz\\
+	&Angewandte Informatik, 4. Semester
+	\end{tabular}
 }
 \date{\today}
 
@@ -95,6 +109,7 @@ habe. Weiterhin werde ich die firmeninternen Abläufe, Ziele und Methoden nennen
 \pagenumbering{arabic} % turn page numbering on now
 \setcounter{chapter}{-1}
 \chapter{Einleitung}
+\label{ch:0}
 
 Zu Beginn möchte ich kurz die Hintergründe meines Praktikums erläutern,
 z.B. den Bewerbungsprozess, die Wahl der Firma und einige Informationen zu isys
@@ -123,6 +138,7 @@ schlussendlich ein halbes Jahr hier verbracht.
 %| Kapitel 1 |
 %+-----------+
 \chapter{Web-Oberfläche für das IVS}
+\label{ch:ivs}
 
 Das erste größere Projekt war die Entwicklung einer Web-Oberfläche für ein bereits
 bestehendes, jedoch noch nicht vollständiges Bildverarbeitungssystem. Sowohl Webinterface
@@ -165,6 +181,7 @@ mithilfe von HTML, CSS und JavaScript.
 
 
 \section{Einlesen in vorhandenen Code und Redesign}
+\label{sec:ivs-einlesen}
 
 Da das Interface auf der alten, bereits vorhandenen Version aufbauen sollte, war
 das Einarbeiten in bereits vorhandenen Code notwendig. Um Änderungen vorzunehmen
@@ -173,6 +190,7 @@ vor allem abstrakte Abläufe handelte, die nicht leicht nachzuvollziehen waren.
 
 
 \subsection{Flat-Design mithilfe von CSS}
+\label{subsec:ivs-einlesen-css}
 
 Da meine bisherigen Erfahrungen mit Javascript und jQuery mittelmäßig bis wenig
 vorhanden waren, machte ich mir zunächst das grafische Redesign der Webseite zur
@@ -199,6 +217,7 @@ Modifikation des Javascript-Frameworks widmen.
 
 
 \subsection{Javascript-Framework}
+\label{subsec:ivs-einlesen-javascript}
 
 In der bereits vorhandenen Version der Webseite wurde sämtliche Funktionalität durch
 ein Javascript-Framework geregelt, welches unabhängig von Inhalt und Design steht.
@@ -216,6 +235,12 @@ durch eine Leiste (in HTML ein \texttt{<input range>}-Element). Dies sah zum ein
 deutlich besser aus und war einfacher zu bedienen, außerdem war somit der Inhalt
 (in diesem Fall die Zoom-Leiste im HTML) besser von der Funktion getrennt.
 
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{media/webinterface.png}
+	\caption{Webinterface nach dem Redesign}
+	\label{fig:ivs-webinterface}
+\end{figure}
+
 Weitere Modifikationen am Framework umfassten vor allem die Vereinfachung und Lesbarkeit
 des Codes. Die Hauptaufgabe in dieser Phase war das Verständnis, da dies die Grundlage
 für weitere Arbeit am Javascript ist.
@@ -223,6 +248,7 @@ für weitere Arbeit am Javascript ist.
 
 
 \section{Einschub: Filterfunktion für SVN-Repositories}
+\label{sec:svn}
 
 Da mein Betreuer, welcher mit mir gemeinsam für die Entwicklung des neuen IVS-Systems
 verantwortlich war, krankheitsbedingt eineinhalb Wochen fehlte, war die weitere
@@ -230,10 +256,10 @@ Arbeit an der Weboberfläche für diese Zeit leider nicht möglich. In der Zwisc
 wurde mir dafür die Verbesserung der Oberfläche des Intranets aufgetragen.
 
 Das Intranet enthält eine Liste von SVN-Repositories, die in Form eines Baumes dargestellt
-werden. Die einzelnen Einträge sind dabei in verschiedenen Ebenen enthalten.Im folgenden
-Codebeispiel (\texttt{HTML}) wird dies deutlich:
+werden. Die einzelnen Einträge sind dabei in verschiedenen Ebenen enthalten. Im
+folgenden Codebeispiel (\texttt{HTML}) wird dies deutlich:
 
-\begin{code}[language=html, caption={Beispielcode zu den SVN-Repositories im Intranet}]
+\begin{code}[language=html, caption={Beispielcode zu den SVN-Repositories im Intranet}, label={lst:svn-html-beispiel}]
 <ul class="mktree" id="mktree1">
 	<li id="1">Firma 1</li>
 		<ul>
@@ -266,7 +292,7 @@ gearbeitet und einige Funktionen geschrieben. Diese Funktionen basieren zudem au
 dem oben genannten Script (\texttt{mktree}) und bauen auf dessen Funktionalität
 auf.
 
-\begin{code}[language=javascript, caption={Filterfunktion für das Intranet}]
+\begin{code}[language=javascript, caption={Filterfunktion für das Intranet}, label={lst:svn-filter}]
 function filter() {
 	var input = document.getElementById('searchInput');
 	var filter = input.value.toLowerCase();
@@ -288,10 +314,10 @@ function filter() {
 		//Select the correct String to search in.
 		var str = li[i]
 			.textContent
-			.split(' (')[0] //remove the ( browse / ...)
+			.split(' (')[0] //Remove the ( browse / ...)
 			.toLowerCase()
 			.trim()
-			.split("    ")[0]; //split at "    "; bug fix
+			.split("    ")[0]; //Bug fix
 		if (str.indexOf(filter) > -1 || parents.length) {
 			//Item or Parent contains filter
 			li[i].style.display = ""; //Display normally
@@ -324,7 +350,7 @@ um zu suchen. Dies hat den Vorteil, dass direkt nach dem Laden der Webseite oder
 auch nach dem manuellen Ein- bzw. Ausklappen des Baumes ohne weitere Mausbetätigung
 gesucht werden kann.
 
-\begin{code}[language=javascript, caption={Funktion für Suche auf Tastendruck}]
+\begin{code}[language=javascript, caption={Funktion für Suche auf Tastendruck}, label={lst:svn-onkeypress}]
 document.onkeypress = function(event) {
 	//Variables for search field and pressed key
 	var input = document.getElementById('searchInput');
@@ -356,7 +382,7 @@ Suchanfrage verlinkt. Durch Kopieren dieses Links kann die entsprechende Suche a
 weitergeleitet werden. Erreicht wird dies durch das Aktualisieren der dabei hinterlegten
 URL nach dem Aufruf von \texttt{filter()}.
 
-\begin{code}[language=javascript, caption={Filterung beim Laden der Seite}]
+\begin{code}[language=javascript, caption={Filterung beim Laden der Seite}, label={lst:svn-ready}]
 document.ready = function() {
 	//First, let's do some ugly bug fixing for mktree (-_-)
 	setDefault("treeClass","mktree");
@@ -389,6 +415,83 @@ eingefügt.
 
 
 \section{Dokumentation des Frameworks}
+\label{sec:ivs-dokumentation}
+
+Eine weitere wichtige Aufgabe war das Dokumentieren des bereits vorhandenen Codes.
+Da der ursprüngliche Autor leider nicht mehr bei isys vision angestellt war und
+ich mich nun schon länger damit auseinander gesetzt hatte, sollte nun eine umfassende
+Dokumentation des Aufbaus erstellt werden.
+
+Dies erleichtert einerseits die Arbeit am Framework selbst (Änderungen und Updates
+beispielsweise) und bietet denjenigen, die es nur verwenden (z.B. für eine neue
+Webseite mit demselben Framework) ein einfaches, gut verständliches Interface. Weiterhin
+können komplexere Vorgänge wie die Datenübertragung anschaulich erklärt und mithilfe
+von Diagrammen verdeutlicht werden.
+
+
+\subsection{Codekommentierung mit JSDoc}
+\label{subsec:ivs-dokumentation-jsdoc}
+
+Im ersten Schritt arbeitete ich dabei nur am Quelltext selbst, den ich zuvor schon
+in lesbare Form gebracht hatte. Durch zusätzliche Kommentare an wichtigen und irreführenden
+Stellen konnte ich dabei eine erste Grundlage schaffen. Die größte Änderung war
+die Einführung einer Codedokumentation im \href{https://en.wikipedia.org/wiki/JSDoc}{JSDoc}-Format,
+ähnlich zu den bei Java eingesetzten JavaDoc-Kommentaren. Die Vorteile davon liegen
+auf der Hand: Jede Methode bzw. Funktion hat somit eine eigene Beschreibung, in
+der Funktionsweise, Parameter, Rückgabewert usw. beschrieben werden.
+
+Ein weiterer Vorteil von JSDoc ist die Möglichkeit, die Dokumentation automatisch
+zu generieren. Dies ist mit dem JSDoc-Tool von \texttt{Node.js} möglich, was nach
+der Installation einfach über den Befehl \texttt{jsdoc file.js} aufgerufen kann.
+Somit wird ein gut strukturiertes Dokument (inklusive Referenzen) automatisch erstellt.
+
+
+\subsection{Beschreibung der API}
+\label{subsec:ivs-dokumentation-beschreibung}
+
+Nachdem der Quellcode selbst dokumentiert war, konnte ich mich nun mit den internen
+Abläufen des Frameworks beschäftigen und diese anhand von Grafiken anschaulich machen.
+In diesem Fall ging es vor allem um die Daten- und Befehlsübertragung vom IVS zum
+Webinterface und umgekehrt.
+
+Die Übertragung der Daten erfolgt hierbei über eine \texttt{XMLHttpRequest}, bzw.
+(bei älteren Browsern) über ein \texttt{ActiveXObject}. Die Befehlscodes sind dabei
+im HTML-Code der betreffenden Buttons gespeichert:
+
+\begin{code}[language=html, caption={Ins HTML eingebettete Befehle für das IVS}, label={lst:ivs-html-befehle}]
+<input type="text" size="6" maxlength="6" name="lms/SheetF.MinQuality">
+<button name="lms/Cmd" value="10">Ausrichtung</button>
+<button name="lms/Cmd" value="20">
+	<ul>
+		<li>LmsScb/Mot.RefOk</li>
+		<li>Referenzfahrt</li>
+	</ul>
+</button>
+\end{code}
+
+In Zeile 1 wird beispielsweise das Register \texttt{lms/SheetF.MinQuality} geschrieben
+und auf einen sechsstelligen Wert gesetzt, der vom Nutzer eingegeben wird.\\
+In Zeile 2 befindet sich ein einfacher Befehlsbutton, der den Wert \texttt{10} ins
+Register \texttt{lms/Cmd} schreibt (beim IVS ist dies der Code für eine Ausrichtung).\\
+In den Zeilen 3 - 8 findet sich nun ein Knopf mit Status, der
+\begin{itemize}
+	\item den Wert \texttt{20} ins Register \texttt{lms/Cmd} schreibt und somit eine
+	Referenzfahrt auslöst
+	\item innerhalb der unsortierten Liste (Zeile 5) den Wert \texttt{LmsScb/Mot.RefOk}
+	liest (Status der Referenzfahrt).
+\end{itemize}
+Die Liste (\texttt{<ul>}) dient dabei ausschließlich der Darstellung und hat keine
+Auswirkung auf die Funktion; die Listenelemente werden innerhalb des Buttons entsprechend
+formatiert. Weiterhin wird je nachdem, was im gelesenen Register \texttt{LmsScb/Mot.RefOk}
+steht, ein entsprechendes Label gesetzt (grün falls Referenzfahrt OK, rot falls
+nicht).
+
+Im Javascript-Framework wird nun ein Event-Listener für alle Buttons und Eingabefelder
+erstellt, der dann die entsprechenden Befehle erkennt. Diese werden in Form einer
+URL in einer Liste gespeichert, welche dann mithilfe der bereits genannten \texttt{XMLHttpRequest}
+bzw. des \texttt{ActiveXObject}s ans IVS gesendet werden. Die Antwort des IVS wird
+dann entsprechend weiterverarbeitet und beispielsweise in Form eines Kamerabildes
+direkt ausgegeben.
 
 
 
@@ -397,6 +500,7 @@ eingefügt.
 %| Kapitel 2 |
 %+-----------+
 \chapter{Integration von Jira und Confluence}
+\label{ch:jira}
 
 Das nächste größere Projekt war die Integration der Atlassian-Produkte \textit{Jira}
 und \textit{Confluence} in den Firmenalltag. Diese beiden Programme sind für das
@@ -423,6 +527,7 @@ Problem behoben und die Speicherung der Daten konsistent werden.
 
 
 \section{Einrichtung der Datenbank}
+\label{sec:jira-einrichtung-datenbank}
 
 Jira und Confluence sind beides Tools, die über einen Server laufen und dann über
 den Webbrowser der Endgeräte aufgerufen werden können. Dies sichert zum einen die
@@ -458,7 +563,7 @@ erstellten, den ich somit direkt mitverwenden konnte. Ich hatte nun also drei Zu
 Mit einigen einfachen SQL-Befehlen waren die notwendigen Datenbanken dann auch schnell
 erstellt:
 
-\begin{code}[language=SQL, caption={SQL-Befehle zur Erstellung der Datenbanken}]
+\begin{code}[language=SQL, caption={SQL-Befehle zur Erstellung der Datenbanken}, label={lst:jira-database}]
 CREATE DATABASE confluencedb WITH ENCODING 'UNICODE';
 GRANT ALL PRIVILEGES ON DATABASE confluencedb TO confluence;
 
@@ -479,6 +584,7 @@ beginnen.
 
 
 \section{Konfiguration und Anpassung}
+\label{sec:jira-konfiguration}
 
 Nun, da die zugrundeliegende Datenbank eingerichtet und die Systemservices gestartet
 waren, konnte ich mich mit der Konfiguration von Jira und Confluence auseinandersetzen.
