@@ -587,20 +587,67 @@ bzw. \texttt{localhost}.
 
 Die Installation von Jira und Confluence erfolgte dann einfach über die Ausführung
 eines Shell-Skriptes und die Eingabe einer Lizenz. Somit war die Einrichtung der
-Systeme vollständig und ich konnte mit der Konfiguration und Anpassung an die Firma
-beginnen.
+Systeme vollständig und ich konnte einige Einstellungen vornehmen, z.B. Anpassungen
+im Design der Seiten, sodass die Oberfläche den Farben der Firma entsprach
+(\textcolor[HTML]{006833}{Grün [\texttt{\#006833}]} und \textcolor[HTML]{9B2536}{Rot [\texttt{\#9B2536}]}).
 
 
 
-\section{Konfiguration und Anpassung}
-\label{sec:jira-konfiguration}
+\section{Einrichtung des Intranetservers}
+\label{sec:jira-server}
 
-Nun, da die zugrundeliegende Datenbank eingerichtet und die Systemservices gestartet
-waren, konnte ich mich mit der Konfiguration von Jira und Confluence auseinandersetzen.
+Nun, da Jira und Confluence online und konfiguriert waren, setzte ih mich mit der
+Einrichtung eines Servers auseinander, welcher im Intranet betrieben werden und
+die beiden Webtools hosten sollte.
 
-Zunächst machte ich dabei Anpassungen im Design der Seiten, sodass die Oberfläche
-den Farben der Firma entsprach (\textcolor[HTML]{006833}{Grün [\texttt{\#006833}]}
-und \textcolor[HTML]{9B2536}{Rot [\texttt{\#9B2536}]}).
+Im ersten Schritt machte ich den dafür zur Verfügung gestellten Rechner nutzbar,
+indem ich eine frische Linux-Installation vornahm. Auf dieser Basis konnte ich nun
+mit \href{https://wiki.ubuntuusers.de/VirtualBox/Installation/#VirtualBox-OSE-Open-Source-Edition}{\texttt{VirtualBox}}
+eine virtuelle Maschine einrichten; auch darauf lief ein Linux-Betriebssystem. Die
+Nutzung einer virtuellen Maschine hatte hierbei mehrere Vorteile:
+\begin{enumerate}
+	\item \textbf{Flexibilität}:
+	Durch das Speichern in einem \textbf{Disk Image} ist der Ort des Servers
+	sehr leicht austauschbar. Durch Verschieben des Images sind sämtliche Daten des
+	Servers übernommen, was die Wartung stark vereinfacht.
+	\item \textbf{Sicherheit}:
+	Da die Daten in einem einzigen Image liegen, welches auf der Festplatte des
+	Wirtrechners gespeichert wird, ist die Datensicherung bzw. Erstellung von Backups
+	besonders komfortabel. Mithilfe eines RAID-Systems wird in diesem Fall die Datensicherheit
+	gewährleistet und Backups erstellt.
+	\item \textbf{Vielseitigkeit}:
+	Der Server läuft in einer virtuellen Maschine, welche auf die Ressourcen
+	des Wirtrechners zugreift. Durch das Einrichten einer weiteren virtuellen Maschine
+	kann dessen Rechenleistung und Speicherkapazität optimal ausgenutzt werden und
+	die Maschine somit auch für andere Zwecke verwendet werden.
+\end{enumerate}
+
+Nach erneuter Einrichtung der in Kapitel \ref{sec:jira-einrichtung-datenbank} beschriebenen
+Datenbank und der Anbindung an Jira/Confluence musste ich mich nun noch mit der
+Netzwerkverbindung auseinandersetzen. Die zugeordnete IP-Adresse sollte dabei
+\texttt{10.0.0.14} sein; Jira und Confluence jeweils unter den Standardports
+\texttt{8080} bzw. \texttt{8090} erreichbar sein.
+
+Als Erstes musste die virtuelle Maschine über eine Netzwerkbrücke auf das lokale
+Netzwerk zugreifen können. Dies war schnell eingestellt; eine einfache Änderung
+im VirtualBox-Interface genügte dafür. Mithilfe der Netzwerkbrücke wird hier das
+lokale Netzwerk (isys vision Intranet) mit dem von der virtuellen Maschine erstellten
+Netzwerk verbunden, sodass diese die gehosteten Services auf die Webports anlegen
+kann.
+
+Im nächsten Schritt braucht die virtuelle Maschine eine feste (statische) IP-Adresse.
+In diesem Fall sollte dies die \texttt{10.0.0.14} sein. Um diese zuzuweisen, kann
+unter Linux die Datei \texttt{/etc/network/interfaces} bearbeitet werden:
+\begin{code}[language=bash, caption={Änderungen in \texttt{/etc/network/interfaces}}]
+auto enp0s3 #Name der Netzwerkbrücke
+iface enp0s3 inet static #IP auf Statisch ändern
+#Setzen von Verbindungsinformationen
+netmask 255.255.0.0
+gateway 10.0.0.10
+network 10.0.0.0
+broadcast 10.0.0.255
+dns-nameservers 10.0.0.10
+\end{code}
 
 
 
