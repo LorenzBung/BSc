@@ -648,6 +648,11 @@ network 10.0.0.0
 broadcast 10.0.0.255
 dns-nameservers 10.0.0.10
 \end{code}
+Mithilfe dieser Änderungen wird dem Rechner eine statische Adresse zugewiesen. Dies
+ist hier notwendig, da der Rechner sonst bei jedem Start vom Router eine neue, variable
+Adresse zugewiesen bekommt. Damit der Server also immer mit der selben Adresse erreichbar
+ist, muss die IP fest sein. Später lässt sich auch eine DNS zuweisen, beispielsweise
+\texttt{intranet.isys-vision.de/jira}.
 
 
 
