@@ -118,9 +118,9 @@ Zu Beginn möchte ich kurz die Hintergründe meines Praktikums erläutern,
 z.B. den Bewerbungsprozess, die Wahl der Firma und einige Informationen zu isys
 vision.
 
-Isys vision ist ein Softwarehersteller, der sich mit grafischen Lösungen auseinandersetzt.
+isys vision\footnote{\url{http://www.isys-vision.de}} ist ein Softwarehersteller, der sich mit grafischen Lösungen auseinandersetzt.
 Die Bildverarbeitung steht hierbei im Vordergrund und wird durch die von isys produzierte
-Software durchgeführt. Die im selben Gebäude gelegene Tochterfirma Ensenso stellt
+Software durchgeführt. Die im selben Gebäude gelegene Tochterfirma Ensenso\footnote{\url{http://www.ensenso.com}} stellt
 Hardwarekomponenten her, welche dann in Kombination mit der Software von isys vision
 als Gesamtpaket an Endkunden, aber auch Großabnehmer verkauft wird. Dies umfasst
 hauptsächlich Komponenten wie Kameras und Beleuchtungsbauteile sowie Verbindungskabel
@@ -514,8 +514,8 @@ direkt ausgegeben.
 \chapter{Integration von Jira und Confluence}
 \label{ch:jira}
 
-Das nächste größere Projekt war die Integration der Atlassian-Produkte \textit{Jira}
-und \textit{Confluence} in den Firmenalltag. Diese beiden Programme sind für das
+Das nächste größere Projekt war die Integration der Atlassian-Produkte \textit{Jira}\footnote{\url{https://de.wikipedia.org/wiki/Jira_(Software)}}
+und \textit{Confluence}\footnote{\url{https://de.wikipedia.org/wiki/Confluence_(Atlassian)}} in den Firmenalltag. Diese beiden Programme sind für das
 Production Management gedacht und haben das Ziel, einen durchgängigen, geplanten
 und leicht nachvollziehbaren Arbeitsfluss zu erreichen.
 
@@ -562,7 +562,7 @@ Um den Linux-Server von isys zu simulieren und die Datenbank entsprechend einzur
 habe ich eine virtuelle Maschine mit einer Ubuntu-Installation verwendet. Nach der
 Einrichtung des Systems konnte ich mit der Konfiguration des Datenbankservers beginnen.
 Nach einiger Verwirrung und etwas Recherche stellte sich heraus, dass für das Erstellen
-einer Tabelle in PostgreSQL ein Linux-Nutzername angegeben werden muss. Dies war
+einer Tabelle in PostgreSQL\footnote{\url{https://de.wikipedia.org/wiki/PostgreSQL}} ein Linux-Nutzername angegeben werden muss. Dies war
 praktisch, da die Jira- und Confluence-Systemdienste sowieso einen eigenen Account
 erstellten, den ich somit direkt mitverwenden konnte. Ich hatte nun also drei Zugänge:
 
@@ -599,7 +599,7 @@ im Design der Seiten, sodass die Oberfläche den Farben der Firma entsprach
 \section{Einrichtung des Intranetservers}
 \label{sec:jira-server}
 
-Nun, da Jira und Confluence online und konfiguriert waren, setzte ih mich mit der
+Nun, da Jira und Confluence online und konfiguriert waren, setzte ich mich mit der
 Einrichtung eines Servers auseinander, welcher im Intranet betrieben werden und
 die beiden Webtools hosten sollte.
 
@@ -610,7 +610,7 @@ eine virtuelle Maschine einrichten; auch darauf lief ein Linux-Betriebssystem. D
 Nutzung einer virtuellen Maschine hatte hierbei mehrere Vorteile:
 \begin{enumerate}
 	\item \textbf{Flexibilität}:
-	Durch das Speichern in einem \textbf{Disk Image} ist der Ort des Servers
+	Durch das Speichern in einem \textbf{Disk Image}\footnote{\url{https://de.wikipedia.org/wiki/Speicherabbild}} ist der Ort des Servers
 	sehr leicht austauschbar. Durch Verschieben des Images sind sämtliche Daten des
 	Servers übernommen, was die Wartung stark vereinfacht.
 	\item \textbf{Sicherheit}:
@@ -669,6 +669,14 @@ Roboter dazu eingesetzt, zufällig in einer Kiste liegende Teile mithilfe einer 
 zu erkennen, zu greifen und in eine andere Position zu bringen. Die Herausforderung
 liegt hierbei beim Leeren der Kiste, d.h. alle sich darin befindlichen Teile gleichgültig
 ihrer Position greifen zu können.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.75\textwidth]{media/mikado-roboter.jpg}
+		\caption{Mikado-Roboter von Mitsubishi}
+		\label{fig:mikado-roboter}
+	\end{center}
+\end{figure}
 
 
 
@@ -876,6 +884,13 @@ ich für \texttt{button:hover} einen anderen Stil festgelegt als für einen norm
 Button, und zwar ein größeres Icon und weniger Durchsichtigkeit. Beim Übergang zu
 \texttt{button:active} wird das Icon jedoch wieder klein, was einen ``Klick''-Effekt
 zur Folge hat.
+
+
+\subsection{Befehls- und Logübertragung mithilfe von AJAX}
+
+
+
+\section{Web-Preview zur Darstellung von Punktwolken}
 
 
 
