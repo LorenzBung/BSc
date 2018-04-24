@@ -886,7 +886,95 @@ Button, und zwar ein größeres Icon und weniger Durchsichtigkeit. Beim Übergan
 zur Folge hat.
 
 
-\subsection{Befehls- und Logübertragung mithilfe von AJAX}
+\subsection{Befehls- und Logübertragung mithilfe von RosJS}
+
+Auf dem Hostrechner des Roboters läuft zur Kontrolle von diesem eine Python-Bibliothek
+namens ROS (Roboter Operating System). Sie bietet viele Funktionalitäten, beispielsweise
+zum Steuern der einzelnen Gelenkwinkel durch Python.
+
+Weiterhin werden Services zur Ausführung von einzelnen Aufgaben bereitgestellt.
+Der Service \texttt{/reset} setzt beispielsweise den aktuellen Programmablauf
+zurück und kann mit \texttt{rosservice call /reset} aufgerufen werden. Es sind
+außerdem die Services \texttt{/run} und \texttt{/pause} vorhanden, welche die für
+mich notwendige Funktionalität beinhalten. Die beiden letzteren werden mit Parametern
+aufgerufen: \texttt{rosservice call /run ``step: false blocking:false''}, bzw.
+\texttt{rosservice call /pause ``blocking: false''}.
+
+Der Parameter \texttt{blocking} ist dabei in meinem Fall irrelevant; umso interessanter
+ist jedoch das Argument \texttt{step}: Ist es auf \texttt{false} gesetzt, läuft
+das Programm beim Aufruf normal durch. Sobald der Service jedoch mit \texttt{step: true}
+aufgerufen wird, wird nur ein Schritt im Programmablauf durchgeführt.
+
+Zur Anbindung an das von mir entwickelte Webinterface habe ich nun die Bibliothek
+RoslibJS verwendet, welche als Kommunikationsmodul für ROS fungiert. Hiermit können
+entsprechende Aufrufe im Javascript festgelegt werden, um diese anschließend an
+den Hostrechner zu senden und somit den zugehörigen Service zu starten.
+
+Meinen \texttt{<button>}-Elementen hatte ich jeweils die zugehörige Funktion im
+Argument \texttt{onclick} zugeordnet (Beispiel: \texttt{<button onclick=''pause()''>Pause</button>}).
+Im zugehörigen Javascript sind nun einmal die generelle Einrichtung von RoslibJS
+(wie z.B. Verbindungsinformationen etc.) und für jeden Button die zugehörige Funktion
+vorhanden.
+
+\begin{code}[language=javascript, caption={Serviceaufruf durch RoslibJS}]
+var ros = new ROSLIB.Ros();
+ros.on('error', function(error) {/* Log weggelassen */});
+ros.on('connection', function() {});
+ros.on('close', function(){});
+ros.connect('ws://10.0.4.136:8080');
+/* Irrelevante Funktionen weggelassen */
+function start() {
+	var rosStart = new ROSLIB.Service({
+		ros: ros,
+		name: '/run',
+		messageType: 'mikado_msgs/Run',
+	});
+	var rosStartRequest = new ROSLIB.ServiceRequest({
+		step: false,
+		blocking: false,
+	});
+	rosStart.callService(rosStartRequest);
+}
+/* Funktionsrumpf weggelassen */
+function step() {};
+function pause() {};
+function reset() {};
+/* Funktion zum Anhängen von Logs an das Logfenster. */
+function addLog(messageText) {
+	$('.log-window ul').append('<li>' + messageText + '</li>');
+}
+\end{code}
+
+Zunächst wird in den ersten 5 Zeilen die Verbindung zum ROS hergestellt. In den
+anschließend folgenden Funktionen wird zunächst ein neuer Service für die aktuelle
+Routine erstellt (Zeilen 8 - 12), welcher dann mit einer Anfrage (Zeilen 13 - 16)
+gestartet wird (Zeile 17). Der Service selbst enthält hierbei Informationen über
+den aufgerufenen Befehl (in diesem Fall \texttt{/run}), während die Anfrage Informationen
+über die Parameter enthält (hier die Argumente \texttt{step} und \texttt{blocking}).
+
+Die Funktion \texttt{addLog(messageText)} in Zeile 24 bietet ein Interface, um neue
+Lognachrichten ans Logfenster anzuhängen. Dazu wird der Logtext einfach als Listeneintrag
+zur bestehenden Liste hinzugefügt.
+
+
+\subsection{Webhosting und Netzwerk}
+
+Nachdem das Interface nun eigentlich die gewünschte Funktionalität besitzt, muss
+es noch erreichbar gemacht werden. Dazu wird ein HTTP-Server verwendet, welcher
+die Webseite hostet. Mit der Python-Bibliothek \texttt{flask} ist dies recht einfach
+zu realisieren:
+
+\begin{code}[language=python, caption={Python-Skript zum Hosten des Webservers}]
+import rospy
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route('/')
+def render_static():
+    return render_template('index.html')
+if __name__ == '__main__':
+    app.run()
+\end{code}
 
 
 
