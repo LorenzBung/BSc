@@ -110,13 +110,12 @@ habe. Weiterhin werde ich die firmeninternen Abläufe, Ziele und Methoden nennen
 %| Einleitung |
 %+------------+
 \pagenumbering{arabic} % turn page numbering on now
-\setcounter{chapter}{-1}
+\setcounter{chapter}{-1} % Makes numbering start at 0, so ``real'' chapters start at 1.
 \chapter{Einleitung}
 \label{ch:0}
 
 Zu Beginn möchte ich kurz die Hintergründe meines Praktikums erläutern,
-z.B. den Bewerbungsprozess, die Wahl der Firma und einige Informationen zu isys
-vision.
+z.B. einige Informationen zu isys vision, die Wahl der Firma und den Bewerbungsprozess.
 
 isys vision\footnote{\url{http://www.isys-vision.de}} ist ein Softwarehersteller, der sich mit grafischen Lösungen auseinandersetzt.
 Die Bildverarbeitung steht hierbei im Vordergrund und wird durch die von isys produzierte
@@ -885,6 +884,29 @@ Button, und zwar ein größeres Icon und weniger Durchsichtigkeit. Beim Übergan
 \texttt{button:active} wird das Icon jedoch wieder klein, was einen ``Klick''-Effekt
 zur Folge hat.
 
+\begin{figure}[H]
+	\begin{center}
+		\begin{minipage}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{media/webremote-logs.png}
+			\caption{Logfenster}
+			\label{fig:webremote-logfenster}
+		\end{minipage}
+		\begin{minipage}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{media/webremote-kontrolle.png}
+			\caption{Kontrolle}
+			\label{fig:webremote-kontrolle}
+		\end{minipage}
+		\begin{minipage}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{media/webremote-info.png}
+			\caption{Info / Menü}
+			\label{fig:webremote-info}
+		\end{minipage}
+	\end{center}
+\end{figure}
+
 
 \subsection{Befehls- und Logübertragung mithilfe von RosJS}
 
@@ -897,12 +919,12 @@ Der Service \texttt{/reset} setzt beispielsweise den aktuellen Programmablauf
 zurück und kann mit \texttt{rosservice call /reset} aufgerufen werden. Es sind
 außerdem die Services \texttt{/run} und \texttt{/pause} vorhanden, welche die für
 mich notwendige Funktionalität beinhalten. Die beiden letzteren werden mit Parametern
-aufgerufen: \texttt{rosservice call /run ``step: false blocking:false''}, bzw.
-\texttt{rosservice call /pause ``blocking: false''}.
+aufgerufen: \texttt{rosservice call /run ``step:false blocking:false''}, bzw.
+\texttt{rosservice call /pause ``blocking:false''}.
 
 Der Parameter \texttt{blocking} ist dabei in meinem Fall irrelevant; umso interessanter
 ist jedoch das Argument \texttt{step}: Ist es auf \texttt{false} gesetzt, läuft
-das Programm beim Aufruf normal durch. Sobald der Service jedoch mit \texttt{step: true}
+das Programm beim Aufruf normal durch. Sobald der Service jedoch mit \texttt{step:true}
 aufgerufen wird, wird nur ein Schritt im Programmablauf durchgeführt.
 
 Zur Anbindung an das von mir entwickelte Webinterface habe ich nun die Bibliothek
@@ -975,6 +997,11 @@ def render_static():
 if __name__ == '__main__':
     app.run()
 \end{code}
+
+Nun lässt sich unter der IP-Adresse des Rechners (lokal \texttt{127.0.0.1}) die
+gehostete Webseite aufrufen. Über ein WLAN-Netzwerk lässt sich nun eine Verbindung
+zu mobilen Endgeräten aufbauen, welche dann auf das Webinterface zugreifen und somit
+den Roboter kontrollieren können.
 
 
 
