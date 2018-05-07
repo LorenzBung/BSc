@@ -20,6 +20,7 @@ ihrer Position greifen zu können.
 
 
 \section{Demoablauf für Messen}
+\label{sec:webtools-demo}
 
 Zum Kennenlernen der Programmschnittstelle und des Roboters sollte ich zunächst
 mit dem von isys geschriebenen Programm einen Demoablauf aufbauen, welcher für
@@ -51,7 +52,7 @@ Vor- bzw. Nachteile mit sich bringt:
 	\hline
 	\end{tabular}
 	\caption{Vor- bzw. Nachteile einer höheren vs. niedrigeren Mindestqualität}
-	\label{mikado-demo-mindestqualität}
+	\label{tab:webtools-demo-mindestqualität}
 \end{table}
 
 Die Bewegungen des Robotors lassen sich entweder über die Winkel der einzelnen Gelenke
@@ -84,6 +85,7 @@ in die Kiste gelegt werden, wie am Ende auch für den Schriftzug benötigt werde
 
 
 \section{Web-Remote für die Mikado-Software}
+\label{sec:webtools-remote}
 
 Für die Demonstration bei Messen oder bei ähnlichen Veranstaltungen sollte nun von
 mir ein Webinterface erstellt werden, was als Fernzugriff für die Mikadosoftware
@@ -95,6 +97,7 @@ ist, was Eingriffe in den Ablauf stark erschwert.
 
 
 \subsection{Design der neuen Webseite}
+\label{subsec:webtools-remote-design}
 
 Nachdem ich im \ref{ch:ivs}. Projekt bereits mit Javascript, CSS und HTML in Berührung
 gekommen war, konnte ich nun eine völlig neue Webseite basierend auf meinen erlangten
@@ -103,6 +106,7 @@ um Inhalt und Design der neuen Seite und fügte anschließend die Funktionalitä
 Javascript und jQuery hinzu.
 
 \subsubsection{Struktur mit HTML}
+\label{subsubsec:webtools-remote-design-html}
 
 Zunächst gliederte ich die neue Webseite mithilfe der zugehörigen HTML-Tags in sinnvolle
 Abschnitte. Mit \texttt{<nav>}, \texttt{<main>} und \texttt{<footer>} sowie geschachtelten
@@ -149,6 +153,7 @@ Wie man sieht, bestehen die Kontrollbuttons aus einem Funktionsaufruf (den ich e
 später implementiert habe) und einer SVG-Grafik\footnote{\url{https://de.wikipedia.org/wiki/Scalable\_Vector\_Graphics}}.
 
 \subsubsection{Erstellen von SVG-Grafiken}
+\label{subsubsec:webtools-remote-design-svg}
 
 SVG-Grafiken haben den großen Vorteil, dass sie vom Browser gerendert werden. Dadurch
 ist einerseits keine große Bilddatei notwendig, was (insbesondere auf mobilen Endgeräten)
@@ -188,6 +193,7 @@ Anschließend werden zwei Linien gezeichnet, jeweils mit der Farbe Schwarz, der 
 $Q(18|41)$.
 
 \subsubsection{Stilregeln durch CSS}
+\label{subsubsec:webtools-remote-design-css}
 
 Im nächsten Schritt ging es um das Design mithilfe von CSS. Die vorhergehend definierten
 Inhalte konnte ich nun schöner Darstellen, indem ich Stilregeln für bestimmte Elemente
@@ -230,25 +236,26 @@ zur Folge hat.
 			\centering
 			\includegraphics[width=\textwidth]{media/webremote-logs.png}
 			\caption{Logfenster}
-			\label{fig:webremote-logfenster}
+			\label{fig:webtools-remote-design-logfenster}
 		\end{minipage}
 		\begin{minipage}{0.3\textwidth}
 			\centering
 			\includegraphics[width=\textwidth]{media/webremote-kontrolle.png}
 			\caption{Kontrolle}
-			\label{fig:webremote-kontrolle}
+			\label{fig:webtools-remote-design-kontrolle}
 		\end{minipage}
 		\begin{minipage}{0.3\textwidth}
 			\centering
 			\includegraphics[width=\textwidth]{media/webremote-info.png}
 			\caption{Info / Menü}
-			\label{fig:webremote-info}
+			\label{fig:webtools-remote-design-info}
 		\end{minipage}
 	\end{center}
 \end{figure}
 
 
 \subsection{Befehls- und Logübertragung mithilfe von RosJS}
+\label{subsec:webtools-remote-rosjs}
 
 Auf dem Hostrechner des Roboters läuft zur Kontrolle von diesem eine Python-Bibliothek
 namens ROS (Roboter Operating System). Sie bietet viele Funktionalitäten, beispielsweise
@@ -320,6 +327,7 @@ zur bestehenden Liste hinzugefügt.
 
 
 \subsection{Webhosting und Netzwerk}
+\label{subsec:webtools-remote-netzwerk}
 
 Nachdem das Interface nun eigentlich die gewünschte Funktionalität besitzt, muss
 es noch erreichbar gemacht werden. Dazu wird ein HTTP-Server verwendet, welcher
@@ -346,5 +354,31 @@ den Roboter kontrollieren können.
 
 
 \section{Web-Preview zur Darstellung von Punktwolken}
+\label{sec:webtools-preview}
+
+Zur Objekterkennung beim Mikado-Roboter wird von diesem mithilfe der 3D-Kamera eine
+sogenannte Punktewolke aufgenommen - eine Ansammlung von Punkten, welche jeweils
+mit ihren Koordinaten abgespeichert werden. Somit wird eine Art ``3D-Gitter'' erzeugt,
+welches dann mit dem vogegebenen Modell verglichen werden kann.
+
+Zur Veranschaulichung sollten diese Punktewolken nun mithilfe von Javascript in
+einer einfachen Seite visualisiert werden. Die Nutzung eines Javascript-Frameworks
+ist hierbei sehr sinnvoll und komfortabel, da
+
+\begin{enumerate}
+	\item nur eine einzige Datei erstellt werden muss, welche dann z.B. per E-Mail
+	versendet werden kann
+	\item durch die Darstellung im Browser nahezu jedes Endgerät die Möglichkeit hat,
+	die generierte Datei darzustellen.
+\end{enumerate}
 
 
+\subsection{Rendering mit \texttt{THREE.js}}
+\label{subsec:webtools-preview-rendering}
+
+Zur Darstellung der Punktewolke habe ich \texttt{THREE.js}\footnote{\url{https://threejs.org/}}
+verwendet. Dabei handelt es sich um ein Framework, welches auf OpenGL bzw. WebGL
+basiert und Funktionalitäten zum Rendering von Objekten bereitstellt.
+
+Zunächst muss dafür ein HTML-Grundgerüst aufgebaut werden, welches THREE einbindet
+und als Darstellungsfläche verwendet wird. 
