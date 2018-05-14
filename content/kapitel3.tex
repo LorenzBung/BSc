@@ -381,4 +381,74 @@ verwendet. Dabei handelt es sich um ein Framework, welches auf OpenGL bzw. WebGL
 basiert und Funktionalitäten zum Rendering von Objekten bereitstellt.
 
 Zunächst muss dafür ein HTML-Grundgerüst aufgebaut werden, welches THREE einbindet
-und als Darstellungsfläche verwendet wird. 
+und als Darstellungsfläche verwendet wird.
+
+\begin{code}[language=html, caption={HTML-Gerüst für die WebPreview}]
+<html>
+	<head>
+		<title>Mikado WebPreview</title>
+		<script src=''three.min.js''></script>
+	</head>
+	<body>
+		<!--Titel, Leiste, ...-->
+	</body>
+</html>
+\end{code}
+
+Nachdem dies geschehen ist, kann der Renderer nun initialisiert werden. Das Framework
+enthält dabei viele Methoden und Objekte, welche nun entsprechend deklariert und
+genutzt werden können. Da es sich um viele kleine Konfigurationsschritte handelt,
+ist folgendes Listing gekürzt.
+
+\begin{code}[language=javascript, caption={Initialisierung von \texttt{THREE.js}}]
+function load() {
+	window.addEventListener('keypress', keypress);
+	scene.background = new THREE.Color(0x444444);
+	camera.position.x = 0.44;
+	renderer.setSize(window.innerWidth * 0.75, window.innerHeight * 0.75);
+	loader.load('cloud.pcd', function(mesh) {
+			mesh.material.color.set(0x9b2436); //isys color
+			scene.add(mesh);
+			controls.update();
+	});
+}
+function animate() {
+	requestAnimationFrame(animate);
+	renderer.render(scene, camera);
+	controls.update();
+}
+/* Handles keyboard input */
+function keypress(ev) {
+	var pointCloud = scene.getObjectByName('cloud.pcd');
+	switch (ev.key || String.fromCharCode(ev.keyCode || ev.charCode)) {
+		case '+':
+			pointCloud.material.size *= 1.2;
+			pointCloud.material.needsUpdate = true;
+			break;
+		case '-':
+			pointCloud.material.size /= 1.2;
+			pointCloud.material.needsUpdate = true;
+			break;
+	}
+}
+\end{code}
+
+Die Funktion \texttt{load()} wird nun beim Laden der Seite aufgerufen und erstellt
+einen Renderer, eine Szene (in der das Bild dargestellt wird) und lädt die Punktwolke
+(Zeile 6). Weiterhin wird beispielsweise die Farbe des Materials festgelegt und
+das Lesen der Tastatur gestartet (Zeile 9).
+
+Die Funktion \texttt{animate()} ist nun eine einfache Update-Funktion, welche das
+angezeigte Bild aktualisiert und mit jedem Frame aufgerufen wird. Auch hier wird
+die Tastatureingabe gelesen bzw. auf einen relevanten Tastendruck gewartet.
+
+In der Funktion \texttt{keypress()} wird nun die Tastatureingabe ausgewertet: Beim
+Druck der Taste `+' wird die Größe der Punkte vergrößert, beim Druck der Taste `-'
+dementsprechend verkleinert.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{media/webpreview.png}
+	\caption{Rendering einer Beispielpunktwolke}
+	\label{fig:webtools-preview-rendering}
+\end{figure}
