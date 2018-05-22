@@ -95,6 +95,7 @@ indem ich eine frische Linux-Installation vornahm. Auf dieser Basis konnte ich n
 mit \texttt{VirtualBox}\footnote{\url{https://wiki.ubuntuusers.de/VirtualBox/Installation/\#VirtualBox-OSE-Open-Source-Edition}}
 eine virtuelle Maschine einrichten; auch darauf lief ein Linux-Betriebssystem. Die
 Nutzung einer virtuellen Maschine hatte hierbei mehrere Vorteile:
+
 \begin{enumerate}
 	\item \textbf{Flexibilität}:
 	Durch das Speichern in einem \textbf{Disk Image}\footnote{\url{https://de.wikipedia.org/wiki/Speicherabbild}} ist der Ort des Servers
@@ -128,6 +129,7 @@ kann.
 Im nächsten Schritt braucht die virtuelle Maschine eine feste (statische) IP-Adresse.
 In diesem Fall sollte dies die \texttt{10.0.0.14} sein. Um diese zuzuweisen, kann
 unter Linux die Datei \texttt{/etc/network/interfaces} bearbeitet werden:
+
 \begin{code}[language=bash, caption={Änderungen in \texttt{/etc/network/interfaces}}]
 auto enp0s3 #Name der Netzwerkbrücke
 iface enp0s3 inet static #IP auf Statisch ändern
@@ -138,6 +140,7 @@ network 10.0.0.0
 broadcast 10.0.0.255
 dns-nameservers 10.0.0.10
 \end{code}
+
 Mithilfe dieser Änderungen wird dem Rechner eine statische Adresse zugewiesen. Dies
 ist hier notwendig, da der Rechner sonst bei jedem Start vom Router eine neue, variable
 Adresse zugewiesen bekommt. Damit der Server also immer mit der selben Adresse erreichbar
@@ -145,3 +148,16 @@ ist, muss die IP fest sein. Später lässt sich auch eine DNS zuweisen, beispiel
 \texttt{intranet.isys-vision.de/jira}.
 
 
+
+\section{Ausfallsicherheit über ein RAID-System}
+\label{sec:jira-raid}
+
+Um die Stabilität des Servers im Intranets zu gewährleisten, sollte das System durch
+ein RAID-5\footnote{\url{https://de.wikipedia.org/wiki/RAID\#RAID\_5}} abgesichert
+werden. Ein RAID-5 besteht aus mindestens 3 unabhängigen Festplatten, welche dieselben
+Daten redundant abspeichern. Beim Ausfall einer der Platten wird somit sichergestellt,
+dass die Daten weiterhin verfügbar (und auch weiterhin nutzbar) bleiben.
+
+Da Hardware-RAIDs oft sehr teuer sind, habe ich auf ein Software-RAID zurückgegriffen.
+Hierbei wird die Redundanz der Daten durch Software erreicht, welche das Plattenmanagement
+übernimmt.

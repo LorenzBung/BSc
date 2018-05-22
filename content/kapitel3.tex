@@ -309,8 +309,31 @@ function step() {};
 function pause() {};
 function reset() {};
 /* Funktion zum Anhängen von Logs an das Logfenster. */
-function addLog(messageText) {
-	$('.log-window ul').append('<li>' + messageText + '</li>');
+function initLog() {
+	var rosLog = new ROSLIB.Topic({
+		ros: ros,
+		name: '/rosout',
+		messageType: 'rosgraph_msgs/Log',
+	});
+	rosLog.subscribe(function(message) {
+		var log = '<li class="';
+		switch (message.level) {
+			case 1:
+				log += "debug";
+				break;
+			case 2:
+				log += "info";
+				break;
+			case 4:
+				log += "warn";
+				break;
+			case 3:
+				log += "error";
+				break;
+		}
+		log += '">' + message.msg + '</li>';
+		addLog(log);
+	});
 }
 \end{code}
 
@@ -321,9 +344,14 @@ gestartet wird (Zeile 17). Der Service selbst enthält hierbei Informationen üb
 den aufgerufenen Befehl (in diesem Fall \texttt{/run}), während die Anfrage Informationen
 über die Parameter enthält (hier die Argumente \texttt{step} und \texttt{blocking}).
 
-Die Funktion \texttt{addLog(messageText)} in Zeile 24 bietet ein Interface, um neue
-Lognachrichten ans Logfenster anzuhängen. Dazu wird der Logtext einfach als Listeneintrag
-zur bestehenden Liste hinzugefügt.
+In der Funktion \texttt{initLog()} in Zeile 24 wird eine Verbindung zum ROS hergestellt,
+um neue Lognachrichten ans Logfenster anzuhängen. Zunächst wird dafür ein sogenanntes
+``Topic'' erstellt, welches dann mithilfe von \texttt{subscribe()} laufend aktualisiert
+werden kann. Den hier ankommenden Nachrichten wird nun mithilfe des Wichtigkeitslevels
+eine entsprechende CSS-Klasse zugewiesen (z.B. haben Meldungen vom Typ \textcolor[HTML]{006600}{\texttt{debug}}
+die Farbe grün, \textcolor[HTML]{DD0000}{\texttt{error}} ist rot usw). Anschließend
+werden die eigentlichen Logmeldungen an die bereits existierende Liste angehängt
+und erscheinen somit im Logfenster.
 
 
 \subsection{Webhosting und Netzwerk}
