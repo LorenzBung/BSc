@@ -160,4 +160,45 @@ dass die Daten weiterhin verfügbar (und auch nutzbar) bleiben.
 
 Da Hardware-RAIDs oft sehr teuer sind, habe ich auf ein Software-RAID zurückgegriffen.
 Hierbei wird die Redundanz der Daten durch Software erreicht, welche das Plattenmanagement
-übernimmt.
+übernimmt. Das Betriebssystem verblieb dabei auf der vorherigen Platte, sodass nur
+die virtuelle Maschine auf dem RAID gespeichert wird.
+
+Unter Linux lässt sich ein RAID mit dem Tool \texttt{mdadm} sehr gut realisieren.
+Man kann dabei auswählen, welches RAID-Level gewählt (in diesem Fall ein RAID-5-System)
+und welche und wie viele Festplatten genutzt und werden sollen. Dazu reicht ein
+einziger Befehl aus:
+\begin{code}
+sudo mdadm --create --verbose /dev/md0 --level=5 --raid-devices=3 /dev/sdb /dev/sdc /dev/sdd
+\end{code}
+\texttt{/dev/sdb}, \texttt{/dev/sdc} und \texttt{/dev/sdd} sind die Festplatten,
+die genutzt werden sollen. Unter \texttt{/dev/md0} wird nach Abschluss des Vorgangs
+das neue ``Gerät'' liegen, es lässt sich wie eine einzelne Festplatte behandeln.
+Das System wird nun eingerichtet, und mithilfe von
+\begin{code}
+cat /proc/mdstat
+\end{code}
+kann man den aktuellen Status ansehen. Das Einrichten dauert je nach Festplattengeschwindigkeit
+und -größe sehr lange.
+
+Nach Abschluss dieser Einrichtung muss ein Dateisystem für die Festplatten festgelegt
+werden. Unter Linux wird standardmäßig das Ext4-System verwendet. Es lässt sich mit
+\begin{code}
+sudo mkfs.ext4 -F /dev/md0
+\end{code}
+installieren. Weiterhin muss ein Einhängepunkt für die Festplatte erstellt werden
+(also ein Verzeichnis im Dateisystem, von dem aus darauf zugegriffen werden kann).
+Dies geschieht mit
+\begin{code}
+sudo mkdir /media/md0
+\end{code}
+Durch einen entsprechenden Eintrag in der Datei \texttt{/etc/fstab} kann die Festplatte
+nun beim Systemstart automatisch eingehängt werden. Die neue Zeile lautet
+\begin{code}
+/dev/md0 /media/md0 ext4 defaults 0 2
+\end{code}
+In der ersten Spalte wird der Ort der Festplatte angegeben, danach der Einhängepunkt.
+Es folgen das Dateisystem und weitere Optionen (defaults reicht hier aus).
+
+Das RAID-System ist nun vollständig konfiguriert. Nach einem Neustart des Computers
+kann das Speicherabbild der virtuellen Maschine nun darauf gespeichert und die Daten
+somit ausfallsicher gemacht werden.
