@@ -390,14 +390,14 @@ mit ihren Koordinaten abgespeichert werden. Somit wird eine Art ``3D-Gitter'' er
 welches dann mit dem vogegebenen Modell verglichen werden kann.
 
 Zur Veranschaulichung sollten diese Punktewolken nun mithilfe von Javascript in
-einer einfachen Seite visualisiert werden. Die Nutzung eines Javascript-Frameworks
+einer einfachen Seite visualisiert werden. Zuvor wurde auf umständliche und veraltete Methoden zurückgegriffen, beispielsweise wurde ein Video aufgezeichnet und per Mail verschickt. Die Nutzung eines Javascript-Frameworks
 ist hierbei sehr sinnvoll und komfortabel, da
 
 \begin{enumerate}
-	\item nur eine einzige Datei erstellt werden muss, welche dann z.B. per E-Mail
-	versendet werden kann
-	\item durch die Darstellung im Browser nahezu jedes Endgerät die Möglichkeit hat,
-	die generierte Datei darzustellen.
+	\item Daten sehr flexibel und schnell zur Nutzung im Webinterface exportiert werden können
+	\item durch die Darstellung im Browser nahezu jedes Endgerät die Möglichkeit hat, die Webansicht zu nutzen
+	\item das Framework auf einem Server von isys gehostet werden kann und dann für jeden Kunden eine unterschiedliche Simulation geladen werden kann
+	\item keine Installation auf Seite der Kunden notwendig ist.
 \end{enumerate}
 
 
@@ -407,6 +407,13 @@ ist hierbei sehr sinnvoll und komfortabel, da
 Zur Darstellung der Punktewolke habe ich \texttt{THREE.js}\footnote{\url{https://threejs.org/}}
 verwendet. Dabei handelt es sich um ein Framework, welches auf OpenGL bzw. WebGL
 basiert und Funktionalitäten zum Rendering von Objekten bereitstellt.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{media/webpreview.png}
+	\caption{Punktwolke mit Beispielfunden in der Webvorschau}
+	\label{fig:webtools-preview-rendering}
+\end{figure}
 
 Zunächst muss dafür ein HTML-Grundgerüst aufgebaut werden, welches THREE einbindet
 und als Darstellungsfläche verwendet wird.
@@ -426,57 +433,49 @@ und als Darstellungsfläche verwendet wird.
 Nachdem dies geschehen ist, kann der Renderer nun initialisiert werden. Das Framework
 enthält dabei viele Methoden und Objekte, welche nun entsprechend deklariert und
 genutzt werden können. Da es sich um viele kleine Konfigurationsschritte handelt,
-ist folgendes Listing gekürzt.
+ist folgendes Listing stark gekürzt.
 
 \begin{code}[language=javascript, caption={Initialisierung von \texttt{THREE.js}}]
+fetch('index.json');
+/* After loading initial .json, the simulation can be started. */
+
+function loadSTL(model, pose) {
+	/* position needs to be loaded from a .json file */
+	fetch(pose);
+	for (/*...*/) {
+		/* Add all meshes of found items */
+		scene.add(mesh);
+	}
+}
+function loadPCD(filename) {
+	/* load the file with THREE.PCDLoader */
+	var pcdLoader = new THREE.PCDLoader();
+	pcdLoader.load(filename /* material, position etc. omitted */);
+}
 function load() {
-	window.addEventListener('keypress', keypress);
-	scene.background = new THREE.Color(0x444444);
-	camera.position.x = 0.44;
-	renderer.setSize(window.innerWidth * 0.75, window.innerHeight * 0.75);
-	loader.load('cloud.pcd', function(mesh) {
-			mesh.material.color.set(0x9b2436); //isys color
-			scene.add(mesh);
-			controls.update();
-	});
+	/* create objects like renderer, scene, camera... */
 }
 function animate() {
 	requestAnimationFrame(animate);
 	renderer.render(scene, camera);
 	controls.update();
 }
-/* Handles keyboard input */
-function keypress(ev) {
-	var pointCloud = scene.getObjectByName('cloud.pcd');
-	switch (ev.key || String.fromCharCode(ev.keyCode || ev.charCode)) {
-		case '+':
-			pointCloud.material.size *= 1.2;
-			pointCloud.material.needsUpdate = true;
-			break;
-		case '-':
-			pointCloud.material.size /= 1.2;
-			pointCloud.material.needsUpdate = true;
-			break;
-	}
+function resizePoints(factor) {
+	var pointCloud = scene.getObjectByName('pointcloud');
+	pointCloud.material.size *= factor;
+	pointCloud.material.needsUpdate = true;
 }
 \end{code}
 
-Die Funktion \texttt{load()} wird nun beim Laden der Seite aufgerufen und erstellt
-einen Renderer, eine Szene (in der das Bild dargestellt wird) und lädt die Punktwolke
-(Zeile 6). Weiterhin wird beispielsweise die Farbe des Materials festgelegt und
-das Lesen der Tastatur gestartet (Zeile 9).
+Zunächst wird in Zeile 1 die Datei \texttt{index.json} geladen. Sie enthält wichtige Informationen wie eine Liste aus Punktwolken-Fundposition-Zusammenhängen sowie eine Beschreibung der Szene. Nachdem sie geladen wurde, werden Funktionen wie \texttt{load()} aufgerufen, die Simulation gestartet usw.
 
-Die Funktion \texttt{animate()} ist nun eine einfache Update-Funktion, welche das
-angezeigte Bild aktualisiert und mit jedem Frame aufgerufen wird. Auch hier wird
+Die Funktionen \texttt{loadSTL} und \texttt{loadPCD} laden die \texttt{.stl}-Dateien der Funde bzw. die Punktwolke und setzen die in der JSON-Datei festgelegte Position der Teile. Sie werden bei Auswahl einer anderen Demo im Interface aufgerufen.
+
+Die Funktion \texttt{load()} wird nun zur Initialisierung der Simulation aufgerufen und erstellt
+einen Renderer, eine Szene (in der das Bild dargestellt wird) und die Kamera.
+
+Die Funktion \texttt{animate()} ist eine einfache Update-Funktion, welche das
+angezeigte Bild aktualisiert und mit jedem Frame aufgerufen wird. Hier wird
 die Tastatureingabe gelesen bzw. auf einen relevanten Tastendruck gewartet.
 
-In der Funktion \texttt{keypress()} wird nun die Tastatureingabe ausgewertet: Beim
-Druck der Taste `+' wird die Größe der Punkte vergrößert, beim Druck der Taste `-'
-dementsprechend verkleinert.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.75\textwidth]{media/webpreview.png}
-	\caption{Rendering einer Beispielpunktwolke}
-	\label{fig:webtools-preview-rendering}
-\end{figure}
+In \texttt{resizePoints} wird die Größe der Punkte der Punktwolke geändert. Sie wird beim Tastendruck oder Klick auf einen Button im Interface aufgerufen.
