@@ -17,7 +17,13 @@
 	morestring=[b]',
 	morestring=[b]"
 }
-
+\lstdefinelanguage{json}{
+    sensitive=false,
+    morestring=[b]',
+    morestring=[b]",
+    literate=
+    {[}{{\color{red}\[}}1
+}
 
 \lstnewenvironment{code}[1][]{
 	\lstset{

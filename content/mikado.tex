@@ -479,3 +479,35 @@ angezeigte Bild aktualisiert und mit jedem Frame aufgerufen wird. Hier wird
 die Tastatureingabe gelesen bzw. auf einen relevanten Tastendruck gewartet.
 
 In \texttt{resizePoints} wird die Größe der Punkte der Punktwolke geändert. Sie wird beim Tastendruck oder Klick auf einen Button im Interface aufgerufen.
+
+
+
+\subsection{Konfiguration durch JSON-Dateien}
+
+Das durch Bibliotheken und eigenes Javascript nun fertiggestellte Webtool sollte nun, je nach Kunde, mit unterschiedlichen Funddaten genutzt werden. In der Simulation sollte die Auswahl von festgelegten Demonstrationen durch ein Dropdown-Menü ermöglicht werden. Dafür wird in der Datei \texttt{index.json} eine Konfiguration erstellt, welche dann vom Javascript geladen, eingelesen und verwendet wird. Diese Datei enthält eine Liste von Demonstrationen. Sie besteht also aus mehreren Einträgen, welche dann als Optionen im Dropdown-Menü angezeigt werden.
+
+\begin{code}[language=json,caption={Inhalt von \texttt{index.json}}]
+[
+	{
+		"pcd" : "pcdFile.pcd",
+		"pcdColor" : "0x9b2436",
+		"stl" : "stlFile.stl",
+		"stlColor" : "0x006833",
+		"pose" : "pose.json",
+		"description" : ""
+	},
+	{}
+]
+\end{code}
+
+Eine solche Option beinhaltet sechs Eigenschaften, deren Werte für die Darstellung verantwortlich sind:
+
+\begin{itemize}
+	\item pcd: Dateipfad zur Punktwolkendatei, die geladen wird.
+	\item pcdColor: Die Farbe, in der die Punktwolke dargestellt wird.
+	\item stl \& stlColor: analog zu den ersten beiden Eigenschaften.
+	\item pose: Pfad zur JSON-Datei, welche Informationen über die Funde beinhaltet.
+	\item description: Eine Beschreibung, die zusätzlich zur Animation angezeigt werden soll.
+\end{itemize}
+
+Die mit dem Namen ``pose'' gekennzeichnete Datei gibt dabei an, wie die STL-Modelle in der Punktwolke ausgerichtet werden. Sie beinhaltet sowohl Koordinaten der einzelnen Funde als auch die Rotation im Axis-Angle-Format\footnote{\url{https://en.wikipedia.org/wiki/Axis-angle_representation}}. Diese wird, wie auch die Punktwolke und Beschreibung, von isys-Mitarbeitern angelegt, und kontrolliert damit die Simulation. Die Informationen über das Fundstück, also die STL-Datei, stammen jedoch vom Kunden.
