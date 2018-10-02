@@ -210,25 +210,9 @@ die Webseite der Bildschirmgröße entsprechend reagiert. Dies sichert auch eine
 und intuitive Darstellung beim Wechsel vom Portrait- in den Landschaftsmodus (z.B.
 bei Tablet PCs).
 
-In der Umsetzung erfolgt dies durch die Vermeidung von Pixelwerten (z.B. \texttt{width: 12pt;})
-und die Ersetzung ebenjener durch relative Werte (wie beispielsweise \texttt{width: 1em;}).
-Somit wird die Größe von Elementen immer von der Bildschirm- oder Schriftgröße abhängig
-gemacht und passt sich dementsprechend an.
-
-Weiterhin werden mithilfe eines \texttt{@media}-Tags im CSS für besonders kleine oder
-besonders große Geräte andere Regeln angegeben, welche zumeist die davor definierten
-Regeln überschreiben. Dies verhindert eine unproportionale Darstellung, wie z.B.
-extrem verkleinerte Bilder, unleserliche Schrift oder aber im Gegenteil riesige
-Buttons oder Überschriften.
-
-Mit CSS konnte ich weiterhin einige Animationen erreichen, zum Beispiel ein Popup
-beim Klick auf die Kontrollbuttons. Dies lässt sich über das CSS-Attribut \texttt{transition}
-erreichen. Mit \texttt{transition: width .1s linear;} bekommt man beispielsweise
-einen 100 ms lang andauernden Übergang betreffend der Breite. In meinem Fall hatte
-ich für \texttt{button:hover} einen anderen Stil festgelegt als für einen normalen
-Button, und zwar ein größeres Icon und weniger Durchsichtigkeit. Beim Übergang zu
-\texttt{button:active} wird das Icon jedoch wieder klein, was einen ``Klick''-Effekt
-zur Folge hat.
+In der Umsetzung erfolgt dies durch die Verwendung von relativen Werten (wie beispielsweise
+\texttt{width: 1em;}) und \texttt{@media}-Tags, welche für die Skalierbarkeit der
+Webseite und den enthaltenen Elementen verantwortlich sind.
 
 \begin{figure}[H]
 	\begin{center}
@@ -294,13 +278,10 @@ ros.connect('ws://10.0.4.136:8080');
 /* Irrelevante Funktionen weggelassen */
 function start() {
 	var rosStart = new ROSLIB.Service({
-		ros: ros,
-		name: '/run',
-		messageType: 'mikado_msgs/Run',
+		ros: ros, name: '/run', messageType: 'mikado_msgs/Run',
 	});
 	var rosStartRequest = new ROSLIB.ServiceRequest({
-		step: false,
-		blocking: false,
+		step: false, blocking: false,
 	});
 	rosStart.callService(rosStartRequest);
 }
@@ -311,9 +292,7 @@ function reset() {};
 /* Funktion zum Anhängen von Logs an das Logfenster. */
 function initLog() {
 	var rosLog = new ROSLIB.Topic({
-		ros: ros,
-		name: '/rosout',
-		messageType: 'rosgraph_msgs/Log',
+		ros: ros, name: '/rosout', messageType: 'rosgraph_msgs/Log',
 	});
 	rosLog.subscribe(function(message) {
 		var log = '<li class="';
@@ -321,16 +300,7 @@ function initLog() {
 			case 1:
 				log += "debug";
 				break;
-			case 2:
-				log += "info";
-				break;
-			case 4:
-				log += "warn";
-				break;
-			case 3:
-				log += "error";
-				break;
-		}
+		} //Other cases omitted
 		log += '">' + message.msg + '</li>';
 		addLog(log);
 	});
@@ -366,7 +336,6 @@ zu realisieren:
 import rospy
 from flask import Flask, render_template
 app = Flask(__name__)
-
 @app.route('/')
 def render_static():
     return render_template('index.html')
@@ -419,15 +388,12 @@ Zunächst muss dafür ein HTML-Grundgerüst aufgebaut werden, welches THREE einb
 und als Darstellungsfläche verwendet wird.
 
 \begin{code}[language=html, caption={HTML-Gerüst für die WebPreview}]
-<html>
-	<head>
-		<title>Mikado WebPreview</title>
-		<script src=''three.min.js''></script>
-	</head>
-	<body>
-		<!--Titel, Leiste, ...-->
-	</body>
-</html>
+<html><head>
+	<title>Mikado WebPreview</title>
+	<script src=''three.min.js''></script>
+</head><body>
+	<!--Titel, Leiste, ...-->
+</body></html>
 \end{code}
 
 Nachdem dies geschehen ist, kann der Renderer nun initialisiert werden. Das Framework
@@ -437,19 +403,14 @@ ist folgendes Listing stark gekürzt.
 
 \begin{code}[language=javascript, caption={Initialisierung von \texttt{THREE.js}}]
 fetch('index.json');
-/* After loading initial .json, the simulation can be started. */
-
-function loadSTL(model, pose) {
-	/* position needs to be loaded from a .json file */
-	fetch(pose);
+function loadSTL(model, pose) { //Start loading found meshes
+	fetch(pose); //Load position from .json file
 	for (/*...*/) {
-		/* Add all meshes of found items */
-		scene.add(mesh);
+		scene.add(mesh); //Add meshes of found items
 	}
 }
 function loadPCD(filename) {
-	/* load the file with THREE.PCDLoader */
-	var pcdLoader = new THREE.PCDLoader();
+	var pcdLoader = new THREE.PCDLoader(); //Load PCD file
 	pcdLoader.load(filename /* material, position etc. omitted */);
 }
 function load() {
@@ -487,17 +448,14 @@ In \texttt{resizePoints} wird die Größe der Punkte der Punktwolke geändert. S
 Das durch Bibliotheken und eigenes Javascript nun fertiggestellte Webtool sollte nun, je nach Kunde, mit unterschiedlichen Funddaten genutzt werden. In der Simulation sollte die Auswahl von festgelegten Demonstrationen durch ein Dropdown-Menü ermöglicht werden. Dafür wird in der Datei \texttt{index.json} eine Konfiguration erstellt, welche dann vom Javascript geladen, eingelesen und verwendet wird. Diese Datei enthält eine Liste von Demonstrationen. Sie besteht also aus mehreren Einträgen, welche dann als Optionen im Dropdown-Menü angezeigt werden.
 
 \begin{code}[language=json,caption={Inhalt von \texttt{index.json}}]
-[
-	{
-		"pcd" : "pcdFile.pcd",
-		"pcdColor" : "0x9b2436",
-		"stl" : "stlFile.stl",
-		"stlColor" : "0x006833",
-		"pose" : "pose.json",
-		"description" : ""
-	},
-	{}
-]
+[ {
+	"pcd" : "pcdFile.pcd",
+	"pcdColor" : "0x9b2436",
+	"stl" : "stlFile.stl",
+	"stlColor" : "0x006833",
+	"pose" : "pose.json",
+	"description" : ""
+}, {} ]
 \end{code}
 
 Eine solche Option beinhaltet sechs Eigenschaften, deren Werte für die Darstellung verantwortlich sind:

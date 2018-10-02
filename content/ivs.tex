@@ -58,43 +58,10 @@ vorhanden waren, machte ich mir zunächst das grafische Redesign der Webseite zu
 Aufgabe. Mit CSS hatte ich bereits gearbeitet, sodass ich mich verhältnismäßig schnell
 in das vorhandene Stylesheet einarbeiten konnte und erste Änderungen vornahm.
 
-Dazu gehörten beispielsweise das Entfernen von Schatten (\texttt{box-shadow}), was
-Buttons und Menüs deutlich besser lesbar und sauberer macht, oder die Anpassung
-von Farben (hellgrau wird ersetzt durch weiß etc). Auch wurde ein Hintergrundbild
-von mir entfernt und durch eine durchgängige Farbe ersetzt, was zum gewünschten
-``cleanen'' Erscheinungsbild beitrug.
-
-Durch bereits wenige Änderungen im Stylesheet konnte ich hierbei recht große Erfolge
-erzielen, was die Modernität der Seite angeht. Mit diesen Grundlagen mussten nun
-Kleinigkeiten angepasst werden, wie beispielsweise zu große Listeneinträge in der
-Menüleiste, fehlender Umrandung von Buttons oder Ähnlichem. Diese Anpassungen waren
-minimal, jedoch war der Zeitaufwand dafür immens, da Regeln im CSS immer wieder
-unterdrückt oder überschrieben wurden und erst das richtige Vorgehen bzw. die dafür
-verantwortliche Regel ermittelt werden musste.
-
-Schlussendlich waren die Anpassungen jedoch vorgenommen und ich konnte mich auf
-Basis eines sauberen, nutzbaren und leserlichen Designs dem Verständnis und der
-Modifikation des Javascript-Frameworks widmen.
-
-
-\subsection{Javascript-Framework}
-\label{subsec:ivs-einlesen-javascript}
-
-In der bereits vorhandenen Version der Webseite wurde sämtliche Funktionalität durch
-ein Javascript-Framework geregelt, welches unabhängig von Inhalt und Design steht.
-Im Folgenden ging es nun darum, den hier geschriebenen Code durchzugehen, nachzuvollziehen,
-zu verinnerlichen und zu verstehen. In etwa 1500 Zeilen waren Initialisierungsfunktionen,
-Kommunikationsmodule und Eventhandler für Buttons etc. undokumentiert aufzufinden.
-
-Aufgrund der trotz weniger Codezeilen doch sehr hohen Komplexität und vor allem
-den fehlenden Kommentaren gestaltete es sich als sehr schwierig, sich einzuarbeiten.
-Ein weiterer Nachteil war meine mangelnde Erfahrung mit Javascript; durch viel Recherche
-und weiterführende Beispiele konnte ich mir jedoch einiges herleiten und somit verstehen.
-
-Meine erste Änderung war hierbei das Ersetzen von javascript-basierten Zoom-Buttons
-durch eine Leiste (in HTML ein \texttt{<input range>}-Element). Dies sah zum einen
-deutlich besser aus und war einfacher zu bedienen, außerdem war somit der Inhalt
-(in diesem Fall die Zoom-Leiste im HTML) besser von der Funktion getrennt.
+Dazu gehörten beispielsweise das Entfernen von Schatten (\texttt{box-shadow}),
+die Anpassung von Farben oder das ersetzen von Hintergrundbildern. Durch bereits
+wenige Änderungen im Stylesheet konnte ich hierbei recht große Erfolge erzielen,
+was die Modernität der Seite angeht.
 
 \begin{figure}[H]
 	\begin{minipage}{0.5\textwidth}
@@ -111,176 +78,22 @@ deutlich besser aus und war einfacher zu bedienen, außerdem war somit der Inhal
 	\end{minipage}
 \end{figure}
 
+\subsection{Javascript-Framework}
+\label{subsec:ivs-einlesen-javascript}
+
+In der bereits vorhandenen Version der Webseite wurde sämtliche Funktionalität durch
+ein Javascript-Framework geregelt, welches unabhängig von Inhalt und Design steht.
+Im Folgenden ging es nun darum, den hier geschriebenen Code durchzugehen, zu verinnerlichen
+und zu verstehen.
+
+Aufgrund der trotz weniger Codezeilen doch sehr hohen Komplexität und vor allem
+den fehlenden Kommentaren gestaltete es sich als sehr schwierig, sich einzuarbeiten.
+Ein weiterer Nachteil war meine mangelnde Erfahrung mit Javascript; durch viel Recherche
+und weiterführende Beispiele konnte ich mir jedoch einiges herleiten und somit verstehen.
+
 Weitere Modifikationen am Framework umfassten vor allem die Vereinfachung und Lesbarkeit
 des Codes. Die Hauptaufgabe in dieser Phase war das Verständnis, da dies die Grundlage
-für weitere Arbeit am Javascript ist.
-
-
-
-\section{Einschub: Filterfunktion für SVN-Repositories}
-\label{sec:svn}
-
-Da mein Betreuer, welcher mit mir gemeinsam für die Entwicklung des neuen IVS-Systems
-verantwortlich war, krankheitsbedingt eineinhalb Wochen fehlte, war die weitere
-Arbeit an der Weboberfläche für diese Zeit leider nicht möglich. In der Zwischenzeit
-wurde mir dafür die Verbesserung der Oberfläche des Intranets aufgetragen.
-
-Das Intranet enthält eine Liste von SVN-Repositories, die in Form eines Baumes dargestellt
-werden. Die einzelnen Einträge sind dabei in verschiedenen Ebenen enthalten. Im
-folgenden Codebeispiel (\texttt{HTML}) wird dies deutlich:
-
-\begin{code}[language=html, caption={Beispielcode zu den SVN-Repositories im Intranet}, label={lst:svn-html-beispiel}]
-<ul class="mktree" id="mktree1">
-	<li id="1">Firma 1</li>
-		<ul>
-			<li id="1-1">Repository 1-1</li>
-			<li id="1-2">Repository 1-2</li>
-		</ul>
-	</li>
-	<li id="2">Repository 2</li>
-	<li id="3">Firma 3
-		<ul>
-			<li id="3-1">Repository 3-1</li>
-			<li id="3-2">Projekt 3-2
-				<ul>
-					<li id="3-2-1">Repository 3-2-1</li>
-					<li id="3-2-2">Repository 3-2-2</li>
-				</ul>
-			</li>
-		</ul>
-	</li>
-</ul>
-\end{code}
-
-Zur Darstellung des Baumes in aus- und einklappbarer Form wurde das schon vorhandene
-Script \texttt{mktree} von
-Matt Kruse\footnote{\url{http://www.mattkruse.com/javascript/mktree}} verwendet.
-
-Meine Aufgabe bestand nun darin, eine Suchfunktion für Einträge in dieser Liste
-zu implementieren. Dazu habe ich mithilfe von JavaScript und jQuery
-gearbeitet und einige Funktionen geschrieben. Diese Funktionen basieren zudem auf
-dem oben genannten Script (\texttt{mktree}) und bauen auf dessen Funktionalität
-auf.
-
-\begin{code}[language=javascript, caption={Filterfunktion für das Intranet}, label={lst:svn-filter}]
-function filter() {
-	var input = document.getElementById('searchInput');
-	var filter = input.value.toLowerCase();
-	var url = window.location.href.split("?")[0];
-	document.getElementById("searchURL").href = url + "?filter=" + filter;
-	//Search through all list items
-	var li = $('li');
-	for (var i = 0; i < li.length; i++) {
-		//Get all parents of this node which have the filter.
-		var parents =	$(li[i])
-			.parents('li')
-			.filter(function() {
-			return this.textContent
-				.trim()
-				.split('    ')[0]
-				.toLowerCase()
-				.indexOf(filter) > -1;
-		});
-		//Select the correct String to search in.
-		var str = li[i]
-			.textContent
-			.split(' (')[0] //Remove the ( browse / ...)
-			.toLowerCase()
-			.trim()
-			.split("    ")[0]; //Bug fix
-		if (str.indexOf(filter) > -1 || parents.length) {
-			//Item or Parent contains filter
-			li[i].style.display = ""; //Display normally
-			$(li[i]).parents().each(function() {
-				this.style.display = "";
-			});
-			if (li[i].id != "") {
-				expandToItem('mktree1', li[i].id); //Expand tree
-			}
-			window.scrollTo(0, 0); //Fixes weird behaviour
-		} else {
-			li[i].style.display = "none"; //Hide item
-		}
-	}
-}
-\end{code}
-
-Die oben geschriebene Funktion wird aufgerufen, sobald sich der Eingabewert des
-\texttt{<input>}-Felds (siehe Zeile 8) ändert. Eine Änderung der Eingabe hat somit
-zur Folge, dass die darunter stehende Liste von Repositories neu gefiltert wird
-und nicht passende Einträge entsprechend versteckt werden.
-
-Weiterhin wird die Funktionalität von \texttt{mktree} genutzt, um den Baum zu den
-angezeigten Repositories automatisch aufzuklappen. Dies wird durch einen einfachen
-Aufruf der richtigen Funktion erreicht.
-
-Nach der Implementierung dieser Funktionalität habe ich noch eine weitere Verbesserung
-an der Seite durchgeführt, wodurch sich der Cursor nicht im Textfeld befinden muss,
-um zu suchen. Dies hat den Vorteil, dass direkt nach dem Laden der Webseite oder
-auch nach dem manuellen Ein- bzw. Ausklappen des Baumes ohne weitere Mausbetätigung
-gesucht werden kann.
-
-\begin{code}[language=javascript, caption={Funktion für Suche auf Tastendruck}, label={lst:svn-onkeypress}]
-document.onkeypress = function(event) {
-	//Variables for search field and pressed key
-	var input = document.getElementById('searchInput');
-	var key = event.key;
-	if (document.activeElement !== input && key.length === 1) {
-		//Not focused => Put the pressed key in the search bar.
-		input.value += key;
-	}
-	//Jump to the search field.
-	input.focus();
-}
-\end{code}
-
-Um dies zu erreichen, habe ich eine Funktion geschrieben, welche beim Tastendruck
-aufgerufen wird. Die gedrückte Taste wird gespeichert und das Textfeld fokussiert.
-Handelt es sich bei der Taste um einen Buchstaben (nicht etwa \texttt{backspace},
-daher \texttt{key.length === 1}), so wird der Wert der Taste zusätzlich ins Textfeld
-geschrieben, um einen doppelten Tastendruck zu vermeiden.
-
-Eine letzte Optimierung der Seite erfolgte durch die Möglichkeit, eine Suchanfrage
-in Form der URL zu speichern (ein sogenannter Permalink) und somit weiterleitbar
-zu machen. Meine Vorgehensweise dafür war, den Filter mit dem entsprechenden Tag
-\texttt{?filter=} an die URL anzuhängen. Beim Laden der Seite wird die URL dann
-nach dem entsprechenden Tag durchsucht, und falls ein Tag gefunden wird, wird der
-Inhalt des Suchfeldes gesetzt und die Filterfunktion aufgerufen.
-
-Weiterhin wird auf der Webseite ein Hyperlink dargestellt, welcher immer zur aktuellen
-Suchanfrage verlinkt. Durch Kopieren dieses Links kann die entsprechende Suche also
-weitergeleitet werden. Erreicht wird dies durch das Aktualisieren der dabei hinterlegten
-URL nach dem Aufruf von \texttt{filter()}.
-
-\begin{code}[language=javascript, caption={Filterung beim Laden der Seite}, label={lst:svn-ready}]
-document.ready = function() {
-	//First, let's do some ugly bug fixing for mktree (-_-)
-	setDefault("treeClass","mktree");
-	setDefault("nodeClosedClass","liClosed");
-	setDefault("nodeOpenClass","liOpen");
-	setDefault("nodeBulletClass","liBullet");
-	setDefault("nodeLinkClass","bullet");
-	setDefault("preProcessTrees",true);
-
-	var href = window.location.href;
-	//Filter the URL to find the filter.
-	var filter = undefined;
-	try {
-		filter =	href.split('?')[1] //after first "?"
-							.split('filter=')[1] //after "filter="
-							.split('&')[0]; //stop at next "&"
-	} catch (e) {}
-	if (filter != undefined) {
-		//Filter found => search for it
-		document.getElementById('searchInput').value = filter;
-		document.getElementById('searchInput').onkeyup();
-	}
-	document.getElementById("searchURL").href = window.location.href;
-}
-\end{code}
-
-Beim Laden der Webseite wird nun also der Filter in der URL ausgelesen und ins Textfeld
-eingefügt.
+für weitere Arbeit am Javascript war.
 
 
 
