@@ -38,7 +38,7 @@ die Sicherheit der gespeicherten Daten gewährleistet wird.
 Für den Aufbau des Webservers wird dabei sowohl von Jira als auch von Confluence
 eine Datenbank verwendet. Das kann sowohl eine \textit{MySQL}-, \textit{Oracle}-
 oder \textit{Microsoft-SQL}-Datenbank sein, oder aber auch die Open-Source-Alternative
-\textit{PostgreSQL}. Wegen der eher schlechten Unterstützung von MySQL habe ich
+\textit{PostgreSQL}\footnote{\url{https://de.wikipedia.org/wiki/PostgreSQL}}. Wegen der eher schlechten Unterstützung von MySQL habe ich
 schlussendlich eine PostgreSQL-Datenbank eingesetzt.
 
 PostgreSQL ist ein freies und quelloffenes Datenbankmanagementsystem. Es wird von
@@ -48,17 +48,6 @@ und wird bei den meisten Linux-Distributionen bereits mitgeliefert.
 Um den Linux-Server von isys zu simulieren und die Datenbank entsprechend einzurichten,
 habe ich eine virtuelle Maschine mit einer Ubuntu-Installation verwendet. Nach der
 Einrichtung des Systems konnte ich mit der Konfiguration des Datenbankservers beginnen.
-Nach einiger Verwirrung und etwas Recherche stellte sich heraus, dass für das Erstellen
-einer Tabelle in PostgreSQL\footnote{\url{https://de.wikipedia.org/wiki/PostgreSQL}} ein Linux-Nutzername angegeben werden muss. Dies war
-praktisch, da die Jira- und Confluence-Systemdienste sowieso einen eigenen Account
-erstellten, den ich somit direkt mitverwenden konnte. Ich hatte nun also drei Zugänge:
-
-\begin{itemize}
-	\item \texttt{ubuntu}, Super-User-Account und Hauptaccount des Rechners,
-	\item \texttt{confluence}, für die Datenbank und den Systemdienst des Confluence-Servers,
-	\item \texttt{jira}, für die Datenbank und den Systemdienst des Jira-Servers.
-\end{itemize}
-
 Mit einigen einfachen SQL-Befehlen waren die notwendigen Datenbanken dann auch schnell
 erstellt:
 
@@ -165,40 +154,4 @@ die virtuelle Maschine auf dem RAID gespeichert wird.
 
 Unter Linux lässt sich ein RAID mit dem Tool \texttt{mdadm} sehr gut realisieren.
 Man kann dabei auswählen, welches RAID-Level gewählt (in diesem Fall ein RAID-5-System)
-und welche und wie viele Festplatten genutzt und werden sollen. Dazu reicht ein
-einziger Befehl aus:
-\begin{code}
-sudo mdadm --create --verbose /dev/md0 --level=5 --raid-devices=3 /dev/sdb /dev/sdc /dev/sdd
-\end{code}
-\texttt{/dev/sdb}, \texttt{/dev/sdc} und \texttt{/dev/sdd} sind die Festplatten,
-die genutzt werden sollen. Unter \texttt{/dev/md0} wird nach Abschluss des Vorgangs
-das neue ``Gerät'' liegen, es lässt sich wie eine einzelne Festplatte behandeln.
-Das System wird nun eingerichtet, und mithilfe von
-\begin{code}
-cat /proc/mdstat
-\end{code}
-kann man den aktuellen Status ansehen. Das Einrichten dauert je nach Festplattengeschwindigkeit
-und -größe sehr lange.
-
-Nach Abschluss dieser Einrichtung muss ein Dateisystem für die Festplatten festgelegt
-werden. Unter Linux wird standardmäßig das Ext4-System verwendet. Es lässt sich mit
-\begin{code}
-sudo mkfs.ext4 -F /dev/md0
-\end{code}
-installieren. Weiterhin muss ein Einhängepunkt für die Festplatte erstellt werden
-(also ein Verzeichnis im Dateisystem, von dem aus darauf zugegriffen werden kann).
-Dies geschieht mit
-\begin{code}
-sudo mkdir /media/md0
-\end{code}
-Durch einen entsprechenden Eintrag in der Datei \texttt{/etc/fstab} kann die Festplatte
-nun beim Systemstart automatisch eingehängt werden. Die neue Zeile lautet
-\begin{code}
-/dev/md0 /media/md0 ext4 defaults 0 2
-\end{code}
-In der ersten Spalte wird der Ort der Festplatte angegeben, danach der Einhängepunkt.
-Es folgen das Dateisystem und weitere Optionen (defaults reicht hier aus).
-
-Das RAID-System ist nun vollständig konfiguriert. Nach einem Neustart des Computers
-kann das Speicherabbild der virtuellen Maschine nun darauf gespeichert und die Daten
-somit ausfallsicher gemacht werden.
+und welche und wie viele Festplatten genutzt und werden sollen.

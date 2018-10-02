@@ -12,10 +12,11 @@ ihrer Position greifen zu können.
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=0.75\textwidth]{media/mikado-roboter.jpg}
-		\caption{Mikado-Roboter von Mitsubishi}
+		\caption[Mikado-Roboter von Misubishi]{Mikado-Roboter von Mitsubishi\footnotemark}
 		\label{fig:mikado-roboter}
 	\end{center}
 \end{figure}
+\footnotetext{Quelle: \url{https://img.youtube.com/vi/L7nppfZ6pKg/maxresdefault.jpg}}
 
 
 
@@ -384,19 +385,7 @@ basiert und Funktionalitäten zum Rendering von Objekten bereitstellt.
 	\label{fig:webtools-preview-rendering}
 \end{figure}
 
-Zunächst muss dafür ein HTML-Grundgerüst aufgebaut werden, welches THREE einbindet
-und als Darstellungsfläche verwendet wird.
-
-\begin{code}[language=html, caption={HTML-Gerüst für die WebPreview}]
-<html><head>
-	<title>Mikado WebPreview</title>
-	<script src=''three.min.js''></script>
-</head><body>
-	<!--Titel, Leiste, ...-->
-</body></html>
-\end{code}
-
-Nachdem dies geschehen ist, kann der Renderer nun initialisiert werden. Das Framework
+Nachdem ein Grundgerüst aufgebaut wurde, welches THREE.js einbindet, kann der Renderer nun initialisiert werden. Das Framework
 enthält dabei viele Methoden und Objekte, welche nun entsprechend deklariert und
 genutzt werden können. Da es sich um viele kleine Konfigurationsschritte handelt,
 ist folgendes Listing stark gekürzt.
