@@ -239,7 +239,7 @@ Webseite und den enthaltenen Elementen verantwortlich sind.
 \end{figure}
 
 
-\subsection{Befehls- und Logübertragung mithilfe von RosJS}
+\subsection{Befehls- und Logübertragung mithilfe von RoslibJS}
 \label{subsec:webtools-remote-rosjs}
 
 Auf dem Hostrechner des Roboters läuft zur Kontrolle von diesem eine Python-Bibliothek
@@ -260,7 +260,7 @@ das Programm beim Aufruf normal durch. Sobald der Service jedoch mit \texttt{ste
 aufgerufen wird, wird nur ein Schritt im Programmablauf durchgeführt.
 
 Zur Anbindung an das von mir entwickelte Webinterface habe ich nun die Bibliothek
-RoslibJS verwendet, welche als Kommunikationsmodul für ROS fungiert. Hiermit können
+RoslibJS\footnote{\url{http://wiki.ros.org/roslibjs}} verwendet, welche als Kommunikationsmodul für ROS fungiert. Hiermit können
 entsprechende Aufrufe im Javascript festgelegt werden, um diese anschließend an
 den Hostrechner zu senden und somit den zugehörigen Service zu starten.
 
