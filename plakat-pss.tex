@@ -1,0 +1,175 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Thema: AIN Poster-Hintergrund "Labor für mobile Robotik"
+% Autor: Jürgen Keppler
+% Datum: 18.05.2017
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\documentclass[a1,landscape]{a0poster}
+
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{arev}
+\usepackage[T1]{fontenc}
+\usepackage{wrapfig}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{lipsum}
+\usepackage{fontspec}
+\usepackage{multicol}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{pgffor}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usetikzlibrary{angles,quotes,babel,plotmarks}
+\usetikzlibrary{plotmarks}
+
+
+\author{Lorenz Bung}
+\title{Praxissemester Poster}
+
+\setmainfont[Path=fonts/, BoldFont=swis721-bold.ttf]{swis721.ttf}
+
+\xdefinecolor{color_Black}{rgb}{0.0,0.0,0.0}
+\xdefinecolor{color_Raster}{rgb}{1.0,1.0,1.0}
+\xdefinecolor{color_White}{rgb}{1.0,1.0,1.0}
+\xdefinecolor{color_Teal}{cmyk}{1.0,0.0,0.50,0.0}
+\xdefinecolor{color_SoftBlue}{cmyk}{0.10,0.0,0.0,0.10}
+\xdefinecolor{color_DarkBlue}{cmyk}{0.80,0.62,0.42,0.45}
+
+\pagecolor{color_DarkBlue}
+
+\setlength{\columnsep}{40pt} % Multicols Spaltenabstand
+
+% No Paragraph Indentation
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+% Rasterabstand ab DIN A5 bis DIN A1
+\def\unit{145.6pt}
+
+% Rasterpunkt Durchmesser ab DIN A5 d = 0,5 mm, ab DIN A2 d = 1,0 mm
+%             bei DIN A1 kann auch d = 2,0 mm gewählt werden
+\def\rpoint{0.10cm}
+
+\newenvironment{block}{\begin{mdframed}[roundcorner=25pt,innerleftmargin=40pt,innertopmargin=40pt,innerrightmargin=40pt,innerbottommargin=40pt,backgroundcolor=color_SoftBlue,linecolor=color_SoftBlue]}{\end{mdframed}}
+
+% Width: 2384 Height: 1684
+\begin{document}
+
+\begin{textblock*}{2184pt}(100pt,114pt)
+	\begin{tikzpicture}
+	\foreach \x in {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
+	\foreach \y in {0,1,2,3,4,5,6,7,8,9,10}
+	{
+		\fill[color_Raster] (\x*\unit,\y*\unit) circle(0.5*\rpoint);
+	}
+	
+	% Dekoration im Kopfbereich
+	\draw[color=color_Teal, line width=\rpoint*2.0, cap=round]
+	(\unit*2,\unit*10) -- (\unit*14,\unit*9);
+	
+	\draw[color=color_White, line width=\rpoint*3.0, cap=round]
+	(\unit*2,\unit*9) -- (\unit*0,\unit*8);
+
+	\fill[color=color_SoftBlue] (\unit*4,\unit*9) circle[radius=\rpoint*8.0]; 
+	
+	\draw[color=color_Teal, line width=\rpoint*2.0, cap=round]
+	(\unit*2,\unit*8) -- (\unit*11,\unit*8);
+	
+	\draw[color=color_White, line width=\rpoint*1.0, cap=round]
+	(\unit*5,\unit*9) -- (\unit*7,\unit*10);
+	
+	\draw[color=color_SoftBlue, line width=\rpoint*3.0, cap=round]
+	(\unit*15,\unit*9) -- (\unit*13,\unit*8);
+
+	\draw[color=color_Teal, line width=\rpoint*15.0, cap=round]
+	(\unit*1,\unit*5) -- (\unit*2,\unit*7);
+	
+	\fill[color=color_Teal] (\unit*4,\unit*2)   circle[radius=100.0pt];
+	\fill[color=color_White] (\unit*14,\unit*1)   circle[radius=75.0pt];
+	\fill[color=color_SoftBlue] (\unit*0.5,\unit*0.5)   circle[radius=50.0pt];
+	
+	\end{tikzpicture}
+\end{textblock*}
+
+\begin{textblock*}{2100pt}(142pt,450pt)	
+	\begin{multicols}{2}
+		\begin{block}
+			\begin{wrapfigure}{r}{0.4\textwidth}
+				\includegraphics[width=\linewidth]{media/isys.png}
+			\end{wrapfigure}
+			\textbf{Das Unternehmen}\\
+			Die isys vision GmbH und Co. KG ist ein mittelständisches Unternehmen mit ca. 20 Mitarbeitern.
+			An ihrem Standort in Freiburg im Breisgau ist isys vision im Bereich der industriellen Bildverarbeitung sowie Automatisierung tätig.\\
+			Die Produktpalette umfasst sowohl Soft- und Hardware, welche auf die indivituellen Wünsche der Kunden zugeschnitten ist,
+			als auch durch grafische Programmierung konfigurierbare Lösungen.
+		\end{block}
+		\vfill
+		\begin{block}
+			\textbf{Einrichtung Intranetserver}\\
+			Neben der Webentwicklung war ich einem breiten Aufgabenfeld ausgesetzt. Unter anderem richtete ich auch einen Intranetserver mit RAID5 ein.\\
+			Weiterhin erstellte ich Datenbanken, um anschließend Jira und Confluence (Tools für das Production Management) zu installieren.
+		\end{block}
+		\vfill
+		\begin{block}
+			\begin{wrapfigure}{r}{0.4\textwidth}
+				\includegraphics[width=\linewidth]{media/mikado-roboter.jpg}
+			\end{wrapfigure}
+			\textbf{Robotikprojekt Mikado}\\
+			Mikado ist ein Robotikprojekt, das auf das sogenannte ``Bin-Picking'' ausgelegt ist. Dabei geht es darum, unsortierte Teile zu erkennen und korrekt zu greifen.
+			Zur Erkennung der Teile wird eine Punktwolke aufgenommen, in welcher dann die Teile gesucht werden.\\
+			Die Software liefert dem Endkunden eine grafische Oberfläche, in welcher die Funktionsweise des Roboters mithilfe von grafischer Programmierung individuell geändert weden kann.
+		\end{block}
+		\vfill
+		\begin{block}
+			\begin{wrapfigure}{r}{0.4\textwidth}
+				\includegraphics[width=\linewidth]{media/webpreview.png}
+			\end{wrapfigure}
+			\textbf{WebPreview}\\
+			Ein Kernbereich meiner Tätigkeit umfasste die Erstellung einer webbasierten Simulation, welche zur Demonstration der gefundenen Teile genutzt werden sollte. Die Vorschau ist mithilfe von JSON-Daten vollständig konfigurierbar und es können Punktwolken und Meshes zur Darstellung angegeben werden.\\
+			Neben Technologien wie Javascript, CSS und HTML wurden die Bibliotheken jQuery und THREE.js zur Animation genutzt.
+		\end{block}
+		\vfill
+		\begin{block}
+			\begin{wrapfigure}{r}{0.2\textwidth}
+				\includegraphics[width=\linewidth]{media/webremote-info.png}
+			\end{wrapfigure}
+			\textbf{WebRemote}\\
+			Eine weitere Aufgabe war die Erstellung einer mobilen Webseite, welche über ein Smartphone zur Steuerung des Roboters verwendet werden sollte.\\
+			Neben der Entwicklung eines passenden responsive Designs stellte auch die Verbindung mit dem Roboter eine Herausforderung dar.\\\\
+			ROSlibJS ist eine Bibliothek, welche zur Kommunikation mit dem Roboter verwendet wird. So konnte eine Steuerung zum Starten, Pausieren und schrittweisen Ablauf des Programmes erstellt werden.
+		\end{block}
+	\end{multicols}
+\end{textblock*}
+
+\textblockcolour{color_DarkBlue}
+
+\begin{textblock*}{2100pt}(142pt,1605pt)
+	\color{white}{Lorenz Bung \hfill lorenz.bung@htwg-konstanz.de \hfill AIN 4}
+\end{textblock*}
+
+\begin{textblock*}{1300pt}(415pt,320pt)
+	\Huge{\color{white}{Praxissemester bei isys vision GmbH \& Co. KG}}
+\end{textblock*}
+
+\begin{textblock*}{375pt}(1950pt,114pt)
+	\includegraphics[scale=4.0]{media/HTWGSchriftzug.eps}
+\end{textblock*}
+
+\begin{textblock*}{200pt}(88pt,90pt)
+	\includegraphics [scale=2.44]{media/HTWGLogo.eps}
+\end{textblock*}
+
+\begin{textblock*}{500pt}(1800pt,1520pt)
+	\huge{\color{white}{Angewandte Informatik}}
+\end{textblock*}
+
+\begin{textblock*}{200pt}(1800pt,1495pt)
+	\color{white}{Studiengang}
+\end{textblock*}
+
+\end{document}
