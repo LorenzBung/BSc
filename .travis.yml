@@ -6,5 +6,4 @@ before_install:
 install:
 
 script:
-- cd 1_WS16/Programmierkurs_1
-- make
+- cd 1_WS16/Programmierkurs_1 && mkdir classes && make
