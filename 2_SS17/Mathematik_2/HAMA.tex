@@ -1,0 +1,93 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{a4wide}
+\usepackage[dvipsnames,x11names]{pstricks}
+\usepackage{pst-barcode}
+\usepackage{auto-pst-pdf}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+%\lhead{\includegraphics[width=3cm]{HTWG_IN_Modul_Zeichen_pos_2C.png}}
+%\rhead{\includegraphics{HTWG_IN_Modul_Zusatz_pos_1C.png}}
+\title{Hausarbeit Mathematik 2: Fehlerminimierung bei EAN-13-Strichcodes}
+\author{Joshua Rutschmann, Lorenz Bung}
+\date{\today}
+
+\begin{document}
+\maketitle
+%\pagestyle{fancy}
+\section{Einleitung}
+Auf fast allen unseren Produkten sind sie zu finden: Strichcodes, zusammengesetzt aus einer Abfolge von breiten und schmalen Linien und darunterstehenden Ziffern. Sie sind ebenso einfach wie praktisch: Der Scanner der Kasse liest den Code ein, und schließt daraus automatisch auf den Preis, die Verfügbarkeit des Artikels und vieles mehr. Das alles passiert mit unheimlicher Präzision: Nur in seltensten Fällen kommt es vor, dass der Kassierer den Code neu einscannen oder gar von Hand eintippen muss. Doch wie kann es sein, dass die Fehleranfälligkeit so gering ist? Mit diesem Thema werden wir uns hier auseinandersetzen.
+
+\section{Die System der Prüfziffern}
+EAN-13 (\textit{E}uropean \textit{A}rticle \textit{N}umber) ist ein Standard, der sich heute europaweit durchgesetzt hat. Die Codes darin bestehen aus, wie der Name bereits nahe legt, 13 Ziffern, von denen jedoch nicht alle der Identifizierung des Produktes dienen. Das Prinzip der Prüfziffer ist es, von den verfügbaren Ziffern eine zur Sicherstellung der Richtigkeit der anderen 12 zu verwenden. Neu ist dies jedoch nicht: Sowohl die Codes auf  Personalausweisen als auch auf Kreditkarten, Banknoten und vielen weiteren Dingen verwenden ein ähnliches Prüfziffersystem.\\
+Ein solches Verfahren muss mehrere Dinge gewährleisten. Als erstes muss die Anzahl der Prüfziffern möglichst gering sein, damit möglichst viele Ziffern zur Identifikation des Produkts bzw. zum Speichern der Information übrig bleiben. Desweiteren müssen es allerdings genügend Ziffern sein, um einen möglichst hohen Anteil der auftretenden Fehler ausschließen zu können. Das Problem hierbei ist: Je weniger Platz dafür übrig bleibt, desto weniger verschiedene Fehler können erkannt werden.\\
+Das Ziel ist es also, ein Gleichgewicht zwischen den erkannten Fehlern und dem dafür verbrauchten Platz zu finden. Im Fall von EAN-13 hat man sich für eine Stelle entschieden. Im folgenden Abschnitt werden wir uns genauer damit beschäftigen, wie diese Prüfziffer berechnet wird und warum die angewandte Methode sinnvoll ist.
+
+\section{Berechnung von Prüfziffern bei EAN-13}
+Bei der Entwicklung eines sinnvollen Berechnungsverfahrens ist vor allem relevant, welche Fehler auftreten. Da es so viele verschiedene Arten gibt, muss die Prüfziffer auf die Häufigsten limitiert werden.\\
+Im Fall der EAN-Ziffern wurde diese Analyse zum Glück bereits von anderen Personen übernommen. Das Resultat ergab, dass sich $90\%$ der auftretenden Fehler auf zwei Arten beschränkten:
+\begin{itemize}
+  \item{\textbf{Typ I:} Einzelfehler, bei denen nur eine gescannte Ziffer falsch gelesen wurde ($80 \%$)}
+  \item{\textbf{Typ II:} Zahlendreher, d.h. zwei benachbarte Ziffern wurden vertauscht ($10 \%$)}
+\end{itemize}
+Alle anderen Fehler traten so selten auf, dass sie nicht im Prüfziffersystem berücksichtigt wurden.
+
+Ein erster Ansatz wäre zum Beispiel die Berechnung der Quersumme der ersten 12 Ziffern. Es wird jedoch schnell klar, dass Fehler vom Typ II damit auf keinen Fall erkannt werden können, denn trotz Zahlendrehern bleibt die Quersumme gleich. Der Grund dafür ist die Kommutativität der Addition. Um also auch solche Fehler zu erkennen, muss man einzelne Summanden verändern (\textit{permutieren}).
+
+Im Fall der EAN-Prüfziffern ist diese Permutation durch eine Multiplikation mit 3 realisiert. Dies führt dazu, dass die einzelnen Summanden unterschiedlich stark gewichtet sind und somit beim Auftreten von Fehler des Typs II unterschiedliche Werte errechnet werden.
+
+Zunächst ist die Menge der zu betrachtenden Ziffern im Strichcode festzuhalten. Sie lässt sich beschreiben durch $M = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$. Bei der Permutation wird jede Ziffer des Barcodes durch eine Abbildung $\pi : M \rightarrow \mathbb{N}_0$ verändert. Diese Zahl fließt dann direkt in die Quersumme ein.\\
+Dabei ist zu beachten, dass wir nicht die \textit{Zahlen}, sondern die \textit{Zeichen} 1-9 betrachten. Deswegen lässt sich auch schreiben:\\
+$10_{Zahl} \equiv 0_{Zeichen}$. Rechnerisch bedeutet dies: $0_{Zeichen} = 0_{Zahl} (\mod 10_{Zahl})$.\\\\
+Die Berechnungsvorschrift bei EAN-13:
+
+\textit{``Die Prüfziffer lässt sich aus der Quersumme der ersten 12 Zahlen des Codes berechnen, wobei jede Zahl an einer geraden Stelle verdreifacht wird. Von diesem Wert nimmt man die letzte Stelle und zieht sie von 10 ab. Die dabei entstehende Differenz ist die 13. Zahl des Codes.''}\\
+Oder kürzer:
+
+\textit{``Die Prüfziffer $z_{13}$ gleicht die permutierte Quersumme so aus, dass das Ergebnis durch 10 teilbar ist.''}\\\\
+In mathematischer Schreibweise:\\
+\begin{displaymath}
+  (z_1 + 3 \cdot z_2 + z_3 + \dots + 3 \cdot z_{12} + z_{13}) \mod 10 = 0.
+\end{displaymath}
+\begin{center}
+\begin{pspicture}(4.5,2.2in)
+  \psbarcode{7802619348848}{includetext inkspread=0.5}{ean13}
+\end{pspicture}
+\end{center}
+Im obenstehenden Beispiel lässt sich die Prüfziffer (7) also folgendermaßen berechnen:
+\begin{center}
+\begin{align*}
+  7 + 3 \cdot 8 + 0 + 3 \cdot 2 + 6 + 3 \cdot 1 + 9 + 3 \cdot 3 + 4 + 3 \cdot 8 + 8 + 3 \cdot 4 + z_{13} &= 0\\
+  \Leftrightarrow 112 + z_{13} &= 0\\
+  \Rightarrow z_{13} &= 10 - (112 \mod 10)\\
+  \Leftrightarrow z_{13} &= 8\\
+\end{align*}
+\end{center}
+Nun kann man sich die Frage stellen, warum genau mit der Zahl 3 multipliziert wird. Dafür betrachten wir die Berechnung der Quersumme. Man hat nun die Wahl zwischen zwei Möglichkeiten, um Nachbartranspositionen zu erfassen:
+\begin{enumerate}
+\item{Man wählt eine Gruppe, auf der die Addition \textit{nicht kommutativ} ist, d.h. $9 + 1 \neq 1 + 9$. Dies ist bei der Verwendung von Zahlen jedoch nicht möglich.}
+\item{Man nimmt eine kommutative Gruppe, d.h. $9 + 1 = 1 + 9$, und gewichtet die Summanden der Quersumme mit einer ungeraden Zahl. Hierbei werden jedoch nicht alle Fehler erkannt.}
+\end{enumerate}
+
+Die Idee hinter der Kontrollziffer ist die Erkennung von menschlichen und maschinellen Fehlern. Aufgrund der Berechnungsvorschrift kann über diese einzelne Ziffer nur ausgesagt werden, \textit{ob} ein Fehler vorliegt, nicht \textit{welche Art} von Fehler. Wegen den $10 \%$ der Fehler, die weder Typ I noch Typ II sind, lässt eine korrekte Prüfsumme jedoch nicht unbedingt auf einen tatsächlich korrekten Strichcode schließen.
+
+\section{Fragen}
+\subsection{Joshua}
+\begin{enumerate}
+\item{\textbf{Gibt es Fehler, die nicht erkannt werden?}\\
+  \textbf{Antwort:} Es gibt einerseits Fehler, die durch unser System gar nicht erst betrachtet werden (zum Beispiel 3 Zahlen werden falsch gelesen, oder zwei nicht benachbarte Ziffern werden vertauscht). Sie werden vernachlässigt, da sie so selten auftreten. Andererseits gibt es auch Fehler, die eigentlich erkannt werden \textit{sollten} (Typ I und Typ II), durch die Beschaffenheit des Algorithmus jedoch trotzdem nicht erkannt werden. Darunter fallen unter Anderem Nachbartranspositionen, bei denen die Differenz der Ziffern genau 5 beträgt.}
+\item{\textbf{Wie viele verschiedene Codes sind dann überhaupt möglich?}\\
+  \textbf{Antwort:} Da die letzte Ziffer ja jeweils für die Überprüfung der anderen genutzt wird, bleiben noch 12 Ziffern für die Codierung des Produkts übrig. Da pro Stelle 10 verschiedene Möglichkeiten bestehen, gibt es $10^{12}$ (also eine Billion) verschiedene Codes.}
+\end{enumerate}
+
+\subsection{Lorenz}
+\begin{enumerate}
+\item{\textbf{Wie unterscheidet sich dieses Codierungsverfahren von anderen Möglichkeiten?}\\
+  \textbf{Antwort:} Es gibt Verfahren, die auf ganz anderer Grundlage arbeiten. Beispielsweise sind die zur Verfügung stehenden Zeichen (das sogenannte \textit{Alphabet}) unterschiedlich. Verwendet man Buchstaben statt Ziffern, hat man auf einmal 26 verschiedene Zeichen, was die Möglichkeiten einer Codierung selbstverständlich drastisch ändert. Andere Verfahren können jedoch auch ein vollständig anderes Ziel verfolgen. So kann es sein, dass bei einem neuen Scannertyp komplett unterschiedliche Lesefehler auftreten, welche dann durch einen anderen Algorithmus ausgeglichen bzw. abgefangen werden müssen.}
+\item{\textbf{Welche Vorteile bzw. Nachteile hat die Verwendung eines anderen Alphabets?}\\
+  \textbf{Antwort:} Zunächst bietet ein anderes Alphabet möglicherweise mehr bzw. weniger Zeichen pro Stelle und damit entsprechend andere Möglichkeiten zur Codierung des Produkts. Weiterhin muss die Regel zur Berechnung des Kontrollzeichens verändert werden, wodurch verschieden viele und eventuell auch andere Fehler erkannt werden können.}
+\end{enumerate}
+\end{document}
