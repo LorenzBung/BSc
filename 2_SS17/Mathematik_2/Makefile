@@ -1,6 +1,6 @@
 # Makefile
 # Commands
-CC = pdflatex -shell-escape
+CC = pdflatex -shell-escape -interaction=nonstopmode -halt-on-error
 RM = rm -f
 
 # File Variables

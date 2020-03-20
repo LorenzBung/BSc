@@ -2,9 +2,10 @@ language: shell
 os: linux
 
 before_install:
+- sudo apt-get -qq update && sudo apt-get -qq -y install texlive texlive-latex-extra texlive-full texlive-xetex texlive-pstricks
 
 install:
 
 script:
-- cd 1_WS16/Programmierkurs_1 && mkdir classes && make
-- cd 2_SS17/Mathematik_2 && make
+- cd 1_WS16/Programmierkurs_1 && mkdir classes && make && cd .. && cd ..
+- cd 2_SS17/Mathematik_2 && make && cd ..
