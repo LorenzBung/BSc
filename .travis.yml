@@ -2,7 +2,7 @@ language: shell
 os: linux
 
 before_install:
-- sudo apt install texlive texlive-pstricks
+- sudo apt-get update && sudo apt-get -y install texlive texlive-pstricks
 
 install:
 
