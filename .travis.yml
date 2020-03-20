@@ -7,4 +7,5 @@ install:
 
 script:
 - cd 1_WS16/Programmierkurs_1 && mkdir classes && make
+- pwd && cd .. && cd ..
 - cd 2_SS17/Mathematik_2 && make
