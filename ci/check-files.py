@@ -1,11 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 from __future__ import print_function
+
+import re
+import sys
 
 from os import listdir
 from os.path import dirname, isfile, join, isdir
 
 ROOT_DIR = join(dirname(__file__), '..')
 FILES_FOLDER = join(ROOT_DIR, 'files')
+
+def natural_sort_key(value):
+    return [int(s) if s.isdigit() else s.lower() for s in re.split(r"(\d+)", value)]
 
 
 def get_file_lists():
@@ -41,13 +47,17 @@ def check_files(file_list):
             errors += 1
 
     if errors == 0:
+        return True
         print(" -> All Files found.")
+    return False
 
 
 def main():
-    for f, file_list in get_file_lists().items():
-        print(f)
-        check_files(file_list)
+    file_lists = get_file_lists()
+    newest_folder = sorted(file_lists.keys(), key=natural_sort_key)[-1]
+    print(newest_folder)
+    if not check_files(file_lists[newest_folder]):
+        sys.exit(1)
 
 
 if __name__ == '__main__':
