@@ -8,6 +8,9 @@ MY_PATH="$(dirname "$0")"
 # basic style check
 "$MY_PATH/check-basic-style.py"
 
+# rustfmt style check
+"$MY_PATH/rustfmt.sh"
+
 # check that everything compiles and all tests pass
 "$MY_PATH/test-rust.sh"
 
