@@ -5,7 +5,9 @@ before_install:
   - sudo add-apt-repository -y ppa:duggan/bats
   - sudo apt-get update
   - sudo apt-get -y install bats
-before_script: (cargo install rustfmt || true)
+before_script:
+  - (cargo install rustfmt || true)
+  - rustup component add rustfmt --toolchain stable-x86_64-unknown-linux-gnu
 sudo: false
 git:
   depth: 1
