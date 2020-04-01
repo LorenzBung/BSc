@@ -1,0 +1,12 @@
+[package]
+name = "task2"
+version = "0.1.0"
+authors = ["Joshua Rutschmann <joshua.rutschmann@gmx.de>"]
+
+[dependencies]
+nix = "0.9.0"
+
+[[bin]]
+doc = false
+name = "task2"
+
