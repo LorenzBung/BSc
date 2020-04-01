@@ -103,7 +103,8 @@ pub fn main() {
                 }
                 (Some(difficulty), Some(range), None) => {
                     if let Ok(rng) = range.parse::<usize>() {
-                        println!("\nSearching with {} threads for hash with difficulty ({}) in range 0 - {} ", t, difficulty, range);
+                        println!("\nSearching with {} threads for hash with difficulty ({}) in range 0 - {} ",
+                            t, difficulty, range);
                         prompt();
                         let result_queue = srv_hasher::search_multiple_with_threads(
                             t,
@@ -120,7 +121,8 @@ pub fn main() {
                 }
                 (Some(difficulty), Some(range), Some(port)) => {
                     if let Ok(rng) = range.parse::<usize>() {
-                        println!("\nSearching with {} threads for hash with difficulty ({}) in range 0 - {} ", t, difficulty, range);
+                        println!("\nSearching with {} threads for hash with difficulty ({}) in range 0 - {} ",
+                            t, difficulty, range);
                         prompt();
 
                         let result_queue = srv_hasher::search_multiple_with_threads(
