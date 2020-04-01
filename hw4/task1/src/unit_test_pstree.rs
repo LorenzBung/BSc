@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use pstree::Process;
     use pstree::print;
+    use pstree::Process;
 
     #[test]
     #[should_panic]

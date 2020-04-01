@@ -1,11 +1,11 @@
 extern crate clap;
 extern crate time;
 
-use time::get_time;
-use clap::{Arg, App, SubCommand};
+use clap::{App, Arg, SubCommand};
 use std::process;
-mod hasher_sha256;
+use time::get_time;
 mod hash256;
+mod hasher_sha256;
 
 /// Hauptfunktion zum Starten des Hashers.
 pub fn main() {
@@ -60,9 +60,7 @@ fn create_app<'a, 'b>() -> App<'a, 'b> {
     App::new("Hash256")
         .version("1.0")
         .author("Lorenz Bung & Joshua Rutschmann")
-        .about(
-            "Calculates the Hashvalue of the given base, number and difficulty.",
-        )
+        .about("Calculates the Hashvalue of the given base, number and difficulty.")
         .arg(
             Arg::with_name("base")
                 .value_name("base")

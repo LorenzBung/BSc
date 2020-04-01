@@ -1,12 +1,11 @@
 #[macro_use]
 extern crate clap;
-extern crate task1;
 extern crate sys_info;
+extern crate task1;
 
 use clap::App;
 use std::process;
 use task1::search_with_threads;
-
 
 pub fn main() {
     // Lade Commandline Einstellungen aus YAML-Datei
@@ -70,7 +69,6 @@ pub fn main() {
             }
 
             let _ = search_with_threads(t, diff, b, time, verbosity, sync_opt, wait);
-
         }
         (_, Err(_)) => {
             println!("Number of threads is not integer.");

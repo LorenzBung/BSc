@@ -1,12 +1,12 @@
 extern crate nix;
 
+use nix::sys::wait::wait;
+use nix::unistd::ForkResult::{Child, Parent};
+use nix::unistd::{close, dup2, execvp, fork, pipe};
+use std::env;
+use std::ffi::{CString, OsString};
 use std::io::{BufRead, Write};
 use std::str::FromStr;
-use std::env;
-use std::ffi::{OsString, CString};
-use nix::unistd::ForkResult::{Child, Parent};
-use nix::sys::wait::wait;
-use nix::unistd::{dup2, close, execvp, fork, pipe};
 
 mod errortype;
 
@@ -23,7 +23,6 @@ pub enum Command {
 impl FromStr for Command {
     type Err = ErrorType;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-
         let mut parts = s.split_whitespace();
 
         match parts.next() {
@@ -54,7 +53,6 @@ impl Command {
                 let home_path = home.as_path();
                 let _ = env::set_current_dir(home_path);
             }
-
         }
 
         if let Command::Cd(Some(ref path)) = *self {
@@ -64,7 +62,6 @@ impl Command {
                 }
                 None => {}
             }
-
         }
     }
 }
@@ -108,10 +105,9 @@ impl<R: BufRead, W: Write> Shell<R, W> {
     pub fn prompt(&mut self) -> Result<Option<String>, ErrorType> {
         match env::current_dir() {
             Ok(pwd) => {
-                let _ = self.writer.write_all(
-                    format!("{} {}> ", self.name, pwd.display())
-                        .as_bytes(),
-                );
+                let _ = self
+                    .writer
+                    .write_all(format!("{} {}> ", self.name, pwd.display()).as_bytes());
                 let _ = self.writer.flush();
 
                 let mut line: String = String::new();
@@ -127,30 +123,25 @@ impl<R: BufRead, W: Write> Shell<R, W> {
 
     /// Runs a command.
     fn run(&mut self, command: Command) -> Result<(), ErrorType> {
-
         match command {
             Command::Empty => {}
             Command::Program(cmd) => {
-
                 let commands = cmd.split('|');
                 let commands_vec: Vec<&str> = commands.collect();
 
                 if commands_vec.len() > 2 {
                     let _ = self.writer.write_all(
-                        format!("Error: Only one pipe supported at the moment.\n")
-                            .as_bytes(),
+                        format!("Error: Only one pipe supported at the moment.\n").as_bytes(),
                     );
                     return Err(ErrorType::BrokenPipeError);
                 }
 
                 let needs_pipe = commands_vec.len() == 2;
 
-
                 let fi = fork();
                 match fi {
                     Ok(Parent { child: _child }) => {
                         let _ = wait();
-
                     }
                     Ok(Child) => {
                         if let Ok((reader, writer)) = pipe() {
@@ -182,7 +173,6 @@ impl<R: BufRead, W: Write> Shell<R, W> {
                     }
                     Err(_) => return Err(ErrorType::ForkError),
                 }
-
             }
             Command::Exit => self.should_exit = true,
             Command::Cd(_) => {
@@ -201,10 +191,9 @@ impl<R: BufRead, W: Write> Shell<R, W> {
         match execvp(&t[0], &t) {
             Ok(_) => {}
             Err(_) => {
-                let _ = self.writer.write_all(
-                    format!("{:?}: command not found\n", cmd[0])
-                        .as_bytes(),
-                );
+                let _ = self
+                    .writer
+                    .write_all(format!("{:?}: command not found\n", cmd[0]).as_bytes());
             }
         }
     }

@@ -5,13 +5,12 @@ mod tests;
 
 #[cfg(feature = "SHA2")]
 use self::sha2::Sha256;
-use std::thread;
-use std::sync::Arc;
 use std::sync::atomic::AtomicBool;
 use std::sync::atomic::Ordering::Relaxed;
-use std::sync::mpsc::{Sender, channel};
-use time::{Duration, get_time};
-
+use std::sync::mpsc::{channel, Sender};
+use std::sync::Arc;
+use std::thread;
+use time::{get_time, Duration};
 
 pub struct Sha256;
 
@@ -36,38 +35,9 @@ impl Hasher for Sha256 {
         tmp.input(input);
         let r = tmp.result().as_slice().to_vec();
         [
-            r[0],
-            r[1],
-            r[2],
-            r[3],
-            r[4],
-            r[5],
-            r[6],
-            r[7],
-            r[8],
-            r[9],
-            r[10],
-            r[11],
-            r[12],
-            r[13],
-            r[14],
-            r[15],
-            r[16],
-            r[17],
-            r[18],
-            r[19],
-            r[20],
-            r[21],
-            r[22],
-            r[23],
-            r[24],
-            r[25],
-            r[26],
-            r[27],
-            r[28],
-            r[29],
-            r[30],
-            r[31],
+            r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13],
+            r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25],
+            r[26], r[27], r[28], r[29], r[30], r[31],
         ]
     }
 }
@@ -75,22 +45,7 @@ impl Hasher for Sha256 {
 impl HashResult for [u8; 32] {
     fn hex(&self) -> String {
         const HEX: [char; 16] = [
-            '0',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            'a',
-            'b',
-            'c',
-            'd',
-            'e',
-            'f',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
         ];
         let mut tmp = String::with_capacity(32 * 2);
         for byte in self.iter() {
@@ -152,7 +107,6 @@ fn search_hash(
 
     let thread_start = get_time();
     while n < max {
-
         // Der special Parameter begrenzt die Anzahl der load()-Aufrufe auf jeden n.ten Loop.
         if n % special == 0 && found.load(Relaxed) {
             // Anderer Thread hat eine Lösung gefunden (sync ist aktiviert). Beende Suche.
@@ -189,7 +143,6 @@ pub fn search_with_threads(
     sync: Option<usize>,
     wait: bool,
 ) -> Option<Solution> {
-
     let diff = Arc::new(diff_string);
     let mut children = vec![];
     let mut solution = None;
@@ -202,7 +155,6 @@ pub fn search_with_threads(
 
     let total_start = get_time();
     if threads > 1 {
-
         if verbosity > 0 {
             println!("Searching with {} threads", threads);
         }
@@ -216,7 +168,6 @@ pub fn search_with_threads(
             let found = found.clone();
 
             children.push(thread::spawn(move || {
-
                 // Suche in jedem der Threads.
                 search_hash(
                     &diff,
@@ -280,7 +231,6 @@ pub fn search_with_threads(
     let mut sum_time: Duration = Duration::zero();
 
     for child in children {
-
         if time_measurement && verbosity > 0 {
             // Warte auf Zeitstatistik-Nachricht von jedem Thread auf dem zweiten MPSC Channel.
             if let Ok(stats) = timing_rx.recv() {

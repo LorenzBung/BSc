@@ -3,15 +3,14 @@ extern crate procinfo;
 use std::env;
 use std::process;
 
-mod readproc;
 mod pstree;
+mod readproc;
 
 mod unit_test_pstree;
 mod unit_test_readproc;
 
 /// Mainfunction
 fn main() {
-
     let args: Vec<String> = env::args().collect();
 
     match args.len() {
@@ -25,9 +24,7 @@ fn main() {
                     if let Ok(pid_threads) = readproc::get_thread_count(pid) {
                         println!(
                             "My PID : {} - {} running {} threads",
-                            pid,
-                            pid_command,
-                            pid_threads
+                            pid, pid_command, pid_threads
                         );
                     }
                 }
@@ -37,15 +34,11 @@ fn main() {
                     if let Ok(ppid_threads) = readproc::get_thread_count(ppid) {
                         println!(
                             "My PPID: {} - {} running {} threads",
-                            ppid,
-                            ppid_command,
-                            ppid_threads
+                            ppid, ppid_command, ppid_threads
                         );
                     }
                 }
-
             }
-
 
             if let Ok(size_tuple) = readproc::get_ownprocess_mem() {
                 // Memory
@@ -55,9 +48,7 @@ fn main() {
 
                 println!(
                     "My mem : {} (vspace), {} (code), {} (data)",
-                    vspace,
-                    code,
-                    data
+                    vspace, code, data
                 );
             }
 
@@ -66,26 +57,23 @@ fn main() {
                 println!("Last process created in system was: {}", last_command);
             }
 
-
             if let Ok(task_total) = readproc::get_task_total() {
                 // Number of tasks
                 println!("Total number of tasks: {}", task_total);
             }
         }
 
-        2 => {
-            match args[1].parse::<i32>() {
-                Ok(pid) => {
-                    if !pstree::print(pid) {
-                        process::exit(1);
-                    }
-                }
-                Err(_) => {
-                    println!("Error while parsing PID");
+        2 => match args[1].parse::<i32>() {
+            Ok(pid) => {
+                if !pstree::print(pid) {
                     process::exit(1);
                 }
             }
-        }
+            Err(_) => {
+                println!("Error while parsing PID");
+                process::exit(1);
+            }
+        },
 
         _ => {
             println!("Correct usage: no param or param PID");

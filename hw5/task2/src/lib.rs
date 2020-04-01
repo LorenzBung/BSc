@@ -46,7 +46,8 @@ impl Roman {
             900 => "CM",
             1000 => "M",
             _ => "",
-        }.to_string()
+        }
+        .to_string()
     }
 
     fn new(string: String) -> Self {

@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use ::*;
+    use *;
 
     #[test]
     fn test_wrong_diff() {

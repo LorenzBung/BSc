@@ -1,7 +1,7 @@
-use nix::unistd::{fork, getpid};
 use nix::sys::wait::wait;
 use nix::sys::wait::WaitStatus;
 use nix::unistd::ForkResult::{Child, Parent};
+use nix::unistd::{fork, getpid};
 
 mod pstree;
 
@@ -12,20 +12,14 @@ pub fn run_childs(start_pid: i32, arg: &str) -> Result<(), String> {
     let count = arg.parse::<u8>();
     match count {
         Ok(value) => {
-
             if value > 0 {
                 fork_children(0, value - 1, start_pid);
             }
             Ok(())
         }
-        Err(_) => {
-            Err(
-                "Failed to parse arguments. PIDs must be decimal.\n".to_string(),
-            )
-        }
+        Err(_) => Err("Failed to parse arguments. PIDs must be decimal.\n".to_string()),
     }
 }
-
 
 /// Private function, which forks specified amount of processes (*count*) through recursion
 fn fork_children(count: u8, to: u8, start_pid: i32) {

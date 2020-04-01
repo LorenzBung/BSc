@@ -23,18 +23,15 @@ pub fn run(conf: &Config) -> i32 {
 /// Returns Config or Error Message in Result
 #[allow(dead_code)]
 fn parse_arguments(args: &Vec<String>) -> Result<Config, String> {
-
     if args.len() < 3 {
         return Err("not ennugh parameters".to_string());
     }
 
     match args[1].chars().nth(0) {
-        Some(value) => {
-            Ok(Config {
-                search: value,
-                line: args[2].clone(),
-            })
-        }
+        Some(value) => Ok(Config {
+            search: value,
+            line: args[2].clone(),
+        }),
         None => Err("char mismatch".to_string()),
     }
 }
@@ -74,12 +71,10 @@ impl Config {
         }
 
         match args[1].chars().nth(0) {
-            Some(value) => {
-                Ok(Config {
-                    search: value,
-                    line: args[2].clone(),
-                })
-            }
+            Some(value) => Ok(Config {
+                search: value,
+                line: args[2].clone(),
+            }),
             None => Err("char mismatch"),
         }
     }

@@ -1,5 +1,5 @@
-use procinfo::pid;
 use procinfo::loadavg;
+use procinfo::pid;
 
 /// Returns the PID and PPID of the current process.
 /// Throws an error if the current process doesn't exist (should never occur).

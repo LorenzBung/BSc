@@ -1,4 +1,3 @@
-
 #[cfg(test)]
 mod tests {
     #[test]
@@ -35,7 +34,6 @@ impl PascalsTriangle {
             if current > 0 {
                 matrix[current].push(1);
             }
-
         }
 
         println!("{:?}", matrix);

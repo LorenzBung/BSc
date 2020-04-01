@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests {
 
-    use procinfo;
     use child::*;
+    use procinfo;
 
     #[test]
     fn test_zero_forks() {

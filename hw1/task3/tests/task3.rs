@@ -11,10 +11,7 @@ fn test_one_char() {
 #[test]
 fn test_two_char() {
     assert_eq!(
-        task3::count(
-            "♥ The quick brown fox jumps over the lazy dog. ♥",
-            '♥',
-        ),
+        task3::count("♥ The quick brown fox jumps over the lazy dog. ♥", '♥',),
         2
     );
 }

@@ -55,7 +55,6 @@ impl Process {
 
     /// Gibt über Rekursion über die Eltern eine Prozesskette aus.
     pub fn print_recursive(&self, to_pid: i32, output: &mut String) {
-
         if output.len() == 0 {
             *output = format!("{}({}){}", self.name, self.pid, output);
         } else {
@@ -71,7 +70,6 @@ impl Process {
 /// Geht von eigenem Prozess aus und gibt die Prozesskette bis zum übergebenem PID aus
 /// und fängt mögliche Fehler ab.
 pub fn print(pid: i32) -> bool {
-
     if let Err(_) = pid::stat(pid) {
         println!("Invalid PID");
         return false;

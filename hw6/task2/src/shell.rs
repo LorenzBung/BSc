@@ -1,7 +1,7 @@
-use std::io::{BufRead, Write};
 use command::*;
-use std::str::FromStr;
 use std::env;
+use std::io::{BufRead, Write};
+use std::str::FromStr;
 
 pub struct Shell<R: BufRead, W: Write> {
     pub reader: R,
@@ -43,10 +43,9 @@ impl<R: BufRead, W: Write> Shell<R, W> {
     pub fn prompt(&mut self) -> Result<Option<String>, &str> {
         match env::current_dir() {
             Ok(pwd) => {
-                let _ = self.writer.write(
-                    format!("{} {} > ", self.name, pwd.display())
-                        .as_bytes(),
-                );
+                let _ = self
+                    .writer
+                    .write(format!("{} {} > ", self.name, pwd.display()).as_bytes());
                 let _ = self.writer.flush();
 
                 let mut line: String = String::new();
@@ -63,7 +62,6 @@ impl<R: BufRead, W: Write> Shell<R, W> {
     /// Runs a command.
     /// Currently only `cd` and `exit` are working.
     fn run(&mut self, command: Command) -> Result<(), CommandNotFoundError> {
-
         match command {
             Command::Empty => {}
             Command::Exit => self.should_exit = true,

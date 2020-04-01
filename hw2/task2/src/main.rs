@@ -11,8 +11,7 @@ fn main() {
         Ok(conf) => {
             println!(
                 "You asked me to count all '{}' in '{}'",
-                conf.search,
-                conf.line
+                conf.search, conf.line
             );
             let occ = task2::run(&conf);
             println!("Found {} '{}' in '{}'", occ, conf.search, conf.line);
@@ -22,7 +21,4 @@ fn main() {
             process::exit(1)
         }
     }
-
-
-
 }

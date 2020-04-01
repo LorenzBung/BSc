@@ -1,7 +1,6 @@
 extern crate task2;
 use task2::Config;
 
-
 #[test]
 fn test_parse_config_1() {
     let a = vec![

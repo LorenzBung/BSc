@@ -1,14 +1,13 @@
-extern crate procinfo;
 extern crate nix;
+extern crate procinfo;
 
+use nix::unistd::getpid;
 use std::env::args;
 use std::process;
-use nix::unistd::getpid;
 
+mod child;
 mod unit_tests;
 mod zombie;
-mod child;
-
 
 fn main() {
     let arguments: Vec<String> = args().collect();

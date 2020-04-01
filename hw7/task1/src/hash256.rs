@@ -1,5 +1,5 @@
-use hasher_sha256::{Hasher, HashResult};
 use hasher_sha256::Sha256;
+use hasher_sha256::{HashResult, Hasher};
 use std::fmt;
 
 /// Dieser Datentyp beschreibt die Lösung des Hashverfahrens.

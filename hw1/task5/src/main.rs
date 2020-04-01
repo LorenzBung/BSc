@@ -8,7 +8,6 @@ fn is_prime(n: u64) -> bool {
     n > 1 && n % 1 == 0 && n % n == 0
 }
 
-
 fn main() {
     for i in 1..31 {
         if is_prime(i) {

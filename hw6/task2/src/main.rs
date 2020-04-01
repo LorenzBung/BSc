@@ -1,12 +1,10 @@
-use std::process;
 use shell::Shell;
 use std::io;
+use std::process;
 
-mod unit_tests_shell;
 mod command;
 mod shell;
-
-
+mod unit_tests_shell;
 
 fn main() {
     let stdin = io::stdin();

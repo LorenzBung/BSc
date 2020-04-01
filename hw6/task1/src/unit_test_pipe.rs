@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod test {
-    use {read_from_pipe, mul_strings, sum_strings, split_into_strings, concatenate_strings};
     use nix::unistd::{pipe, write};
+    use {concatenate_strings, mul_strings, read_from_pipe, split_into_strings, sum_strings};
 
     #[test]
     fn test_pipe() {
@@ -16,7 +16,6 @@ mod test {
             }
             Err(_) => {}
         }
-
     }
 
     #[test]
@@ -51,6 +50,4 @@ mod test {
     fn test_concat_string() {
         assert_eq!(concatenate_strings("Hello", "World"), "HelloWorld");
     }
-
-
 }

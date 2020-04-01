@@ -1,11 +1,11 @@
 extern crate srv_commands;
 extern crate srv_config;
 
-use std::io::{BufReader, BufRead, BufWriter, Write};
-use std::collections::VecDeque;
-use std::net::{TcpListener, TcpStream};
 use srv_commands::Command;
 use srv_config::Config;
+use std::collections::VecDeque;
+use std::io::{BufRead, BufReader, BufWriter, Write};
+use std::net::{TcpListener, TcpStream};
 use HashServerError::Parse;
 
 #[derive(Debug)]
@@ -47,7 +47,6 @@ fn handle_client(stream: &TcpStream, orders: &mut VecDeque<String>, v: bool) {
                     Ok(Command::Retrieve) => {
                         if orders.is_empty() {
                             let _ = writer.write(b"No order on stage!\n");
-
                         } else {
                             if let Some(latest_order) = orders.pop_front() {
                                 let _ = writer.write(latest_order.as_bytes());
@@ -76,17 +75,13 @@ fn handle_client(stream: &TcpStream, orders: &mut VecDeque<String>, v: bool) {
 }
 
 pub fn main() {
-
     let c = Config::load();
 
     if c.verbosity > 0 {
         println!("Starting Multi Hash Server 0.1:");
         println!(
             "verbosity: {} | address: {} | port: {} | test-mode: {}",
-            c.verbosity,
-            c.address,
-            c.port,
-            c.testing
+            c.verbosity, c.address, c.port, c.testing
         );
     }
 

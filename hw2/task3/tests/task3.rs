@@ -9,7 +9,6 @@ fn no_rows() {
     assert_eq!(expected, pt.rows());
 }
 
-
 #[test]
 fn one_row() {
     let pt = PascalsTriangle::new(1);

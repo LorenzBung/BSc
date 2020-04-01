@@ -3,19 +3,17 @@ use std::process;
 
 extern crate nix;
 
-use nix::unistd::{fork, pipe, read, write};
 use nix::sys::wait::{wait, WaitStatus};
-use std::str;
 use nix::unistd::ForkResult::{Child, Parent};
+use nix::unistd::{fork, pipe, read, write};
 use std::os::unix::io::RawFd;
+use std::str;
 
 mod unit_test_pipe;
 
 const BUFFER_SIZE: usize = 256;
 
-
 fn main() {
-
     let arguments: Vec<String> = args().collect();
 
     if arguments.len() > 2 {
@@ -24,43 +22,38 @@ fn main() {
 
             let pid = fork();
             match pid {
-                Ok(Child) => {
-                    match read_from_pipe(reader) {
-                        Ok(msg_received) => {
-                            let vec = split_into_strings(&msg_received);
+                Ok(Child) => match read_from_pipe(reader) {
+                    Ok(msg_received) => {
+                        let vec = split_into_strings(&msg_received);
 
-                            let pid = fork();
-                            match pid {
-                                Ok(Child) => {
-                                    match sum_strings(vec) {
-                                        Ok(res) => println!("Sum = {}", res),
-                                        Err(e) => {
-                                            println!("{}", e);
-                                            process::exit(1);
-                                        }
-                                    }
+                        let pid = fork();
+                        match pid {
+                            Ok(Child) => match sum_strings(vec) {
+                                Ok(res) => println!("Sum = {}", res),
+                                Err(e) => {
+                                    println!("{}", e);
+                                    process::exit(1);
                                 }
-                                Ok(Parent { .. }) => {
-                                    if let Ok(ws) = wait() {
-                                        if let WaitStatus::Exited(_, exit_code) = ws {
-                                            match mul_strings(vec) {
-                                                Ok(res) => println!("Mul = {}", res),
-                                                Err(e) => {
-                                                    println!("{}", e);
-                                                    process::exit(1);
-                                                }
+                            },
+                            Ok(Parent { .. }) => {
+                                if let Ok(ws) = wait() {
+                                    if let WaitStatus::Exited(_, exit_code) = ws {
+                                        match mul_strings(vec) {
+                                            Ok(res) => println!("Mul = {}", res),
+                                            Err(e) => {
+                                                println!("{}", e);
+                                                process::exit(1);
                                             }
-                                            process::exit(exit_code as i32);
                                         }
+                                        process::exit(exit_code as i32);
                                     }
                                 }
-                                Err(_) => println!("Fatal error: Fork failed"),
                             }
-
+                            Err(_) => println!("Fatal error: Fork failed"),
                         }
-                        Err(_) => {}
                     }
-                }
+                    Err(_) => {}
+                },
 
                 Ok(Parent { .. }) => {
                     let mut args = String::new();
@@ -87,18 +80,15 @@ fn main() {
         println!("Correct usage: number number <number> ...");
         process::exit(1)
     }
-
 }
 
 fn read_from_pipe(reader: RawFd) -> Result<String, String> {
     let mut read_buf = [0u8; BUFFER_SIZE];
     match read(reader, &mut read_buf) {
-        Ok(bytes_read) => {
-            match str::from_utf8(&read_buf[0..bytes_read]) {
-                Ok(msg_received) => Ok(msg_received.to_string()),
-                Err(_) => Err("Couldn't read".to_string()),
-            }
-        }
+        Ok(bytes_read) => match str::from_utf8(&read_buf[0..bytes_read]) {
+            Ok(msg_received) => Ok(msg_received.to_string()),
+            Err(_) => Err("Couldn't read".to_string()),
+        },
         Err(_) => Err("Couldn't read".to_string()),
     }
 }
@@ -121,14 +111,12 @@ fn sum_strings(v: Vec<String>) -> Result<i64, String> {
     let mut sum: i64 = 0;
     for x in v {
         match x.parse::<i64>() {
-            Ok(val) => {
-                match i64::checked_add(sum, val) {
-                    Some(y) => {
-                        sum = y;
-                    }
-                    None => return Err("Overflow would happen in sum_strings()".to_string()),
+            Ok(val) => match i64::checked_add(sum, val) {
+                Some(y) => {
+                    sum = y;
                 }
-            }
+                None => return Err("Overflow would happen in sum_strings()".to_string()),
+            },
             Err(_) => return Err("Given String is not a int".to_string()),
         }
     }
@@ -140,14 +128,12 @@ fn mul_strings(v: Vec<String>) -> Result<i64, String> {
     let mut prod: i64 = 1;
     for x in v {
         match x.parse::<i64>() {
-            Ok(val) => {
-                match i64::checked_mul(prod, val) {
-                    Some(y) => {
-                        prod = y;
-                    }
-                    None => return Err("Overflow would happen in mul_strings()".to_string()),
+            Ok(val) => match i64::checked_mul(prod, val) {
+                Some(y) => {
+                    prod = y;
                 }
-            }
+                None => return Err("Overflow would happen in mul_strings()".to_string()),
+            },
             Err(_) => return Err("Given String is not a int".to_string()),
         }
     }

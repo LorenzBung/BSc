@@ -1,6 +1,6 @@
+use std::env;
 use std::ffi::OsString;
 use std::str::FromStr;
-use std::env;
 
 #[derive(PartialEq, Debug)]
 pub enum Command {
@@ -15,7 +15,6 @@ pub struct CommandNotFoundError;
 impl FromStr for Command {
     type Err = CommandNotFoundError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-
         let mut parts = s.split_whitespace();
 
         match parts.next() {
@@ -30,7 +29,6 @@ impl FromStr for Command {
         }
     }
 }
-
 
 impl Command {
     /// If the passed String exists, set the path of the Cd in the enum (as OsString)
@@ -51,7 +49,6 @@ impl Command {
                 let home_path = home.as_path();
                 let _ = env::set_current_dir(home_path);
             }
-
         }
 
         if let Command::Cd(Some(ref path)) = *self {
@@ -61,7 +58,6 @@ impl Command {
                 }
                 None => {}
             }
-
         }
     }
 }

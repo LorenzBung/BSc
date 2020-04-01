@@ -1,7 +1,7 @@
 #[cfg(test)]
 
 mod tests {
-  extern crate srv_commands;
+    extern crate srv_commands;
     use self::srv_commands::*;
 
     #[test]
@@ -39,5 +39,4 @@ mod tests {
     fn retrieve_with_arguments_returns_correct_command() {
         assert_eq!(parse("RETRIEVE Hello\n"), Ok(Command::Retrieve))
     }
-
 }

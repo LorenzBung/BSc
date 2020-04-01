@@ -1,8 +1,9 @@
 #[cfg(test)]
 mod tests {
     use procinfo::pid::{status, status_self};
-    use readproc::{get_ownprocess_mem, get_pid_command, get_task_total, get_thread_count,
-                   self_pids};
+    use readproc::{
+        get_ownprocess_mem, get_pid_command, get_task_total, get_thread_count, self_pids,
+    };
 
     fn sol_self_pids() -> (i32, i32) {
         match status_self() {
@@ -39,7 +40,6 @@ mod tests {
         assert_eq!(Ok(name_of_init()), get_pid_command(1));
     }
 
-
     #[test]
     fn test3_systemd_threads() {
         let status = status(1).unwrap();
@@ -59,5 +59,4 @@ mod tests {
     fn test9_get_task_total() {
         assert_eq!(Ok((0)), get_task_total());
     }
-
 }

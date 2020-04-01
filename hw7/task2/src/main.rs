@@ -1,9 +1,8 @@
 extern crate task2;
 
-use std::process;
 use std::io;
+use std::process;
 use task2::Shell;
-
 
 /// Diese Funktion startet die Shell durch Aufruf
 /// von `Shell::new()`.

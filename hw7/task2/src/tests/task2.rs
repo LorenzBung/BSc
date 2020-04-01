@@ -1,10 +1,10 @@
 #[cfg(test)]
 mod test {
-    pub use shell::Shell;
     use command::Command;
     use command::CommandNotFoundError;
-    use std::str::FromStr;
+    pub use shell::Shell;
     use std::ffi::OsString;
+    use std::str::FromStr;
 
     #[test]
     fn test_command_empty_whitespace() {
