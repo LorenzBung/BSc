@@ -7,15 +7,15 @@ extern crate serde_json;
 
 #[cfg(feature = "SHA2")]
 use self::sha2::Sha256;
-use std::thread;
-use std::sync::{Arc, Mutex};
 use std::collections::VecDeque;
-use std::sync::atomic::AtomicBool;
-use std::sync::atomic::Ordering::Relaxed;
-use std::sync::mpsc::{Sender, channel};
 use std::fs::File;
 use std::io::Write;
 use std::ops::Deref;
+use std::sync::atomic::AtomicBool;
+use std::sync::atomic::Ordering::Relaxed;
+use std::sync::mpsc::{channel, Sender};
+use std::sync::{Arc, Mutex};
+use std::thread;
 
 #[derive(Serialize)]
 struct InnerQueue<T> {
@@ -23,11 +23,11 @@ struct InnerQueue<T> {
 }
 
 impl<'a, T: Send + Clone + serde::Serialize> InnerQueue<T> {
-
     fn new() -> Self {
-        Self { inner: VecDeque::new() }
+        Self {
+            inner: VecDeque::new(),
+        }
     }
-
 }
 
 #[derive(Clone)]
@@ -36,9 +36,10 @@ pub struct ParallelQueue<T> {
 }
 
 impl<'a, T: Send + Clone + serde::Serialize> ParallelQueue<T> {
-
     pub fn new() -> Self {
-        Self { inner: Arc::new(Mutex::new(InnerQueue::new())) }
+        Self {
+            inner: Arc::new(Mutex::new(InnerQueue::new())),
+        }
     }
 
     pub fn serialize(&self) {
@@ -68,8 +69,6 @@ impl<'a, T: Send + Clone + serde::Serialize> ParallelQueue<T> {
     }
 }
 
-
-
 pub struct Sha256;
 
 pub trait Hasher {
@@ -93,38 +92,9 @@ impl Hasher for Sha256 {
         tmp.input(input);
         let r = tmp.result().as_slice().to_vec();
         [
-            r[0],
-            r[1],
-            r[2],
-            r[3],
-            r[4],
-            r[5],
-            r[6],
-            r[7],
-            r[8],
-            r[9],
-            r[10],
-            r[11],
-            r[12],
-            r[13],
-            r[14],
-            r[15],
-            r[16],
-            r[17],
-            r[18],
-            r[19],
-            r[20],
-            r[21],
-            r[22],
-            r[23],
-            r[24],
-            r[25],
-            r[26],
-            r[27],
-            r[28],
-            r[29],
-            r[30],
-            r[31],
+            r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13],
+            r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25],
+            r[26], r[27], r[28], r[29], r[30], r[31],
         ]
     }
 }
@@ -132,22 +102,7 @@ impl Hasher for Sha256 {
 impl HashResult for [u8; 32] {
     fn hex(&self) -> String {
         const HEX: [char; 16] = [
-            '0',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            'a',
-            'b',
-            'c',
-            'd',
-            'e',
-            'f',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
         ];
         let mut tmp = String::with_capacity(32 * 2);
         for byte in self.iter() {
@@ -206,7 +161,6 @@ fn search_hash(
     let mut n = start;
 
     while n < end {
-
         // Der special Parameter begrenzt die Anzahl der load()-Aufrufe auf jeden n.ten Loop.
         if n % special == 0 && found.load(Relaxed) {
             // Anderer Thread hat eine Lösung gefunden (sync ist aktiviert). Beende Suche.
@@ -245,7 +199,6 @@ pub fn search_with_threads(
     let found = Arc::new(AtomicBool::new(false));
 
     if threads > 1 {
-
         // Erstellt Anzahl angeforderter Threads.
         // Klont für jeden Thread die Referenz auf die gemeinsamen Variablen.
         for i in 0..threads {
@@ -254,7 +207,6 @@ pub fn search_with_threads(
             let found = found.clone();
 
             children.push(thread::spawn(move || {
-
                 // Suche in jedem der Threads.
                 search_hash(
                     &diff,
@@ -267,7 +219,6 @@ pub fn search_with_threads(
                     sync.unwrap_or(1),
                     solution_tx,
                 );
-
             }));
         }
     } else {
@@ -283,10 +234,9 @@ pub fn search_with_threads(
             sync.unwrap_or(1),
             solution_tx,
         );
-
     }
-	
-	// Empfängt die Lösung von einem der Producer.
+
+    // Empfängt die Lösung von einem der Producer.
     match solution_rx.recv() {
         Ok(sol) => {
             solution = Some(Solution {
@@ -308,8 +258,6 @@ pub fn search_with_threads(
     solution
 }
 
-
-
 /// Sucht nach einem Hash für die angegebene Basis und die Schwierigkeit.
 /// Wenn `total` > 1 ist, dann hat jeder Aufruf mit einem anderen `start`-Wert (von 0 - total)
 /// eine disjunkte Zahlenmenge für die Suche zur Auswahl.
@@ -325,9 +273,8 @@ fn search_multiple_hash(
 
     while n < end {
         if let Some(solution) = verify_product(base, n, hash) {
-
             // Sende gefundene Solution an den Consumer.
-			queue.add(solution);
+            queue.add(solution);
             break;
         }
         n += total;
@@ -341,51 +288,32 @@ pub fn search_multiple_with_threads(
     diff_string: String,
     with_base: usize,
     range_of_numbers: usize,
-) -> ParallelQueue<Solution> {	
+) -> ParallelQueue<Solution> {
     let diff = Arc::new(diff_string);
     let mut children = vec![];
-    let result_queue:ParallelQueue<Solution> = ParallelQueue::new();
+    let result_queue: ParallelQueue<Solution> = ParallelQueue::new();
 
     if threads > 1 {
-
         // Erstellt Anzahl angeforderter Threads.
         // Klont für jeden Thread die Referenz auf die gemeinsamen Variablen.
         for i in 0..threads {
             let diff = diff.clone();
-			let queue = result_queue.clone();
+            let queue = result_queue.clone();
 
             children.push(thread::spawn(move || {
-
                 // Suche in jedem der Threads.
-                search_multiple_hash(
-                    &diff,
-                    with_base,
-                    i,
-                    range_of_numbers,
-                    threads,
-                    queue,
-                );
-
+                search_multiple_hash(&diff, with_base, i, range_of_numbers, threads, queue);
             }));
         }
     } else {
         // Suche auf dem Main-Thread.
-		let queue = result_queue.clone();
-        search_multiple_hash(
-            &diff,
-            with_base,
-            0,
-            range_of_numbers,
-            1,
-			queue,
-		);
-
+        let queue = result_queue.clone();
+        search_multiple_hash(&diff, with_base, 0, range_of_numbers, 1, queue);
     }
 
     for child in children {
         let _ = child.join();
     }
 
-	result_queue
+    result_queue
 }
-
