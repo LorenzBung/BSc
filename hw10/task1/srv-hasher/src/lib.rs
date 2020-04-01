@@ -19,7 +19,7 @@ use std::ops::Deref;
 
 #[derive(Serialize)]
 struct InnerQueue<T> {
-	inner: VecDeque<T>,
+    inner: VecDeque<T>,
 }
 
 impl<'a, T: Send + Clone + serde::Serialize> InnerQueue<T> {
@@ -27,7 +27,7 @@ impl<'a, T: Send + Clone + serde::Serialize> InnerQueue<T> {
     fn new() -> Self {
         Self { inner: VecDeque::new() }
     }
-	
+
 }
 
 #[derive(Clone)]
@@ -49,7 +49,7 @@ impl<'a, T: Send + Clone + serde::Serialize> ParallelQueue<T> {
             file.write_all(queue_json.as_bytes());
         }
     }
-    
+
     pub fn pop(&self) -> Option<T> {
         let inner_queue = self.inner.lock();
         if let Ok(mut queue) = inner_queue {
@@ -58,7 +58,7 @@ impl<'a, T: Send + Clone + serde::Serialize> ParallelQueue<T> {
             panic!("MutexError");
         }
     }
-	
+
     pub fn add(&self, order: T) {
         if let Ok(mut queue) = self.inner.lock() {
             queue.inner.push_back(order);
@@ -196,7 +196,7 @@ fn search_hash(
     hash: &String,
     base: usize,
     start: usize,
-	end: usize,
+    end: usize,
     total: usize,
     sync: bool,
     found: Arc<AtomicBool>,
@@ -232,16 +232,16 @@ pub fn search_with_threads(
     threads: usize,
     diff_string: String,
     with_base: usize,
-	range_of_numbers: usize,
+    range_of_numbers: usize,
     sync: Option<usize>,
     wait: bool,
-) -> Option<Solution> {	
+) -> Option<Solution> {
     let diff = Arc::new(diff_string);
     let mut children = vec![];
     let mut solution = None;
 
-	let (solution_tx, solution_rx) = channel();
-	
+    let (solution_tx, solution_rx) = channel();
+
     let found = Arc::new(AtomicBool::new(false));
 
     if threads > 1 {
@@ -260,7 +260,7 @@ pub fn search_with_threads(
                     &diff,
                     with_base,
                     i,
-					range_of_numbers,
+                    range_of_numbers,
                     threads,
                     sync.is_some(),
                     found,
@@ -276,7 +276,7 @@ pub fn search_with_threads(
             &diff,
             with_base,
             0,
-			range_of_numbers,
+            range_of_numbers,
             1,
             sync.is_some(),
             found,
@@ -317,9 +317,9 @@ fn search_multiple_hash(
     hash: &String,
     base: usize,
     start: usize,
-	end: usize,
+    end: usize,
     total: usize,
-	queue: ParallelQueue<Solution>,
+    queue: ParallelQueue<Solution>,
 ) {
     let mut n = start;
 
@@ -340,11 +340,11 @@ pub fn search_multiple_with_threads(
     threads: usize,
     diff_string: String,
     with_base: usize,
-	range_of_numbers: usize,
+    range_of_numbers: usize,
 ) -> ParallelQueue<Solution> {	
     let diff = Arc::new(diff_string);
     let mut children = vec![];
-	let result_queue:ParallelQueue<Solution> = ParallelQueue::new();
+    let result_queue:ParallelQueue<Solution> = ParallelQueue::new();
 
     if threads > 1 {
 
@@ -353,7 +353,7 @@ pub fn search_multiple_with_threads(
         for i in 0..threads {
             let diff = diff.clone();
 			let queue = result_queue.clone();
-			
+
             children.push(thread::spawn(move || {
 
                 // Suche in jedem der Threads.
@@ -361,7 +361,7 @@ pub fn search_multiple_with_threads(
                     &diff,
                     with_base,
                     i,
-					range_of_numbers,
+                    range_of_numbers,
                     threads,
                     queue,
                 );
@@ -375,7 +375,7 @@ pub fn search_multiple_with_threads(
             &diff,
             with_base,
             0,
-			range_of_numbers,
+            range_of_numbers,
             1,
 			queue,
 		);
@@ -385,7 +385,7 @@ pub fn search_multiple_with_threads(
     for child in children {
         let _ = child.join();
     }
-	
+
 	result_queue
 }
 

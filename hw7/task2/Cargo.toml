@@ -9,3 +9,4 @@ nix = "0.9.0"
 [[bin]]
 doc = false
 name = "task2"
+

@@ -1,7 +1,7 @@
 #[cfg(test)]
 
 mod tests {
-	extern crate srv_commands;
+  extern crate srv_commands;
     use self::srv_commands::*;
 
     #[test]
