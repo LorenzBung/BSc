@@ -2,11 +2,14 @@ language: shell
 os: linux
 
 before_install:
-- sudo apt-get -qq update && sudo apt-get -qq -y install texlive texlive-latex-extra texlive-full texlive-xetex texlive-pstricks
+  - sudo apt-get -qq update && sudo apt-get -qq -y install texlive texlive-latex-extra texlive-xetex texlive-pstricks
+  - sudo add-apt-repository -y ppa:duggan/bats && sudo apt-get -qq update && sudo apt-get -qq -y install bats
 
-install:
+before_script:
+  - (cargo install rustfmt || true)
+  - rustup component add rustfmt --toolchain stable-x86_64-unknown-linux-gnu
 
 script:
-- cd 1_WS16/Programmierkurs_1 && mkdir classes && make && cd ../..
-- cd 2_SS17/Mathematik_2 && make && cd ../..
-- cd 3_WS17/Betriebssysteme && ./ci/run-all.sh && cd ../..
+  - cd 1_WS16/Programmierkurs_1 && mkdir classes && make && cd ../..
+  - cd 2_SS17/Mathematik_2 && make && cd ../..
+  - cd 3_WS17/Betriebssysteme && ./ci/run-travis.sh && cd ../..
