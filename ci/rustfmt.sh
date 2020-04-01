@@ -28,7 +28,7 @@ echo ""
 echo "=== Searching for files with rustfmt warnings ========================"
 FOUND=0
 while IFS= read -r -d '' f; do
-  rustfmt --write-mode=diff "$f" || FOUND=1
+  rustfmt --check "$f" || FOUND=1
 done < <(find_files)
 
 if [ $FOUND -eq 0 ] ; then
