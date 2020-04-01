@@ -1,7 +1,0 @@
-[package]
-name = "srv-config"
-version = "0.1.0"
-authors = ["Joshua Rutschmann <joshua.rutschmann@gmx.de>"]
-
-[dependencies]
-clap = {version = "~2.29.0", features = ["yaml"]}

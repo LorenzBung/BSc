@@ -1,8 +1,0 @@
-[package]
-name = "task1"
-version = "0.1.0"
-authors = ["Lorenz Bung & Joshua Rutschmann"]
-
-[dependencies]
-procinfo = "^0.4.2"
-libc = "^0.2"
