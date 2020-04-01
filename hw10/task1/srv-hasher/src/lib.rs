@@ -285,8 +285,8 @@ pub fn search_with_threads(
         );
 
     }
-	
-	// Empfängt die Lösung von einem der Producer.
+    
+    // Empfängt die Lösung von einem der Producer.
     match solution_rx.recv() {
         Ok(sol) => {
             solution = Some(Solution {
@@ -327,7 +327,7 @@ fn search_multiple_hash(
         if let Some(solution) = verify_product(base, n, hash) {
 
             // Sende gefundene Solution an den Consumer.
-			queue.add(solution);
+            queue.add(solution);
             break;
         }
         n += total;
@@ -341,7 +341,7 @@ pub fn search_multiple_with_threads(
     diff_string: String,
     with_base: usize,
     range_of_numbers: usize,
-) -> ParallelQueue<Solution> {	
+) -> ParallelQueue<Solution> {    
     let diff = Arc::new(diff_string);
     let mut children = vec![];
     let result_queue:ParallelQueue<Solution> = ParallelQueue::new();
@@ -352,7 +352,7 @@ pub fn search_multiple_with_threads(
         // Klont für jeden Thread die Referenz auf die gemeinsamen Variablen.
         for i in 0..threads {
             let diff = diff.clone();
-			let queue = result_queue.clone();
+            let queue = result_queue.clone();
 
             children.push(thread::spawn(move || {
 
@@ -370,15 +370,15 @@ pub fn search_multiple_with_threads(
         }
     } else {
         // Suche auf dem Main-Thread.
-		let queue = result_queue.clone();
+        let queue = result_queue.clone();
         search_multiple_hash(
             &diff,
             with_base,
             0,
             range_of_numbers,
             1,
-			queue,
-		);
+            queue,
+        );
 
     }
 
@@ -386,6 +386,6 @@ pub fn search_multiple_with_threads(
         let _ = child.join();
     }
 
-	result_queue
+    result_queue
 }
 
