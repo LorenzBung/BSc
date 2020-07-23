@@ -14,3 +14,4 @@ script:
   - cd 1_WS16/Programmierkurs_1 && mkdir classes && make && cd ../..
   - cd 2_SS17/Mathematik_2 && make && cd ../..
   - cd 3_WS17/Betriebssysteme && ./ci/run-travis.sh && cd ../..
+  - cd 4_SS18/Plakat && ./build.sh && cd ../..

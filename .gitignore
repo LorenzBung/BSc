@@ -1,5 +1,7 @@
 # a0header.ps
 a0header.ps
+# KDE image preview
+.directory
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
