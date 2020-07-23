@@ -2,7 +2,7 @@ language: shell
 os: linux
 
 before_install:
-  - sudo apt-get -qq update && sudo apt-get -qq -y install texlive texlive-latex-extra texlive-xetex texlive-pstricks
+  - sudo apt-get -qq update && sudo apt-get -qq -y install texlive texlive-latex-extra texlive-xetex texlive-pstricks latexmk
   - sudo add-apt-repository -y ppa:duggan/bats && sudo apt-get -qq update && sudo apt-get -qq -y install bats
   - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y && source $HOME/.cargo/env
 
