@@ -1,8 +1,0 @@
-[package]
-name = "srv-commands"
-version = "0.1.0"
-authors = ["Joshua Rutschmann <joshua.rutschmann@gmx.de>"]
-
-[dependencies]
-sha2 = "0.7.0"
-time = "0.1"

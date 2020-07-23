@@ -1,6 +1,0 @@
-[package]
-name = "task3"
-version = "0.1.0"
-authors = ["Joshua Rutschmann <joshua.rutschmann@gmx.de>"]
-
-[dependencies]
