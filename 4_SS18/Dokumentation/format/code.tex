@@ -1,0 +1,60 @@
+\lstdefinelanguage{javascript}{
+  keywords={abstract, public, break, case, catch, continue, debugger, default, delete, do, else, finally, for, function, if, in, instanceof, new, null, return, switch, throw, try, typeof, var, void, while, with},
+  keywords={[2]{class, export, boolean, String, Date, Infinity, Number, throw, implements, import, this, undefined, false, true, byte, int, document}},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstdefinelanguage{svg}{
+	keywords={svg, circle, line, polygon, rectangle},
+	keywords={[2]{width, height, viewBox, cx, cy, r, x1, x2, y1, y2, xmlns, stroke-width, stroke-linecap, stroke-linejoin, stroke, fill}},
+	alsoletter=-,
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]',
+	morestring=[b]"
+}
+\lstdefinelanguage{json}{
+    sensitive=false,
+    morestring=[b]',
+    morestring=[b]",
+    literate=
+    {[}{{\color{red}\[}}1
+}
+
+\lstnewenvironment{code}[1][]{
+	\lstset{
+		#1,
+		captionpos=b,
+		backgroundcolor=\color{white},
+		basicstyle=\footnotesize\ttfamily,
+		commentstyle=\color{cyan}\itshape,
+		keywordstyle=[1]\color{red}\bfseries,
+		keywordstyle=[2]\color{violet}\bfseries,
+		numberstyle=\color{black},
+		stringstyle=\color{gray},
+		breakatwhitespace=true,
+		breaklines=true,
+		keepspaces=true,
+		numbers=left,
+		numbersep=7pt,
+		showspaces=false,
+		showstringspaces=true,
+		showtabs=false,
+		tabsize=2,
+		frame=l,
+		extendedchars=true,
+		literate=
+		{Ö}{{\"O}}1
+		{Ä}{{\"A}}1
+		{Ü}{{\"U}}1
+		{ß}{{\ss}}2
+		{ü}{{\"u}}1
+		{ä}{{\"a}}1
+		{ö}{{\"o}}1
+		{~}{{\textasciitilde}}1
+	}
+}{}

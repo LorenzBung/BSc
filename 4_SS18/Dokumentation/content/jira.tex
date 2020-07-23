@@ -1,0 +1,157 @@
+\chapter{Integration von Jira und Confluence}
+\label{ch:jira}
+
+Das nächste größere Projekt war die Integration der Atlassian-Produkte \textit{Jira}\footnote{\url{https://de.wikipedia.org/wiki/Jira_(Software)}}
+und \textit{Confluence}\footnote{\url{https://de.wikipedia.org/wiki/Confluence_(Atlassian)}} in den Firmenalltag. Diese beiden Programme sind für das
+Production Management gedacht und haben das Ziel, einen durchgängigen, geplanten
+und leicht nachvollziehbaren Arbeitsfluss zu erreichen.
+
+Confluence ist dabei ein einfaches System, dessen Ziel die einfache Weitergabe von
+Informationen ist. Es dient der Erstellung von Dokumenten, welche externe Daten
+wie beispielsweise Microsoft-Office-Dokumente oder YouTube-Videos sowie Bilder usw.
+enthalten können und vereinfacht die Zusammenarbeit mehrerer Personen an einem Dokument.
+
+Jira arbeitet im Zusammenspiel mit Confluence und ist ursprünglich für die Softwareentwicklung
+gedacht. Entwicklungsvorgehensweisen wie \textit{Scrum} o.Ä. können hier ohne Umwege
+umgesetzt werden und Jira bietet Funktionalitäten wie Sprints oder Burndown-Charts
+an, um den Arbeitsfluss zu sichern.
+
+Die Verwendung von Jira und Confluence sollte das davor eingesetzte (und veraltete)
+Tool \textit{easyPM} ersetzen, welches für die Planung von Aufgaben, Abläufen und
+Verwaltung von Zeitspalten eingesetzt wurde. Informationen wie E-Mails, Anrufprotokolle
+oder sonstige Daten waren hier jedoch dezentral, bzw. konnten nicht direkt in easyPM
+gespeichert werden. Durch das Zusammenspiel der beiden neuen Systeme sollte dieses
+Problem behoben und die Speicherung der Daten konsistent werden.
+
+
+
+\section{Einrichtung der Datenbank}
+\label{sec:jira-einrichtung-datenbank}
+
+Jira und Confluence sind beides Tools, die über einen Server laufen und dann über
+den Webbrowser der Endgeräte aufgerufen werden können. Dies sichert zum einen die
+Zentralität der Datenspeicherung und -verarbeitung und entlastet andererseits die
+Nutzergeräte stark. Weiterhin ist die Nutzung eines firmeninternen Servers (welcher
+außerdem für andere Zwecke wie das Intranet schon vorhanden war) sinnvoll, da somit
+die Sicherheit der gespeicherten Daten gewährleistet wird.
+
+Für den Aufbau des Webservers wird dabei sowohl von Jira als auch von Confluence
+eine Datenbank verwendet. Das kann sowohl eine \textit{MySQL}-, \textit{Oracle}-
+oder \textit{Microsoft-SQL}-Datenbank sein, oder aber auch die Open-Source-Alternative
+\textit{PostgreSQL}\footnote{\url{https://de.wikipedia.org/wiki/PostgreSQL}}. Wegen der eher schlechten Unterstützung von MySQL habe ich
+schlussendlich eine PostgreSQL-Datenbank eingesetzt.
+
+PostgreSQL ist ein freies und quelloffenes Datenbankmanagementsystem. Es wird von
+Betriebssystemen wie Windows, Linux und anderen UNIX-ähnlichen Systemen unterstützt
+und wird bei den meisten Linux-Distributionen bereits mitgeliefert.
+
+Um den Linux-Server von isys zu simulieren und die Datenbank entsprechend einzurichten,
+habe ich eine virtuelle Maschine mit einer Ubuntu-Installation verwendet. Nach der
+Einrichtung des Systems konnte ich mit der Konfiguration des Datenbankservers beginnen.
+Mit einigen einfachen SQL-Befehlen waren die notwendigen Datenbanken dann auch schnell
+erstellt:
+
+\begin{code}[language=SQL, caption={SQL-Befehle zur Erstellung der Datenbanken}, label={lst:jira-database}]
+CREATE DATABASE confluencedb WITH ENCODING 'UNICODE';
+GRANT ALL PRIVILEGES ON DATABASE confluencedb TO confluence;
+
+CREATE DATABASE jiradb WITH ENCODING 'UNICODE';
+GRANT ALL PRIVILEGES ON DATABASE jiradb TO jira;
+\end{code}
+
+Zur Anbindung an Jira bzw. Confluence musste nun nur noch bei der Einrichtung jeweils
+die entsprechenden Datenbankdaten angegeben werden. Da hier der Jira- bzw. Confluence-Server
+und die Datenbank auf dem selben Rechner laufen, ist der Host beispielsweise \texttt{127.0.0.1}
+bzw. \texttt{localhost}.
+
+Die Installation von Jira und Confluence erfolgte dann einfach über die Ausführung
+eines Shell-Skriptes und die Eingabe einer Lizenz. Somit war die Einrichtung der
+Systeme vollständig und ich konnte einige Einstellungen vornehmen, z.B. Anpassungen
+im Design der Seiten, sodass die Oberfläche den Farben der Firma entsprach
+(\textcolor[HTML]{006833}{Grün [\texttt{\#006833}]} und \textcolor[HTML]{9B2536}{Rot [\texttt{\#9B2536}]}).
+
+
+
+\section{Einrichtung des Intranetservers}
+\label{sec:jira-server}
+
+Nun, da Jira und Confluence online und konfiguriert waren, setzte ich mich mit der
+Einrichtung eines Servers auseinander, welcher im Intranet betrieben werden und
+die beiden Webtools hosten sollte.
+
+Im ersten Schritt machte ich den dafür zur Verfügung gestellten Rechner nutzbar,
+indem ich eine frische Linux-Installation vornahm. Auf dieser Basis konnte ich nun
+mit \texttt{VirtualBox}\footnote{\url{https://wiki.ubuntuusers.de/VirtualBox/Installation/\#VirtualBox-OSE-Open-Source-Edition}}
+eine virtuelle Maschine einrichten; auch darauf lief ein Linux-Betriebssystem. Die
+Nutzung einer virtuellen Maschine hatte hierbei mehrere Vorteile:
+
+\begin{enumerate}
+	\item \textbf{Flexibilität}:
+	Durch das Speichern in einem \textbf{Disk Image}\footnote{\url{https://de.wikipedia.org/wiki/Speicherabbild}} ist der Ort des Servers
+	sehr leicht austauschbar. Durch Verschieben des Images sind sämtliche Daten des
+	Servers übernommen, was die Wartung stark vereinfacht.
+	\item \textbf{Sicherheit}:
+	Da die Daten in einem einzigen Image liegen, welches auf der Festplatte des
+	Wirtrechners gespeichert wird, ist die Datensicherung bzw. Erstellung von Backups
+	besonders komfortabel. Mithilfe eines RAID-Systems wird in diesem Fall die Datensicherheit
+	gewährleistet und Backups erstellt.
+	\item \textbf{Vielseitigkeit}:
+	Der Server läuft in einer virtuellen Maschine, welche auf die Ressourcen
+	des Wirtrechners zugreift. Durch das Einrichten einer weiteren virtuellen Maschine
+	kann dessen Rechenleistung und Speicherkapazität optimal ausgenutzt werden und
+	die Maschine somit auch für andere Zwecke verwendet werden.
+\end{enumerate}
+
+Nach erneuter Einrichtung der in Kapitel \ref{sec:jira-einrichtung-datenbank} beschriebenen
+Datenbank und der Anbindung an Jira/Confluence musste ich mich nun noch mit der
+Netzwerkverbindung auseinandersetzen. Die zugeordnete IP-Adresse sollte dabei
+\texttt{10.0.0.14} sein; Jira und Confluence jeweils unter den Standardports
+\texttt{8080} bzw. \texttt{8090} erreichbar sein.
+
+Als Erstes musste die virtuelle Maschine über eine Netzwerkbrücke auf das lokale
+Netzwerk zugreifen können. Dies war schnell eingestellt; eine einfache Änderung
+im VirtualBox-Interface genügte dafür. Mithilfe der Netzwerkbrücke wird hier das
+lokale Netzwerk (isys vision Intranet) mit dem von der virtuellen Maschine erstellten
+Netzwerk verbunden, sodass diese die gehosteten Services auf die Webports anlegen
+kann.
+
+Im nächsten Schritt braucht die virtuelle Maschine eine feste (statische) IP-Adresse.
+In diesem Fall sollte dies die \texttt{10.0.0.14} sein. Um diese zuzuweisen, kann
+unter Linux die Datei \texttt{/etc/network/interfaces} bearbeitet werden:
+
+\begin{code}[language=bash, caption={Änderungen in \texttt{/etc/network/interfaces}}]
+auto enp0s3 #Name der Netzwerkbrücke
+iface enp0s3 inet static #IP auf Statisch ändern
+#Setzen von Verbindungsinformationen
+netmask 255.255.0.0
+gateway 10.0.0.10
+network 10.0.0.0
+broadcast 10.0.0.255
+dns-nameservers 10.0.0.10
+\end{code}
+
+Mithilfe dieser Änderungen wird dem Rechner eine statische Adresse zugewiesen. Dies
+ist hier notwendig, da der Rechner sonst bei jedem Start vom Router eine neue, variable
+Adresse zugewiesen bekommt. Damit der Server also immer mit der selben Adresse erreichbar
+ist, muss die IP fest sein. Später lässt sich auch eine DNS zuweisen, beispielsweise
+\texttt{intranet.isys-vision.de/jira}.
+
+
+
+\section{Ausfallsicherheit über ein RAID-System}
+\label{sec:jira-raid}
+
+Um die Stabilität des Servers im Intranets zu gewährleisten, sollte das System durch
+ein RAID-5\footnote{\url{https://de.wikipedia.org/wiki/RAID\#RAID\_5}} abgesichert
+werden. Ein RAID-5 besteht aus mindestens 3 unabhängigen Festplatten, welche dieselben
+Daten redundant abspeichern. Beim Ausfall einer der Platten wird somit sichergestellt,
+dass die Daten weiterhin verfügbar (und auch nutzbar) bleiben.
+
+Da Hardware-RAIDs oft sehr teuer sind, habe ich auf ein Software-RAID zurückgegriffen.
+Hierbei wird die Redundanz der Daten durch Software erreicht, welche das Plattenmanagement
+übernimmt. Das Betriebssystem verblieb dabei auf der vorherigen Platte, sodass nur
+die virtuelle Maschine auf dem RAID gespeichert wird.
+
+Unter Linux lässt sich ein RAID mit dem Tool \texttt{mdadm} sehr gut realisieren.
+Man kann dabei auswählen, welches RAID-Level gewählt (in diesem Fall ein RAID-5-System)
+und welche und wie viele Festplatten genutzt und werden sollen.
