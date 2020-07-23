@@ -1,0 +1,32 @@
+name: "Multi Hash Server 0.1"
+author: "Lorenz Bung & Joshua Rutschmann"
+about: "Does awesome things to find a hash with specific pattern"
+args:
+    - verbose:
+        short: "v"
+        help: "Prints help information"
+        multiple: true
+        required: false
+
+    - address:
+        short: "a"
+        long: "address"
+        value_name: "ADDRESS"
+        help: "the address, where the server can be reached (127.0.0.1 is default)"
+        takes_value: true
+        required: false
+
+    - port:
+        short: "p"
+        long: "port"
+        value_name: "PORT"
+        help: "the port, where the server can be reached (7878 is default)"
+        takes_value: true
+        required: true
+
+subcommands:
+    - test:
+        about: "controls testing features"
+        version: "1.0"
+        author: "Lorenz Bung & Joshua Rutschmann"
+
