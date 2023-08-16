@@ -1,0 +1,9 @@
+a) Was ist eine homogene und was eine nicht-homogene Punktoperation?
+
+Eine homogene Punktoperation ist unabhängig von der Pixelposition. Wenn eine Punktoperation z.B. die Pixel mit jedem
+Schritt nach rechts (x + 1) um einen Grauwert erhöht, dann ist diese Operation NICHT homogen.
+
+b) Was ist der Unterschied zwischen Punktoperationen und Filteroperationen?
+
+Punktoperationen beziehen sich immer auf nur einen Pixel in I_alt, während sich Filteroperationen auch auf die
+umgebenden Pixel beziehen.

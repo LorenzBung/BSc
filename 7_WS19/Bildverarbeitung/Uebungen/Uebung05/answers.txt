@@ -1,0 +1,32 @@
+a) Vergleichen Sie die Ergebnisse der verschiedenen Filter miteinander und begründen
+   Sie diese.
+
+Der Minimumsfilter funktioniert gut um helle Ausreißer zu filtern, verstärkt jedoch dunkle.
+Der Maximumsfilter ist umgekehrt wie der Minimumsfilter: Er filtert dunkle Ausreißer gut, verstärkt
+jedoch helle.
+Der Medianfilter funktioniert am besten: Er filtert sowohl helle als auch dunkle Ausreißer gut.
+
+Helle Ausreißer werden vom minFilter gut gefiltert, da immer nur der niedrigste Pixelwert
+gewählt wird. Dunkle werden jedoch aus genau diesem Grund verstärkt und "laufen auf Nachbarn über".
+Maximumsfilter: Analog.
+Medianfilter: Filtert beides, da immer der Median im Filterbereich gewählt wird. Dies verhindert
+sowohl helle als auch dunkle Ausreißer, solange genügend Pixel unbetroffen sind.
+
+
+b) Warum ist es beim Medianfilter sinnvoll für die Sortierung Heap Sort zu verwenden?
+
+Gute Frage ´\_(°°)_/`
+
+
+c) Untersuchen Sie, welche Effekte bei mehrmaligem Anwenden eines Filters auf das
+   jeweilige Ergebnisbild auftreten.
+
+Beim Minimumsfilter werden die dunklen Stellen mit jedem Filterdurchlauf größer.
+Maximumsfilter analog.
+Das durch den Medianfilter gefilterte Bild wird unschärfer und kontrastreicher.
+
+
+d) Welche Effekte treten bei großen und bei kleinen Filtermasken auf?
+
+Minimums-/Maximumsfilter: Die dunklen bzw. hellen Regionen weiten sich deutlich aus.
+Medianfilter: Das Bild wird deutlich unschärfer.

@@ -1,0 +1,15 @@
+a) Nennen Sie die Arten und Eigenschaften von linearen Filtern.
+
+Arten:
+    - Boxfilter
+    - Gaußfilter
+    - Mexican-Hat-Filter
+
+Eigenschaften:
+    - k1*x1 + k2*x2 + ...
+
+
+b) Was ist der Unterschied zwischen linearen und nichtlinearen Filtern?
+
+Während lineare Filter am Mittelpunkt der Filtermatrix punktgespiegelt sind, können nichtlineare Filter eine beliebige
+Filtermatrix beinhalten.

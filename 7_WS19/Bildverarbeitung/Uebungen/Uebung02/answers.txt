@@ -1,0 +1,38 @@
+3.
+a) Welche Aufnahmefehler sind in 01 und 03 zu erkennen? Woran ist dies im Histogramm erkennbar?
+
+Bild01 ist unterbelichtet, während Bild03 stark überbelichtet ist.
+Im Histogramm ist dies daran zu erkennen, dass am unteren (im Fall der Unterbelichtung)
+bzw. oberen (im Fall der Überbelichtung) Rand ein Peak ist.
+Der Peak deutet darauf hin, dass diese Wertbereiche im Bild zu stark repräsentiert sind.
+
+
+b) Bild01 ist das aufgenommene Bild. Bild02 wurde nachbearbeitet. Die Helligkeit wurde erhöht. Woran ist dies im Histogramm erkennbar? Welche Daten gehen dabei verloren?
+
+Durch die Aufhellung des Bildes verschiebt sich das Histogramm in den höheren Wertebereich.
+Das ist daran zu erkennen, dass sich der Wertebereich von 0 - 50 (in welchem sich in Bild01 viele Pixel befinden)
+auf einen breiten Wertebereich von 0 - 220 in Bild02 verteilt.
+Im oberen Wertebereich des Bildes gehen dabei Informationen verloren.
+Dies sieht man im Histogramm daran, dass die Werte im Bereich 210 - 255 in Bild01 beim Histogramm von Bild02 nur noch im
+Wertebereich von 245 - 255 vertreten sind. Hier geht also Helligkeitsinformation verloren.
+
+
+c) Bild04 ist das aufgenommene Bild. Bild05 wurde einem Bearbeitungsschritt unterzogen. Was wurde in Bild05 verändert? Woran kann man dies in seinem Histogramm erkennen?
+
+In Bild05 wurde eine Kontrastanpassung im Vergleich zu Bild04 vorgenommen.
+Das sieht man im Histogramm daran, dass das Histogramm zuerst nach links verschoben wurde und das Bild anschließend
+aufgehellt wurde (bzw. der Wertebereich wird nach oben skaliert).
+
+
+
+5.
+a) In Aufgabe (3b) gingen Daten beim Aufhellen eines Bildes verloren. Wie könnte dies vermieden werden?
+
+Der Verlust von Daten entsteht dadurch, dass Werte, die vorher verschieden waren, nach der Bearbeitung auf
+denselben Wert fallen.
+Verhindern lässt sich ein Datenverlust also durch Vermeidung genau dieses Falles.
+Praktisch bedeutet dies, dass nur Wertebereiche zusammengefasst werden dürfen, welche sowieso nur mit
+0 Vorkommnissen repräsentiert werden.
+
+
+b) Damit beim Aufhellen von Bild01 keine Daten verloren gehen, soll eine Lookup- Tabelle verwendet werden. Versuchen Sie mit der Lookup-Tabelle die dunklen Bildbereiche des Bildes aufzuhellen ohne die hellen Bereiche zu stark zu verändern.
